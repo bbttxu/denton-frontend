@@ -1,2 +1,94 @@
-//= require_tree ./vendor
-//= require_tree ./lib
+@import "foundation_and_overrides"
+@import "base"
+
+body
+  @extend .container
+
+#calendar
+  @extend .row
+
+
+
+.calendar
+  @extend .columns
+  @extend .small-4
+  @extend .large-2
+
+  clear: both
+  text-align: right
+
+  padding: 0.4em
+  margin-bottom: -0.4em
+
+  border-radius: 0.6em
+  border: solid adjust-hue( $primary-color, 160deg ) 2px
+
+
+
+  h4
+    margin: 0
+    line-height: 1em
+
+  span.day
+    display: none
+  &.soon h4
+    span.month
+      display: none
+    span.day
+      display: inline
+
+.day-mon
+  @extend .small-offset-1
+  @extend .large-offset-4
+
+.day-tue
+  @extend .small-offset-2
+  @extend .large-offset-5
+
+.day-wed
+  @extend .small-offset-3
+  @extend .large-offset-6
+
+.day-thu
+  @extend .small-offset-4
+  @extend .large-offset-7
+
+.day-fri
+  @extend .small-offset-5
+  @extend .large-offset-8
+
+.day-sat
+  @extend .small-offset-6
+  @extend .large-offset-9
+
+.day-sun
+  @extend .small-offset-7
+  @extend .large-offset-10
+
+h4
+  span.month, span.day
+    color: adjust-hue( $primary-color, 160deg )
+
+
+.count-1
+  border:
+    color: $primary-color
+  h4
+    span.month, span.day
+      color: $primary-color
+
+.count-2
+  border:
+    color: adjust-hue( $primary-color, 270deg )
+
+  h4
+    span.month, span.day
+      color: adjust-hue( $primary-color, 270deg )
+
+.count-3
+  border:
+    color: adjust-hue( $primary-color, 200deg )
+  h4
+    span.month, span.day
+      color: adjust-hue( $primary-color, 200deg )
+
