@@ -9,5 +9,9 @@ body_class: index
       %span.day( data-bind="text: day" )
       %span.month( data-bind="text: month" )
       %span.date( data-bind="text: date" )
-    %ul(data-bind="foreach: { data: count, as: 'show' }")
-      %li(data-bind="text: id")
+    / %ul(data-bind="foreach: { data: count, as: 'show' }")
+    /   %li
+    /     .show
+    /       %h3(data-bind="text: venue.name")
+    /       %ul( data-bind="foreach: { data: artists }")
+    /         %li(data-bind="text: name")

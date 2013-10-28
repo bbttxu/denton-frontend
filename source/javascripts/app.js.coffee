@@ -1412,16 +1412,18 @@ d =
   ]
 
 
-showViewModel = (show)->
-  this.id = show.id
 
 
 $(document).ready ()->
-  # memoize = (func) ->
-  #   memo = {}
-  #   (arg) ->
-  #     memo[arg] = func arg unless memo[arg]
-  #     memo[arg]
+  artistViewModel = (artist)->
+    self = this
+    self.name = ko.observable artist.name
+    self
+
+  gigViewModel = (gig)->
+    this.id = ko.observable gig.id
+    this.position = ko.observable gig.position
+
 
 
   venue_by_id = (id)->
@@ -1450,8 +1452,19 @@ $(document).ready ()->
 
   handle_calendar_click = (event)->
     event.preventDefault()
-    console.log event, this
+    # console.log event, this
     $(this).toggleClass('active')
+
+
+  showViewModel = (show)->
+    self = this
+    self.starts_at = ko.observable show.starts_at
+    self
+
+  venueViewModel = (venue)->
+    self = this
+    self.name = ko.observable venue.name
+    self
 
   $('#calendar .calendar').on 'click', handle_calendar_click
 
@@ -1466,13 +1479,37 @@ $(document).ready ()->
     classes.push 'day-' + moment(value).format("ddd").toLowerCase()
     classes.push 'soon' if moment().diff(moment(value), 'days') > -10
 
+    show_views = []
+
     for show in key
-      console.log show
-      console.log venue_by_id show.venues
+      sh = show_by_id show.id
+      # console.log sh
+      show_view = new showViewModel sh
+
+
+      venue = venue_by_id show.venues
+      # console.log venue
+      venue = new venueViewModel venue
+
+      # console.log venue
+
+      show.venue = venue
+
+      show.artists = []
+
+
+      # console.log venue_by_id show.venues
       for gig_id in show.gigs
         gig = gig_by_id gig_id
+        # gig = new gigViewModel gig
+
+
         artist = artist_by_id gig.artists
-        console.log artist
+        artist_view = new artistViewModel( artist )
+        # console.log artist
+        show.artists.push artist_view
+
+
     id: value
     count: key
     month: moment(value).format("MMM")
