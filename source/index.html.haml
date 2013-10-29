@@ -2,16 +2,17 @@
 title: Middleman is Watching
 body_class: index
 ---
-
-#calendar( data-bind="foreach: calendar" )
-  .calendar( data-bind="attr: { id: id }, css: count_class" )
-    %h4
-      %span.day( data-bind="text: day" )
-      %span.month( data-bind="text: month" )
-      %span.date( data-bind="text: date" )
-    / %ul(data-bind="foreach: { data: count, as: 'show' }")
-    /   %li
-    /     .show
-    /       %h3(data-bind="text: venue.name")
-    /       %ul( data-bind="foreach: { data: artists }")
-    /         %li(data-bind="text: name")
+.row
+  .small-12.columns
+    #calendar( data-bind="foreach: calendar" )
+      .calendar( data-bind="attr: { id: id }, css: count_class" )
+        %h4
+          %span.day( data-bind="text: day" )
+          %span.month( data-bind="text: month" )
+          %span.date( data-bind="text: date" )
+        .small-11.columns
+          %ul.small-block-grid-2.large-block-grid-3.shows(data-bind="foreach: { data: count, as: 'show' }")
+            %li
+              %h3(data-bind="text: venue.name")
+              %ul.small-block-grid-1.artists( data-bind="foreach: { data: artists }")
+                %li(data-bind="text: name")

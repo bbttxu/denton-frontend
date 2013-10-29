@@ -23,8 +23,7 @@ body
   border-radius: 0.6em
   border: solid adjust-hue( $primary-color, 160deg ) 2px
 
-
-
+  z-index: 2
   h4
     margin: 0
     line-height: 1em
@@ -36,6 +35,12 @@ body
       display: none
     span.day
       display: inline
+
+.calendar:nth-child(even)
+  z-index: 1
+
+.calendar:nth-child(odd)
+  z-index: 1
 
 .day-mon
   @extend .small-offset-1
@@ -92,3 +97,21 @@ h4
     span.month, span.day
       color: adjust-hue( $primary-color, 200deg )
 
+
+.calendar .shows
+  display: none
+  // @extend .small-block-grid-2
+  // @extend .large-block-grid-3
+
+.active
+  background: #222
+  z-index: 3
+
+  span.month, span.day
+    display: inline
+
+ul.artists
+
+  margin: 0
+  li
+    padding: 0

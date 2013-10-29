@@ -1453,7 +1453,49 @@ $(document).ready ()->
   handle_calendar_click = (event)->
     event.preventDefault()
     # console.log event, this
-    $(this).toggleClass('active')
+    $(this).siblings('.active').toggleClass('active')
+
+    $(this).find('.shows').slideToggle 'fast'
+
+    options =
+      # height: 'toggle'
+      width: "100%"
+      'margin-left': 0
+
+    if $.data this, 'margin-left'
+      left = $.data(this, 'margin-left')
+      $.removeData(this, 'margin-left')
+      options['margin-left'] = left
+      console.log left
+    else
+      $.data(this, 'margin-left', $(this).css( 'margin-left' ) )
+
+    if $.data this, 'width'
+      width = $.data(this, 'width')
+      $.removeData(this, 'width')
+      options.width = width
+      console.log width
+    else
+      $.data(this, 'width', $(this).css( 'width' ) )
+
+    # $.data( this, 'margin-left', default_left )
+
+    console.log  $.data this, 'margin-left'
+
+    # $.data this, 'width', $(this).css('width')
+
+    # console.log $.data $(this), 'margin-left'
+    # console.log $.data $(this), 'width'
+
+    # options =
+    #   # height: 'toggle'
+    #   width: "100%"
+    #   'margin-left': 0
+    console.log options
+
+    $(this).toggleClass('active').animate options, 250, 'linear'
+
+
 
 
   showViewModel = (show)->
@@ -1466,7 +1508,6 @@ $(document).ready ()->
     self.name = ko.observable venue.name
     self
 
-  $('#calendar .calendar').on 'click', handle_calendar_click
 
 
 
@@ -1522,4 +1563,8 @@ $(document).ready ()->
 
   ko.applyBindings d, $('#calendar')[0]
   # ko.applyBindings d, $('#welcome')[0]
+
+  $('.calendar', $('#calendar')[0] ).on 'click', handle_calendar_click
+  # $('.calendar.active', $('#calendar')[0] ).on 'click', handle_calendar_unclick
+
 
