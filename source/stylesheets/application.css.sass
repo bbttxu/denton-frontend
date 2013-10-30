@@ -14,6 +14,8 @@ body
   @extend .small-4
   @extend .large-2
 
+  background: #222
+
   clear: both
   text-align: right
 
@@ -35,6 +37,30 @@ body
       display: none
     span.day
       display: inline
+
+  .prev, .next
+    line-height: 1em
+    margin:
+      top: 1em
+    padding:
+      top: 1em
+      bottom: 1em
+    p
+      margin: 0
+
+  .prev
+    border:
+      right: 1px solid $primary-color
+
+  .next
+    border:
+      left: 1px solid $primary-color
+
+  &:first-child .prev p
+    display: none
+
+  &:last-child .next p
+    display: none
 
 .calendar:nth-child(even)
   z-index: 1
@@ -98,7 +124,7 @@ h4
       color: adjust-hue( $primary-color, 200deg )
 
 
-.calendar .shows
+.calendar .content
   display: none
   // @extend .small-block-grid-2
   // @extend .large-block-grid-3

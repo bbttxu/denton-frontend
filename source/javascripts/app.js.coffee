@@ -1450,12 +1450,31 @@ $(document).ready ()->
     nil
   artist_by_id = _.memoize artist_by_id
 
+
+  handle_prev_calendar_click = (event)->
+    event.preventDefault()
+    console.log 'hello'
+    # $(this).parents('.calendar').trigger('click')
+    $(this).parents('.calendar').prev('.calendar').trigger 'click'
+    $prev = $(this)
+    $prev = $prev.prev('.calendar') if $prev.prev '.calendar'
+    $.scrollTo( $prev[0] )
+
+  handle_next_calendar_click = (event)->
+    event.preventDefault()
+    console.log 'bye'
+    # $(this).parents('.calendar').trigger('click')
+    $(this).parents('.calendar').next('.calendar').trigger 'click'
+    $.scrollTo( $(this) )
+
+
+
   handle_calendar_click = (event)->
     event.preventDefault()
     # console.log event, this
     $(this).siblings('.active').toggleClass('active')
 
-    $(this).find('.shows').slideToggle 'fast'
+    $(this).find('.content').slideToggle 'fast'
 
     options =
       # height: 'toggle'
@@ -1466,7 +1485,7 @@ $(document).ready ()->
       left = $.data(this, 'margin-left')
       $.removeData(this, 'margin-left')
       options['margin-left'] = left
-      console.log left
+      # console.log left
     else
       $.data(this, 'margin-left', $(this).css( 'margin-left' ) )
 
@@ -1474,13 +1493,13 @@ $(document).ready ()->
       width = $.data(this, 'width')
       $.removeData(this, 'width')
       options.width = width
-      console.log width
+      # console.log width
     else
       $.data(this, 'width', $(this).css( 'width' ) )
 
     # $.data( this, 'margin-left', default_left )
 
-    console.log  $.data this, 'margin-left'
+    # console.log  $.data this, 'margin-left'
 
     # $.data this, 'width', $(this).css('width')
 
@@ -1564,6 +1583,8 @@ $(document).ready ()->
   ko.applyBindings d, $('#calendar')[0]
   # ko.applyBindings d, $('#welcome')[0]
 
+  $('.calendar .next', $('#calendar')[0] ).on 'click', handle_next_calendar_click
+  $('.calendar .prev', $('#calendar')[0] ).on 'click', handle_prev_calendar_click
   $('.calendar', $('#calendar')[0] ).on 'click', handle_calendar_click
   # $('.calendar.active', $('#calendar')[0] ).on 'click', handle_calendar_unclick
 
