@@ -17,7 +17,7 @@ body
   background: #222
 
   clear: both
-  text-align: right
+  #text-align: right
 
   padding: 0.4em
   margin-bottom: -0.4em
@@ -141,3 +141,25 @@ ul.artists
   margin: 0
   li
     padding: 0
+
+
+@mixin expanded($columns: 1)
+  h4
+    @extend .small-offset-#{$columns}
+    display: block
+
+.day-mon.expanded
+  @include expanded(1)
+.day-tue.expanded
+  @include expanded(2)
+.day-wed.expanded
+  @include expanded(3)
+.day-thu.expanded
+  @include expanded(4)
+.day-fri.expanded
+  @include expanded(5)
+.day-sat.expanded
+  @include expanded(6)
+.day-sun.expanded
+  @include expanded(7)
+

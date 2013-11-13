@@ -1472,6 +1472,7 @@ $(document).ready ()->
   handle_calendar_click = (event)->
     event.preventDefault()
     # console.log event, this
+    $(this).toggleClass('expanded')
     $(this).siblings('.active').toggleClass('active')
 
     $(this).find('.content').slideToggle 'fast'
@@ -1512,7 +1513,7 @@ $(document).ready ()->
     #   'margin-left': 0
     console.log options
 
-    $(this).toggleClass('active').animate options, 250, 'linear'
+    $(this).toggleClass('active').animate options, 100, 'swing'
 
 
 
