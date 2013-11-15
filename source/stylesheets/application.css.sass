@@ -1,5 +1,6 @@
 @import "foundation_and_overrides"
 @import "base"
+@import "buttons"
 
 body
   @extend .container
@@ -38,23 +39,6 @@ body
     span.day
       display: inline
 
-  .prev, .next
-    line-height: 1em
-    margin:
-      top: 1em
-    padding:
-      top: 1em
-      bottom: 1em
-    p
-      margin: 0
-
-  .prev
-    border:
-      right: 1px solid $primary-color
-
-  .next
-    border:
-      left: 1px solid $primary-color
 
   &:first-child .prev p
     display: none
