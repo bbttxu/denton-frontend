@@ -1,6 +1,7 @@
 @import "foundation_and_overrides"
 @import "base"
 @import "buttons"
+@import "shows"
 
 body
   @extend .container
@@ -22,6 +23,8 @@ body
 
   padding: 0.4em
   margin-bottom: -0.4em
+  &.expanded
+    margin-bottom: 0.4em
 
   border-radius: 0.6em
   border: solid adjust-hue( $primary-color, 160deg ) 2px

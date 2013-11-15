@@ -13,13 +13,13 @@ body_class: index
       %span.month( data-bind="text: month" )
       %span.date( data-bind="text: date" )
     .content
-      .small-1.columns.prev
-        %p &larr;
-      .small-10.columns
-        %ul.small-block-grid-2.large-block-grid-3.shows(data-bind="template: { foreach: count, as: 'show', name: 'show-template' }")
+      .prev
+        %p &lfloor;
+      .shows
+        %ul.shows(data-bind="template: { foreach: count, as: 'show', name: 'show-template' }")
 
-      .small-1.columns.next
-        %p &rarr;
+      .next
+        %p &rceil;
 
 %script#show-template( type="text/html")
   %li
