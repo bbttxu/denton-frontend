@@ -2,9 +2,7 @@
 title: d, tx | BBTTXU
 body_class: index
 ---
-.row
-  .small-12.columns
-    #calendar( data-bind="template: { foreach: calendar, name: 'day-template' }" )
+#calendar.row( data-bind="template: { foreach: calendar, name: 'day-template' }" )
 
 %script#day-template( type="text/html")
   .calendar( data-bind="attr: { id: id }, css: count_class" )

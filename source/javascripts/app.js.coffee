@@ -68,8 +68,8 @@ show_all_the_data = (d)->
 
     options =
       # height: 'toggle'
-      width: "100%"
-      'margin-left': 0
+      width: "90%"
+      'margin-left': "5%"
 
     if $.data this, 'margin-left'
       left = $.data(this, 'margin-left')
