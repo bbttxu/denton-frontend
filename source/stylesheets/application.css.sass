@@ -3,6 +3,20 @@
 @import "buttons"
 @import "shows"
 
+@mixin count( $color: 'red' )
+  border:
+    color: $color
+  h4
+    span.month, span.day
+      color: $color
+  &.expanded
+    background: $color
+
+    span
+      &.day, &.month
+        display: visible
+        color: grayscale( $color )
+
 
 body
   background: red
@@ -21,6 +35,9 @@ body
     top: 1em
 
 .calendar
+  @include count( adjust-hue( $primary-color, 160deg ) )
+
+
   @extend .columns
   @extend .small-4
   @extend .large-2
@@ -36,7 +53,7 @@ body
   margin-bottom: -0.4em
   &.expanded
     margin-bottom: 0.4em
-    margin-top: 0.8em
+    margin-top: 0.0em
 
   border-radius: 0.6em
   border: solid adjust-hue( $primary-color, 160deg ) 2px
@@ -95,36 +112,28 @@ body
   @extend .small-offset-7
   @extend .large-offset-10
 
-h4
-  span.month, span.day
-    color: adjust-hue( $primary-color, 160deg )
+// h4
+//   span.month, span.day
+//     color: adjust-hue( $primary-color, 160deg )
+
+
+
 
 
 .count-1
-  border:
-    color: $primary-color
-  h4
-    span.month, span.day
-      color: $primary-color
-
+  @include count( $primary-color)
 .count-2
-  border:
-    color: adjust-hue( $primary-color, 270deg )
-
-  h4
-    span.month, span.day
-      color: adjust-hue( $primary-color, 270deg )
-
+  @include count( adjust-hue( $primary-color, 270deg ))
 .count-3
-  border:
-    color: adjust-hue( $primary-color, 200deg )
-  h4
-    span.month, span.day
-      color: adjust-hue( $primary-color, 200deg )
+  @include count( adjust-hue( $primary-color, 270deg ))
 
 
-.calendar .content
-  display: none
+.calendar
+  .content
+    display: none
+  &.expanded .content
+    display: visible
+
   // @extend .small-block-grid-2
   // @extend .large-block-grid-3
 

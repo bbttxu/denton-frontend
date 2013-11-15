@@ -2,18 +2,84 @@
 
 $ = jQuery
 
+artistViewModel = (artist)->
+  self = this
+  self.name = ko.observable artist.name
+  self
+
+gigViewModel = (gig)->
+  self = this
+  self.id = ko.observable gig.id
+  self.position = ko.observable gig.position
+  self
+
+showViewModel = (show)->
+  self = this
+  self.starts_at = ko.observable show.starts_at
+  self
+
+venueViewModel = (venue)->
+  self = this
+  self.name = ko.observable venue.name
+  self
+
+
+handle_prev_calendar_click = (event)->
+  # event.preventDefault()
+  $(this).parents('.calendar').prev('.calendar').trigger 'click'
+  $prev = $(this)
+  $prev = $prev.prev('.calendar') if $prev.prev '.calendar'
+  $.scrollTo( $prev[0] )
+
+handle_next_calendar_click = (event)->
+  # event.preventDefault()
+  $(this).parents('.calendar').next('.calendar').trigger 'click'
+  $.scrollTo( $(this) )
+
+handle_active_calendar_click = (event)->
+  $(this).parent().find('.active').toggleClass('active')
+  $(this).addClass('active')
+
+handle_expanded_calendar_click = (event)->
+  $this = $(this)
+
+  # event.preventDefault()
+  # console.log event, this
+  $this.toggleClass('expanded')
+
+  if $this.hasClass('expanded')
+    $this.find('.content').slideDown()
+  else
+    $this.find('.content').slideUp()
+
+
+  options =
+    # height: 'toggle'
+    width: "90%"
+    'margin-left': "5%"
+
+  if $.data this, 'margin-left'
+    left = $.data(this, 'margin-left')
+    $.removeData(this, 'margin-left')
+    options['margin-left'] = left
+    # console.log left
+  else
+    $.data(this, 'margin-left',  $this.css( 'margin-left' ) )
+
+  if $.data this, 'width'
+    width = $.data(this, 'width')
+    $.removeData(this, 'width')
+    options.width = width
+    # console.log width
+  else
+    $.data(this, 'width', $(this).css( 'width' ) )
+
+   $this.animate options, 100, 'swing'
+
+
+
+
 show_all_the_data = (d)->
-
-  artistViewModel = (artist)->
-    self = this
-    self.name = ko.observable artist.name
-    self
-
-  gigViewModel = (gig)->
-    this.id = ko.observable gig.id
-    this.position = ko.observable gig.position
-
-
 
   venue_by_id = (id)->
     for venue in d.venues
@@ -38,74 +104,6 @@ show_all_the_data = (d)->
       return artist if artist.id is id
     nil
   artist_by_id = _.memoize artist_by_id
-
-
-  handle_prev_calendar_click = (event)->
-    event.preventDefault()
-    # console.log 'hello'
-    # $(this).parents('.calendar').trigger('click')
-    $(this).parents('.calendar').prev('.calendar').trigger 'click'
-    $prev = $(this)
-    $prev = $prev.prev('.calendar') if $prev.prev '.calendar'
-    $.scrollTo( $prev[0] )
-
-  handle_next_calendar_click = (event)->
-    event.preventDefault()
-    # console.log 'bye'
-    # $(this).parents('.calendar').trigger('click')
-    $(this).parents('.calendar').next('.calendar').trigger 'click'
-    $.scrollTo( $(this) )
-
-  handle_active_calendar_click = (event)->
-    $(this).parent().find('.active').toggleClass('active')
-    $(this).addClass('active')
-
-  handle_calendar_click = (event)->
-    event.preventDefault()
-    # console.log event, this
-    $(this).toggleClass('expanded')
-    # $(this).siblings('.active').toggleClass('active')
-
-    $(this).find('.content').slideToggle 'fast'
-
-    options =
-      # height: 'toggle'
-      width: "90%"
-      'margin-left': "5%"
-
-    if $.data this, 'margin-left'
-      left = $.data(this, 'margin-left')
-      $.removeData(this, 'margin-left')
-      options['margin-left'] = left
-      # console.log left
-    else
-      $.data(this, 'margin-left', $(this).css( 'margin-left' ) )
-
-    if $.data this, 'width'
-      width = $.data(this, 'width')
-      $.removeData(this, 'width')
-      options.width = width
-      # console.log width
-    else
-      $.data(this, 'width', $(this).css( 'width' ) )
-
-    $(this).toggleClass('active').animate options, 100, 'swing'
-
-
-
-
-  showViewModel = (show)->
-    self = this
-    self.starts_at = ko.observable show.starts_at
-    self
-
-  venueViewModel = (venue)->
-    self = this
-    self.name = ko.observable venue.name
-    self
-
-
-
 
   calendar = _.groupBy d.shows, (item)->
     moment(item.starts_at).format("YYYY-MM-DD")
@@ -155,14 +153,21 @@ show_all_the_data = (d)->
     count_class: classes.join(" ")
 
   d.calendar = dates
-  # console.log d.calendar
+    # console.log d.calendar
+
+
+
+
+
+
 
   ko.applyBindings d, $('#calendar')[0]
   # ko.applyBindings d, $('#welcome')[0]
 
   $('.calendar .next', $('#calendar')[0] ).on 'click', handle_next_calendar_click
   $('.calendar .prev', $('#calendar')[0] ).on 'click', handle_prev_calendar_click
-  $('.calendar', $('#calendar')[0] ).on 'click', handle_calendar_click
+  # $('.calendar', $('#calendar')[0] ).on 'click', handle_calendar_click
+  $('.calendar', $('#calendar')[0] ).on 'click', handle_expanded_calendar_click
   $('.calendar', $('#calendar')[0] ).on 'click', handle_active_calendar_click
   # $('.calendar.active', $('#calendar')[0] ).on 'click', handle_calendar_unclick
 
