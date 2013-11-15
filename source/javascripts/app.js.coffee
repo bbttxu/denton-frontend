@@ -56,13 +56,15 @@ show_all_the_data = (d)->
     $(this).parents('.calendar').next('.calendar').trigger 'click'
     $.scrollTo( $(this) )
 
-
+  handle_active_calendar_click = (event)->
+    $(this).parent().find('.active').toggleClass('active')
+    $(this).addClass('active')
 
   handle_calendar_click = (event)->
     event.preventDefault()
     # console.log event, this
     $(this).toggleClass('expanded')
-    $(this).siblings('.active').toggleClass('active')
+    # $(this).siblings('.active').toggleClass('active')
 
     $(this).find('.content').slideToggle 'fast'
 
@@ -161,6 +163,7 @@ show_all_the_data = (d)->
   $('.calendar .next', $('#calendar')[0] ).on 'click', handle_next_calendar_click
   $('.calendar .prev', $('#calendar')[0] ).on 'click', handle_prev_calendar_click
   $('.calendar', $('#calendar')[0] ).on 'click', handle_calendar_click
+  $('.calendar', $('#calendar')[0] ).on 'click', handle_active_calendar_click
   # $('.calendar.active', $('#calendar')[0] ).on 'click', handle_calendar_unclick
 
 
