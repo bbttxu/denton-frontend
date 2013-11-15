@@ -4,16 +4,30 @@
 @import "shows"
 
 
+body
+  background: red
+
+  margin:
+    bottom: 1em
+  border:
+    top: 1em solid lightblue
+
 #calendar
+  background: #222
   @include grid-row
   @extend .row
+
+  padding:
+    top: 1em
 
 .calendar
   @extend .columns
   @extend .small-4
   @extend .large-2
 
-  background: #222
+  box-shadow: 0px 2px 10px #000
+
+  // background: #222
 
   clear: both
   #text-align: right
@@ -22,6 +36,7 @@
   margin-bottom: -0.4em
   &.expanded
     margin-bottom: 0.4em
+    margin-top: 0.8em
 
   border-radius: 0.6em
   border: solid adjust-hue( $primary-color, 160deg ) 2px
@@ -114,7 +129,7 @@ h4
   // @extend .large-block-grid-3
 
 .active
-  background: #222
+  // background: #222
   z-index: 3
 
   span.month, span.day
