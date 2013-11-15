@@ -1415,6 +1415,10 @@ d =
 
 
 $(document).ready ()->
+
+
+show_all_the_data = (d)->
+
   artistViewModel = (artist)->
     self = this
     self.name = ko.observable artist.name
@@ -1590,3 +1594,13 @@ $(document).ready ()->
   # $('.calendar.active', $('#calendar')[0] ).on 'click', handle_calendar_unclick
 
 
+
+load_all_the_data = (data, status)->
+  show_all_the_data data
+  # console.log data
+  # console.log status
+
+ajax_all_the_data = ()->
+  $.getJSON 'http://denton-api1.blackbeartheory.com:5000/shows.json?callback=?', load_all_the_data
+
+$(document).ready ajax_all_the_data
