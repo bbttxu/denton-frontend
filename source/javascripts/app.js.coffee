@@ -48,9 +48,9 @@ handle_expanded_calendar_click = (event)->
   $this.toggleClass('expanded')
 
   if $this.hasClass('expanded')
-    $this.find('.content').slideDown()
+    $this.find('.content').slideDown('fast')
   else
-    $this.find('.content').slideUp()
+    $this.find('.content').slideUp('fast')
 
 
   options =
@@ -74,7 +74,7 @@ handle_expanded_calendar_click = (event)->
   else
     $.data(this, 'width', $(this).css( 'width' ) )
 
-   $this.animate options, 100, 'swing'
+  $this.animate options, 100, 'swing'
 
 
 

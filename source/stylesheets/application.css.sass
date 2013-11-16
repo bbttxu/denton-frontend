@@ -1,7 +1,9 @@
 @import "foundation_and_overrides"
 @import "base"
 @import "buttons"
+@import "artists"
 @import "shows"
+@import "venues"
 
 @mixin count( $color: 'red' )
   border:
@@ -138,7 +140,7 @@ body
   // @extend .large-block-grid-3
 
 .active
-  background: lightblue
+  // background: lightblue
   z-index: 3
 
   span.month, span.day
@@ -154,7 +156,16 @@ ul.artists
 @mixin expanded($columns: 1)
   h4
     @extend .small-offset-#{$columns}
+    @extend .small-4
     display: block
+
+    background: #333
+    padding: 0.5em
+    border-radius: 0.5em
+
+.expanded
+  ul li, h3
+    color: #333
 
 .day-mon.expanded
   @include expanded(1)

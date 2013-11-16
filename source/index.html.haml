@@ -22,7 +22,7 @@ body_class: index
 %script#show-template( type="text/html")
   %li
     .show
-      %h3(data-bind="text: venue.name")
+      %h3.venue(data-bind="text: venue.name")
       %ul.small-block-grid-1.artists( data-bind="template: { foreach: artists, name: 'artist-template' }")
 
 %script#artist-template( type="text/html")
