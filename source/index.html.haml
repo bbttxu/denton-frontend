@@ -15,7 +15,7 @@ body_class: index
       .prev
         %p &and;
       .shows
-        %ul.shows(data-bind="template: { foreach: count, as: 'show', name: 'show-template' }")
+        %ul.shows.small-block-grid-1.large-block-grid-2(data-bind="template: { foreach: count, as: 'show', name: 'show-template' }")
 
       .next
         %p &or;
@@ -29,7 +29,7 @@ body_class: index
         %span.price.right( data-bind="text: show.price" ) ???
 
     .artists
-      %ul.artists( data-bind="template: { foreach: artists, name: 'artist-template' }")
+      %ul.artists.small-block-grid-1( data-bind="template: { foreach: artists, name: 'artist-template' }")
 
 %script#artist-template( type="text/html")
   %li(data-bind="text: name") ???
