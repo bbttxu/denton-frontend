@@ -28,9 +28,9 @@ $em-base: 16px !default;
 
 $default-float: left;
 
-$body-bg: #333;
-$body-font-color: #ccc;
-// $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-bg: #ddd;
+$body-font-color: #333;
+$body-font-family: "Anton", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: normal;
 // $body-font-style: normal;
 
@@ -137,8 +137,8 @@ $body-font-color: #ccc;
 
 // Heading font styles
 
-// $header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-// $header-font-weight: bold;
+$header-font-family: "Anton", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$header-font-weight: 400;
 // $header-font-style: normal;
 $header-font-color: #999;
 // $header-line-height: 1.4;

@@ -2,26 +2,27 @@
 @import "base"
 @import "buttons"
 @import "artists"
+@import "calendar"
 @import "shows"
 @import "venues"
 
 @mixin count( $color: 'red' )
-  border:
-    color: $color
-  h4
-    span.month, span.day
-      color: $color
-  &.expanded
-    background: $color
+  // border:
+  //   color: $color
+  // h4
+  //   span.month, span.day
+  //     color: $color
+  // &.expanded
+  //   background: $color
 
-    span
-      &.day, &.month
-        display: visible
-        color: grayscale( $color )
+  //   span
+  //     &.day, &.month
+  //       display: visible
+  //       color: grayscale( $color )
 
 
 body
-  // background: red
+  background: $body-bg
 
   margin:
     bottom: 1em
@@ -40,38 +41,34 @@ body
   @include count( adjust-hue( $primary-color, 160deg ) )
 
 
-  @extend .columns
-  @extend .small-4
-  @extend .large-2
 
-  box-shadow: 0px 2px 10px #000
 
   // background: #222
 
   clear: both
   #text-align: right
 
-  padding: 0.4em
-  margin-bottom: -0.4em
-  &.expanded
-    margin-bottom: 0.4em
-    margin-top: 0.0em
+  // padding: 0.4em
+  // margin-bottom: -0.4em
+  // &.expanded
+  //   margin-bottom: 0.4em
+  //   margin-top: 0.0em
 
-  border-radius: 0.6em
-  border: solid adjust-hue( $primary-color, 160deg ) 2px
+  // border-radius: 0.6em
+  // border: solid adjust-hue( $primary-color, 160deg ) 2px
 
   z-index: 2
   h4
     margin: 0
     line-height: 1em
 
-  span.day
-    display: none
-  &.soon h4
-    span.month
-      display: none
-    span.day
-      display: inline
+  // span.day
+  //   display: none
+  // &.soon h4
+  //   span.month
+  //     display: none
+  //   span.day
+  //     display: inline
 
 
   &:first-child .prev p
@@ -86,33 +83,37 @@ body
 .calendar:nth-child(odd)
   z-index: 1
 
-.day-mon
-  @extend .small-offset-1
-  @extend .large-offset-4
 
-.day-tue
-  @extend .small-offset-2
-  @extend .large-offset-5
 
-.day-wed
-  @extend .small-offset-3
-  @extend .large-offset-6
 
-.day-thu
-  @extend .small-offset-4
-  @extend .large-offset-7
 
-.day-fri
-  @extend .small-offset-5
-  @extend .large-offset-8
+// .day-mon
+//   @extend .small-offset-1
+//   @extend .large-offset-4
 
-.day-sat
-  @extend .small-offset-6
-  @extend .large-offset-9
+// .day-tue
+//   @extend .small-offset-2
+//   @extend .large-offset-5
 
-.day-sun
-  @extend .small-offset-7
-  @extend .large-offset-10
+// .day-wed
+//   @extend .small-offset-3
+//   @extend .large-offset-6
+
+// .day-thu
+//   @extend .small-offset-4
+//   @extend .large-offset-7
+
+// .day-fri
+//   @extend .small-offset-5
+//   @extend .large-offset-8
+
+// .day-sat
+//   @extend .small-offset-6
+//   @extend .large-offset-9
+
+// .day-sun
+//   @extend .small-offset-7
+//   @extend .large-offset-10
 
 // h4
 //   span.month, span.day
@@ -139,12 +140,12 @@ body
   // @extend .small-block-grid-2
   // @extend .large-block-grid-3
 
-.active
-  // background: lightblue
-  z-index: 3
+// .active
+//   // background: lightblue
+//   z-index: 3
 
-  span.month, span.day
-    display: inline
+//   span.month, span.day
+//     display: inline
 
 ul.artists
 
@@ -154,31 +155,44 @@ ul.artists
 
 
 @mixin expanded($columns: 1)
+  background: whitesmoke
+
   h4
     @extend .small-offset-#{$columns}
     @extend .small-4
     display: block
 
-    background: #333
+    // background: #333
     padding: 0.5em
     border-radius: 0.5em
+
+    .expanded &
+      span
+        &.day, &.month
+          display: visible
+          // color: grayscale( $primary-color )
+
 
 .expanded
   ul li, h3
     color: #333
 
-.day-mon.expanded
-  @include expanded(1)
-.day-tue.expanded
-  @include expanded(2)
-.day-wed.expanded
-  @include expanded(3)
-.day-thu.expanded
-  @include expanded(4)
-.day-fri.expanded
-  @include expanded(5)
-.day-sat.expanded
-  @include expanded(6)
-.day-sun.expanded
-  @include expanded(7)
+
+.expanded
+  @include expanded(0)
+
+// .day-mon.expanded
+//   @include expanded(1)
+// .day-tue.expanded
+//   @include expanded(2)
+// .day-wed.expanded
+//   @include expanded(3)
+// .day-thu.expanded
+//   @include expanded(4)
+// .day-fri.expanded
+//   @include expanded(5)
+// .day-sat.expanded
+//   @include expanded(6)
+// .day-sun.expanded
+//   @include expanded(7)
 

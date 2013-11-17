@@ -6,18 +6,19 @@ body_class: index
 
 %script#day-template( type="text/html")
   .calendar( data-bind="attr: { id: id }, css: count_class" )
-    %h4
-      %span.day( data-bind="text: day" ) ???
-      %span.month( data-bind="text: month" ) ???
-      %span.date( data-bind="text: date" ) ???
+    %header
+      %h3
+        %span.day( data-bind="text: day" ) ???
+        %span.month( data-bind="text: month" ) ???
+        %span.date( data-bind="text: date" ) ???
     .content
       .prev
-        %p &lfloor;
+        %p &and;
       .shows
         %ul.shows(data-bind="template: { foreach: count, as: 'show', name: 'show-template' }")
 
       .next
-        %p &rceil;
+        %p &or;
 
 %script#show-template( type="text/html")
   %li
@@ -27,7 +28,7 @@ body_class: index
         %span.subhead.venue(data-bind="text: venue.name") ???
         %span.price.right( data-bind="text: show.price" ) ???
 
-    .show
+    .artists
       %ul.artists( data-bind="template: { foreach: artists, name: 'artist-template' }")
 
 %script#artist-template( type="text/html")

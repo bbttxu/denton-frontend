@@ -66,8 +66,8 @@ handle_expanded_calendar_click = (event)->
 
   options =
     # height: 'toggle'
-    width: "90%"
-    'margin-left': "5%"
+    width: "100%"
+    'margin-left': "0%"
 
   if $.data this, 'margin-left'
     left = $.data(this, 'margin-left')
@@ -158,9 +158,9 @@ show_all_the_data = (d)->
 
     id: value
     count: key
-    month: moment(value).format("MMM")
+    month: moment(value).format("MMMM")
     date: moment(value).format("DD")
-    day: moment(value).format('ddd')
+    day: moment(value).format('dddd')
     count_class: classes.join(" ")
 
   d.calendar = dates

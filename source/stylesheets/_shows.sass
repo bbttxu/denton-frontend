@@ -21,8 +21,12 @@ div.shows
       border:
         bottom: 3px solid $some-color
       h6
+
+        line-height: 1.4em
+
         background:
-          color: #ddd
+          color: $body-bg
+          color: whitesmoke
         color: black
 
         body.night &
@@ -44,8 +48,13 @@ div.shows
           body.night &
             color: #ccc
 
+    div.artists
+      margin-top: 0.5em
+
     ul.artists
-      h3
+      list-style-type: none
+      li
+        font-size: 27px
         line-height: 1em
         margin:
           bottom: 0.3em
