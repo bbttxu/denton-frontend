@@ -7,9 +7,9 @@ body_class: index
 %script#day-template( type="text/html")
   .calendar( data-bind="attr: { id: id }, css: count_class" )
     %h4
-      %span.day( data-bind="text: day" )
-      %span.month( data-bind="text: month" )
-      %span.date( data-bind="text: date" )
+      %span.day( data-bind="text: day" ) ???
+      %span.month( data-bind="text: month" ) ???
+      %span.date( data-bind="text: date" ) ???
     .content
       .prev
         %p &lfloor;
@@ -21,9 +21,14 @@ body_class: index
 
 %script#show-template( type="text/html")
   %li
+    %div.meta
+      %h6
+        %span.time(data-bind="text: moment( show.starts_at ).format('ddd, hA') " ) ???
+        %span.subhead.venue(data-bind="text: venue.name") ???
+        %span.price.right( data-bind="text: show.price" ) ???
+
     .show
-      %h3.venue(data-bind="text: venue.name")
-      %ul.small-block-grid-1.artists( data-bind="template: { foreach: artists, name: 'artist-template' }")
+      %ul.artists( data-bind="template: { foreach: artists, name: 'artist-template' }")
 
 %script#artist-template( type="text/html")
-  %li(data-bind="text: name")
+  %li(data-bind="text: name") ???

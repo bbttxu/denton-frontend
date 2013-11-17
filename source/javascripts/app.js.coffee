@@ -1,6 +1,7 @@
 # app.js.coffee
 
 $ = jQuery
+m = moment
 
 artistViewModel = (artist)->
   self = this
@@ -16,6 +17,16 @@ gigViewModel = (gig)->
 showViewModel = (show)->
   self = this
   self.starts_at = ko.observable show.starts_at
+  self.css_class = ko.computed ()->
+    length = 0
+    length = self.artists.length if self.artists
+    "count-" + length
+
+  # self.formatted_starts_at = ko.computed ()->
+  #   console.log m( self.starts_at() ).format("ddd, hA")
+  #   m( self.starts_at() ).format("ddd, hA")
+
+
   self
 
 venueViewModel = (venue)->
