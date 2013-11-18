@@ -37,15 +37,17 @@ venueViewModel = (venue)->
 
 handle_prev_calendar_click = (event)->
   # event.preventDefault()
-  $(this).parents('.calendar').prev('.calendar').find('header').trigger 'click'
-  $prev = $(this)
-  $prev = $prev.prev('.calendar') if $prev.prev '.calendar'
-  $.scrollTo( $prev[0] )
+  $trigger = $(this).parents('.calendar').prev('.calendar').find('header')
+  $trigger.trigger 'click'
+  $prev = $trigger
+  $prev = $prev.prev('.calendar').find('header') if $prev.prev '.calendar'
+  $.scrollTo( $trigger )
 
 handle_next_calendar_click = (event)->
   event.preventDefault()
-  $(this).parents('.calendar').next('.calendar').find('header').trigger 'click'
-  $.scrollTo( $(this) )
+  $target = $(this).parents('.calendar').next('.calendar').find('header')
+  $target.trigger 'click'
+  $.scrollTo( $target )
 
 # handle_active_calendar_click = (event)->
 #   $(this).parent().find('.active').toggleClass('active')
