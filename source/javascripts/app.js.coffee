@@ -37,17 +37,18 @@ venueViewModel = (venue)->
 
 handle_prev_calendar_click = (event)->
   # event.preventDefault()
-  $trigger = $(this).parents('.calendar').prev('.calendar').find('header')
+  $trigger = $(this).parents('.calendar').prev('.calendar').find('header a')
   $trigger.trigger 'click'
   $prev = $trigger
-  $prev = $prev.prev('.calendar').find('header') if $prev.prev '.calendar'
+  $prev = $prev.prev('.calendar').find('header a') if $prev.prev '.calendar'
   $.scrollTo( $trigger )
 
 handle_next_calendar_click = (event)->
   event.preventDefault()
-  $target = $(this).parents('.calendar').next('.calendar').find('header')
+  $target = $(this).parents('.calendar').next('.calendar').find('header a')
   $target.trigger 'click'
   $.scrollTo( $target )
+  console.log $target
 
 # handle_active_calendar_click = (event)->
 #   $(this).parent().find('.active').toggleClass('active')
@@ -62,9 +63,9 @@ handle_expanded_calendar_click = (event)->
   $parent.addClass('expanded')
 
   if $parent.hasClass('expanded')
-    $parent.find('.content').slideDown('fast')
+    $parent.find('.content').show()
   else
-    $parent.find('.content').slideUp('fast')
+    $parent.find('.content').hide()
 
 
   # options =
@@ -165,6 +166,7 @@ show_all_the_data = (d)->
     date: moment(value).format("DD")
     day: moment(value).format('dddd')
     count_class: classes.join(" ")
+    some_link: "/shows/" + moment(value).format('YYYY-MM-DD')
 
   d.calendar = dates
     # console.log d.calendar
@@ -185,8 +187,8 @@ show_all_the_data = (d)->
   # $('.calendar', $('#calendar')[0] ).on 'click', handle_active_calendar_click
   # $('.calendar.active', $('#calendar')[0] ).on 'click', handle_calendar_unclick
 
-  $('.calendar').each (i)->
-      $(this).find('header').toggleClass('expanded').delay(i * 200).trigger('click').slideDown()
+  # $('.calendar').each (i)->
+  #     $(this).find('header').toggleClass('expanded').delay(i * 200).trigger('click').slideDown()
 
 
 load_all_the_data = (data, status)->
@@ -196,3 +198,24 @@ ajax_all_the_data = ()->
   $.getJSON 'http://denton-api1.blackbeartheory.com:5000/shows.json?callback=?', load_all_the_data
 
 $(document).ready ajax_all_the_data
+
+
+$(document).ready ()->
+  app = Davis ()->
+
+    this.get '/shows/:date', (req)->
+      $this = $('#' + req.params['date'] )
+      $('.calendar').not( $this ).hide()
+      $this.show()
+      console.log $this
+      # alert("Hello " + req.params['date'])
+
+
+    this.get "/", ()->
+      $('.calendar').removeClass('expanded').show().find('.content').hide()
+
+
+
+
+  app.start()
+

@@ -2,23 +2,27 @@
 title: d, tx | BBTTXU
 body_class: index
 ---
+%header
+  %h1= link_to "Denton, TX", "/"
+
 #calendar.row( data-bind="template: { foreach: calendar, name: 'day-template' }" )
 
 %script#day-template( type="text/html")
   .calendar( data-bind="attr: { id: id }, css: count_class" )
     %header
       %h3
-        %span.day( data-bind="text: day" ) ???
-        %span.month( data-bind="text: month" ) ???
-        %span.date( data-bind="text: date" ) ???
+        %a( data-bind="attr: { href: some_link }" )
+          %span.day( data-bind="text: day" ) ???
+          %span.month( data-bind="text: month" ) ???
+          %span.date( data-bind="text: date" ) ???
     .content
       .prev
-        %p &and;
+        %p &laquo;
       .shows
         %ul.shows.small-block-grid-1.large-block-grid-2(data-bind="template: { foreach: count, as: 'show', name: 'show-template' }")
 
       .next
-        %p &or;
+        %p &raquo;
 
 %script#show-template( type="text/html")
   %li
