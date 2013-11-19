@@ -166,7 +166,7 @@ show_all_the_data = (d)->
     date: moment(value).format("DD")
     day: moment(value).format('dddd')
     count_class: classes.join(" ")
-    some_link: "/shows/" + moment(value).format('YYYY-MM-DD')
+    some_link: "/denton/shows/" + moment(value).format('YYYY-MM-DD')
 
   d.calendar = dates
     # console.log d.calendar
@@ -203,7 +203,7 @@ $(document).ready ajax_all_the_data
 $(document).ready ()->
   app = Davis ()->
 
-    this.get '/shows/:date', (req)->
+    this.get '/denton/shows/:date', (req)->
       $this = $('#' + req.params['date'] )
       $('.calendar').not( $this ).hide()
       $this.show()
@@ -211,11 +211,11 @@ $(document).ready ()->
       # alert("Hello " + req.params['date'])
 
 
-    this.get "/", ()->
+    this.get "/denton", ()->
       $('.calendar').removeClass('expanded').show().find('.content').hide()
 
 
 
 
-  app.start()
+  app.start("/denton")
 
