@@ -2,12 +2,24 @@
 
 
 
-#header
+#foo
   @extend .row
+  .site-name
+    @extend .small-offset-1
+    @extend .small-3
+    @extend .columns
+    h3
+      font-family: "Cherry Cream Soda"
 
   .title
-    @extend .small-12
+    @extend .small-7
     @extend .columns
+    text-align: right
+
+  .menu
+    @extend .small-1
+    @extend .columns
+
 
 @mixin date_offset($offset: 0)
   header
@@ -45,7 +57,7 @@
   &.expanded
     @extend .large-12
 
-    background: whitesmoke
+    // background: whitesmoke
 
     span.month, span.day
       display: inline
@@ -58,7 +70,6 @@
         top: 1em
         bottom: 1em
 
-    box-shadow: 0px 2px 10px #999
 
     .content
       display: inherit

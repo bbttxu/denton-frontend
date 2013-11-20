@@ -34,8 +34,9 @@ body
   @include grid-row
   @extend .row
 
-  padding:
-    top: 1em
+  @media( min-width: 480px )
+    padding:
+      top: 1em
 
 .calendar
   @include count( adjust-hue( $primary-color, 160deg ) )
@@ -151,7 +152,7 @@ ul.artists
 
 
 @mixin expanded($columns: 1)
-  background: whitesmoke
+  // background: whitesmoke
 
   h4
     @extend .small-offset-#{$columns}t
@@ -191,4 +192,3 @@ ul.artists
 //   @include expanded(6)
 // .day-sun.expanded
 //   @include expanded(7)
-
