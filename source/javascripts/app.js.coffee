@@ -3,6 +3,8 @@
 $ = jQuery
 m = moment
 
+
+
 artistViewModel = (artist)->
   self = this
   self.name = ko.observable artist.name
@@ -48,7 +50,7 @@ handle_next_calendar_click = (event)->
   $target = $(this).parents('.calendar').next('.calendar').find('header a')
   $target.trigger 'click'
   $.scrollTo( $target )
-  console.log $target
+  # console.log $target
 
 # handle_active_calendar_click = (event)->
 #   $(this).parent().find('.active').toggleClass('active')
@@ -190,6 +192,25 @@ show_all_the_data = (d)->
   # $('.calendar').each (i)->
   #     $(this).find('header').toggleClass('expanded').delay(i * 200).trigger('click').slideDown()
 
+  app = Sammy '#calendar', ()->
+
+    this.get '#/shows/:date', (req)->
+      console.log 'shows', req.params['date']
+      $this = $('#' + req.params['date'] )
+      $('.calendar').not( $this ).hide()
+      $this.addClass('expanded').show()
+      console.log $this
+      # alert("Hello " + req.params['date'])
+
+
+    this.get "#/", ()->
+      console.log 'default'
+      $('.calendar').removeClass('expanded').show().find('.content').hide()
+
+
+
+
+  app.run("#/shows/" + moment().format('YYYY-MM-DD'))
 
 load_all_the_data = (data, status)->
   show_all_the_data data
@@ -219,21 +240,4 @@ $(document).ready ()->
 
   # app.start("/denton")
 
-  app = Sammy '#calendar', ()->
-
-    this.get '#/shows/:date', (req)->
-      $this = $('#' + req.params['date'] )
-      $('.calendar').not( $this ).hide()
-      $this.show()
-      console.log $this
-      # alert("Hello " + req.params['date'])
-
-
-    this.get "#/", ()->
-      $('.calendar').removeClass('expanded').show().find('.content').hide()
-
-
-
-
-  app.run("#/denton")
 
