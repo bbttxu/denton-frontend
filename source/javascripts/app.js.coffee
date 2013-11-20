@@ -24,11 +24,6 @@ showViewModel = (show)->
     length = self.artists.length if self.artists
     "count-" + length
 
-  # self.formatted_starts_at = ko.computed ()->
-  #   console.log m( self.starts_at() ).format("ddd, hA")
-  #   m( self.starts_at() ).format("ddd, hA")
-
-
   self
 
 venueViewModel = (venue)->
@@ -52,49 +47,16 @@ handle_next_calendar_click = (event)->
   $.scrollTo( $target )
   # console.log $target
 
-# handle_active_calendar_click = (event)->
-#   $(this).parent().find('.active').toggleClass('active')
-#   $(this).addClass('active')
-
 handle_expanded_calendar_click = (event)->
   $this = $(this)
   $parent = $(this).parent('.calendar')
 
-  # event.preventDefault()
-  # console.log event, this
   $parent.addClass('expanded')
 
   if $parent.hasClass('expanded')
     $parent.find('.content').show()
   else
     $parent.find('.content').hide()
-
-
-  # options =
-  #   # height: 'toggle'
-  #   width: "100%"
-  #   'margin-left': "0%"
-
-  # if $.data this, 'margin-left'
-  #   left = $.data(this, 'margin-left')
-  #   $.removeData(this, 'margin-left')
-  #   options['margin-left'] = left
-  #   # console.log left
-  # else
-  #   $.data(this, 'margin-left',  $this.css( 'margin-left' ) )
-
-  # if $.data this, 'width'
-  #   width = $.data(this, 'width')
-  #   $.removeData(this, 'width')
-  #   options.width = width
-  #   # console.log width
-  # else
-  #   $.data(this, 'width', $(this).css( 'width' ) )
-
-  # $parent.animate options, 100, 'swing'
-
-
-
 
 show_all_the_data = (d)->
 
@@ -135,15 +97,10 @@ show_all_the_data = (d)->
 
     for show in key
       sh = show_by_id show.id
-      # console.log sh
       show_view = new showViewModel sh
 
-
       venue = venue_by_id show.venues
-      # console.log venue
       venue = new venueViewModel venue
-
-      # console.log venue
 
       show.venue = venue
 
@@ -153,14 +110,11 @@ show_all_the_data = (d)->
       # console.log venue_by_id show.venues
       for gig_id in show.gigs
         gig = gig_by_id gig_id
-        # gig = new gigViewModel gig
-
 
         artist = artist_by_id gig.artists
         artist_view = new artistViewModel( artist )
         # console.log artist
         show.artists.push artist_view
-
 
     id: value
     count: key
@@ -171,43 +125,25 @@ show_all_the_data = (d)->
     some_link: "#/shows/" + moment(value).format('YYYY-MM-DD')
 
   d.calendar = dates
-    # console.log d.calendar
-
-
-
-
-
-
 
   ko.applyBindings d, $('#calendar')[0]
-  # ko.applyBindings d, $('#welcome')[0]
 
   $('.calendar .next', $('#calendar')[0] ).on 'click', handle_next_calendar_click
   $('.calendar .prev', $('#calendar')[0] ).on 'click', handle_prev_calendar_click
-  # $('.calendar', $('#calendar')[0] ).on 'click', handle_calendar_click
   $('.calendar header', $('#calendar')[0] ).on 'click', handle_expanded_calendar_click
-  # $('.calendar', $('#calendar')[0] ).on 'click', handle_active_calendar_click
-  # $('.calendar.active', $('#calendar')[0] ).on 'click', handle_calendar_unclick
-
-  # $('.calendar').each (i)->
-  #     $(this).find('header').toggleClass('expanded').delay(i * 200).trigger('click').slideDown()
 
   app = Sammy '#calendar', ()->
 
     this.get '#/shows/:date', (req)->
       console.log 'shows', req.params['date']
-      $this = $('#' + req.params['date'] )
+      $this = $( '#' + req.params['date'] )
       $('.calendar').not( $this ).hide()
       $this.addClass('expanded').show()
       console.log $this
-      # alert("Hello " + req.params['date'])
-
 
     this.get "#/", ()->
       console.log 'default'
       $('.calendar').removeClass('expanded').show().find('.content').hide()
-
-
 
 
   app.run("#/shows/" + moment().format('YYYY-MM-DD'))
@@ -219,25 +155,4 @@ ajax_all_the_data = ()->
   $.getJSON 'http://denton-api1.blackbeartheory.com:5000/shows.json?callback=?', load_all_the_data
 
 $(document).ready ajax_all_the_data
-
-
-$(document).ready ()->
-  # app = Davis ()->
-
-  #   this.get '/denton/shows/:date', (req)->
-  #     $this = $('#' + req.params['date'] )
-  #     $('.calendar').not( $this ).hide()
-  #     $this.show()
-  #     console.log $this
-  #     # alert("Hello " + req.params['date'])
-
-
-  #   this.get "/denton", ()->
-  #     $('.calendar').removeClass('expanded').show().find('.content').hide()
-
-
-
-
-  # app.start("/denton")
-
 
