@@ -2,6 +2,13 @@
 
 
 
+#header
+  @extend .row
+
+  .title
+    @extend .small-12
+    @extend .columns
+
 @mixin date_offset($offset: 0)
   header
     @extend .small-offset-#{$offset - 1}
@@ -12,8 +19,14 @@
 .calendar
   @extend .columns
   @extend .small-12
+  // @extend .large-1
   margin: 0
   padding: 0
+
+
+  span.month, span.day
+    display: none
+
 
   // header
   //   background: whitesmoke
@@ -30,8 +43,12 @@
       min-height: 6em
       background: red
   &.expanded
+    @extend .large-12
 
     background: whitesmoke
+
+    span.month, span.day
+      display: inline
 
     margin:
       bottom: 0.2em

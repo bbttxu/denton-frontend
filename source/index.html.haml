@@ -2,8 +2,9 @@
 title: d, tx | BBTTXU
 body_class: index
 ---
-%header
-  %h1= link_to "Denton, TX", "/denton"
+%header#header
+  .title
+    %h1= link_to "Denton, TX", "#/"
 
 #calendar.row( data-bind="template: { foreach: calendar, name: 'day-template' }" )
 
