@@ -1,6 +1,8 @@
 
 require "zurb-foundation"
 
+# sprockets.append_path File.join "#{root}", "bower_components"
+
 ###
 # Compass
 ###
@@ -49,6 +51,7 @@ require "zurb-foundation"
 #     "Helping"
 #   end
 # end
+
 
 set :css_dir, 'stylesheets'
 

@@ -4,6 +4,8 @@ $ = jQuery
 m = moment
 
 
+all_data = {}
+
 
 artistViewModel = (artist)->
   self = this
@@ -34,7 +36,7 @@ venueViewModel = (venue)->
 
 handle_prev_calendar_click = (event)->
   # event.preventDefault()
-  $trigger = $(this).parents('.calendar').prev('.calendar').find('header a')
+  $trigger = $(this).parents('.calendar').prev('.calendar').find('header a.self')
   $trigger.trigger 'click'
   $prev = $trigger
   $prev = $prev.prev('.calendar').find('header a') if $prev.prev '.calendar'
@@ -42,7 +44,7 @@ handle_prev_calendar_click = (event)->
 
 handle_next_calendar_click = (event)->
   event.preventDefault()
-  $target = $(this).parents('.calendar').next('.calendar').find('header a')
+  $target = $(this).parents('.calendar').next('.calendar').find('header a.self')
   $target.trigger 'click'
   $.scrollTo( $target )
   # console.log $target
@@ -124,9 +126,9 @@ show_all_the_data = (d)->
     count_class: classes.join(" ")
     some_link: "#/shows/" + moment(value).format('YYYY-MM-DD')
 
-  d.calendar = dates
-
-  ko.applyBindings d, $('#calendar')[0]
+  all_data.calendar = dates
+  console.log all_data
+  ko.applyBindings all_data, $('#calendar')[0]
 
   $('.calendar .next', $('#calendar')[0] ).on 'click', handle_next_calendar_click
   $('.calendar .prev', $('#calendar')[0] ).on 'click', handle_prev_calendar_click

@@ -6,6 +6,7 @@ body_class: index
 /   .title
 /     %h1= link_to "Denton, TX", "#/"
 
+#main
 #calendar.row( data-bind="template: { foreach: calendar, name: 'day-template' }" )
 
 %script#day-template( type="text/html")
@@ -13,10 +14,13 @@ body_class: index
   .calendar( data-bind="attr: { id: id }, css: count_class" )
     %header
       %h3
-        %a( data-bind="attr: { href: some_link }" )
+        %a.title( href="#/" ) Denton, TX
+        %a.self( data-bind="attr: { href: some_link }" )
           %span.day( data-bind="text: day" ) ???
           %span.month( data-bind="text: month" ) ???
           %span.date( data-bind="text: date" ) ???
+
+        %a.menu( href="#/" ) &#9776;
     .content
       .prev
         %p &laquo;

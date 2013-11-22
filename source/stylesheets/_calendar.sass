@@ -2,31 +2,53 @@
 
 
 
-#foo
-  @extend .row
-  .site-name
-    @extend .small-offset-1
-    @extend .small-3
-    @extend .columns
-    h3
-      font-family: "Cherry Cream Soda"
-
-  .title
-    @extend .small-7
-    @extend .columns
-    text-align: right
-
-  .menu
-    @extend .small-1
-    @extend .columns
 
 
 @mixin date_offset($offset: 0)
   header
-    @extend .small-offset-#{$offset - 1}
-    @extend .large-offset-#{$offset + 1}
+    // @extend .small-offset-#{$offset - 1}
+    // @extend .large-offset-#{$offset + 1}
+    // @extend .right
+    // @extend .small-offset-2
+    @extend .columns
+    text-align: right
 
+  &
+    background: red
 
+  &.expanded
+    @extend .small-10
+    @extend .small-offset-1
+
+    background: gray
+
+    .day-mon
+      @extend .small-offset-1
+      @extend .large-offset-4
+
+    .day-tue
+      @extend .small-offset-2
+      @extend .large-offset-5
+
+    .day-wed
+      @extend .small-offset-3
+      @extend .large-offset-6
+
+    .day-thu
+      @extend .small-offset-4
+      @extend .large-offset-7
+
+    .day-fri
+      @extend .small-offset-5
+      @extend .large-offset-8
+
+    .day-sat
+      @extend .small-offset-6
+      @extend .large-offset-9
+
+    .day-sun
+      @extend .small-offset-7
+      @extend .large-offset-10
 
 .calendar
   @extend .columns
@@ -36,7 +58,7 @@
   padding: 0
 
 
-  span.month, span.day
+  span.month, span.day, a.menu, a.title
     display: none
 
 
@@ -59,17 +81,30 @@
 
     // background: whitesmoke
 
-    span.month, span.day
-      display: inline
+    span.month, span.day, a.title
+      display: inherit
 
     margin:
       bottom: 0.2em
       top: 0.2em
     header
       padding:
-        top: 1em
-        bottom: 1em
+        top: 3em
+        bottom: 3em
 
+    h3
+      a.title
+        font-family: "Cherry Cream Soda"
+        float: left
+
+      a.menu
+        float: right
+
+      a.menu
+        display: hidden
+        color: black
+        margin:
+          left: 0.3ex
 
     .content
       display: inherit
@@ -80,7 +115,7 @@
   h3
     text-shadow: #eee 1px 1px 10px
     margin:
-      left: 1ex
+      // left: 1ex
       bottom: 0
       top: 0
     padding:
