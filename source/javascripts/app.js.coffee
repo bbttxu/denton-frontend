@@ -212,11 +212,9 @@ $(document).ready ()->
       $('.calendar.expanded').removeClass('expanded').hide().find('.content').hide()
       $this.addClass('expanded').show().find('.content').show()
 
-
     this.get "#/", ()->
       $('.calendar').removeClass('expanded').show().find('.content').hide()
 
 
-
-  app.run("#/")
+  app.run("#/" + moment().format('YYYY-MM-DD') )
 
