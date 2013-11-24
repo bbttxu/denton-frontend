@@ -195,7 +195,7 @@ load_all_the_data = (data, status)->
   show_all_the_data data
 
 ajax_all_the_data = ()->
-  $.getJSON 'http://denton-api1.blackbeartheory.com:5000/shows.json?callback=?', load_all_the_data
+  $.getJSON 'http://denton.blackbeartheory.com/shows.json?callback=?', load_all_the_data
 
 $(document).ready ajax_all_the_data
 
@@ -223,9 +223,9 @@ $(document).ready ()->
 
     this.get '#/shows/:date', (req)->
       $this = $('#' + req.params['date'] )
-      $('.calendar').not( $this ).hide()
-      $this.show()
-      console.log $this
+      $('.calendar').hide()
+      $('.calendar.expanded').removeClass('expanded').hide().find('.content').hide()
+      $this.addClass('expanded').show().find('.content').show()
       # alert("Hello " + req.params['date'])
 
 
@@ -234,6 +234,5 @@ $(document).ready ()->
 
 
 
-
-  app.run("#/denton")
+  app.run("#/")
 
