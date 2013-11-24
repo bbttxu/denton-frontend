@@ -133,30 +133,23 @@ show_all_the_data = (d)->
 
     for show in key
       sh = show_by_id show.id
-      # console.log sh
       show_view = new showViewModel sh
 
 
       venue = venue_by_id show.venues
-      # console.log venue
       venue = new venueViewModel venue
-
-      # console.log venue
 
       show.venue = venue
 
       show.artists = []
 
 
-      # console.log venue_by_id show.venues
       for gig_id in show.gigs
         gig = gig_by_id gig_id
-        # gig = new gigViewModel gig
 
 
         artist = artist_by_id gig.artists
         artist_view = new artistViewModel( artist )
-        # console.log artist
         show.artists.push artist_view
 
 
@@ -169,7 +162,6 @@ show_all_the_data = (d)->
     some_link: "#/shows/" + moment(value).format('YYYY-MM-DD')
 
   d.calendar = dates
-    # console.log d.calendar
 
 
 
@@ -178,17 +170,10 @@ show_all_the_data = (d)->
 
 
   ko.applyBindings d, $('#calendar')[0]
-  # ko.applyBindings d, $('#welcome')[0]
 
   $('.calendar .next', $('#calendar')[0] ).on 'click', handle_next_calendar_click
   $('.calendar .prev', $('#calendar')[0] ).on 'click', handle_prev_calendar_click
-  # $('.calendar', $('#calendar')[0] ).on 'click', handle_calendar_click
   $('.calendar header', $('#calendar')[0] ).on 'click', handle_expanded_calendar_click
-  # $('.calendar', $('#calendar')[0] ).on 'click', handle_active_calendar_click
-  # $('.calendar.active', $('#calendar')[0] ).on 'click', handle_calendar_unclick
-
-  # $('.calendar').each (i)->
-  #     $(this).find('header').toggleClass('expanded').delay(i * 200).trigger('click').slideDown()
 
 
 load_all_the_data = (data, status)->
@@ -226,7 +211,6 @@ $(document).ready ()->
       $('.calendar').hide()
       $('.calendar.expanded').removeClass('expanded').hide().find('.content').hide()
       $this.addClass('expanded').show().find('.content').show()
-      # alert("Hello " + req.params['date'])
 
 
     this.get "#/", ()->
