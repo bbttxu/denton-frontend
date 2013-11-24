@@ -109,13 +109,11 @@ show_all_the_data = (d)->
       show.artists = []
 
 
-      # console.log venue_by_id show.venues
       for gig_id in show.gigs
         gig = gig_by_id gig_id
 
         artist = artist_by_id gig.artists
         artist_view = new artistViewModel( artist )
-        # console.log artist
         show.artists.push artist_view
 
     id: value
@@ -129,24 +127,60 @@ show_all_the_data = (d)->
   all_data.calendar = dates
   console.log all_data
   ko.applyBindings all_data, $('#calendar')[0]
+  d.calendar = dates
+
+
+
+
+
+
+
+  ko.applyBindings d, $('#calendar')[0]
 
   $('.calendar .next', $('#calendar')[0] ).on 'click', handle_next_calendar_click
   $('.calendar .prev', $('#calendar')[0] ).on 'click', handle_prev_calendar_click
   $('.calendar header', $('#calendar')[0] ).on 'click', handle_expanded_calendar_click
 
+
+load_all_the_data = (data, status)->
+  show_all_the_data data
+
+ajax_all_the_data = ()->
+  $.getJSON 'http://denton.blackbeartheory.com/shows.json?callback=?', load_all_the_data
+
+$(document).ready ajax_all_the_data
+
+
+$(document).ready ()->
+  # app = Davis ()->
+
+  #   this.get '/denton/shows/:date', (req)->
+  #     $this = $('#' + req.params['date'] )
+  #     $('.calendar').not( $this ).hide()
+  #     $this.show()
+  #     console.log $this
+  #     # alert("Hello " + req.params['date'])
+
+
+  #   this.get "/denton", ()->
+  #     $('.calendar').removeClass('expanded').show().find('.content').hide()
+
+
+
+
+  # app.start("/denton")
+
   app = Sammy '#calendar', ()->
 
     this.get '#/shows/:date', (req)->
-      console.log 'shows', req.params['date']
-      $this = $( '#' + req.params['date'] )
-      $('.calendar').not( $this ).hide()
-      $this.addClass('expanded').show()
-      console.log $this
+      $this = $('#' + req.params['date'] )
+      $('.calendar').hide()
+      $('.calendar.expanded').removeClass('expanded').hide().find('.content').hide()
+      $this.addClass('expanded').show().find('.content').show()
 
     this.get "#/", ()->
       console.log 'default'
       $('.calendar').removeClass('expanded').show().find('.content').hide()
-
 
   app.run("#/shows/" + moment().format('YYYY-MM-DD'))
 

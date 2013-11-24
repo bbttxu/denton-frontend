@@ -10,10 +10,13 @@
 @mixin count( $color: 'red' )
   // border:
   //   color: $color
-  // h4
-  //   span.month, span.day
-  //     color: $color
-  // &.expanded
+  h3
+    a
+      span.day
+        color: $primary-color !important
+      span.month
+        color: invert( $primary-color )
+// &.expanded
   //   background: $color
 
   //   span
@@ -41,7 +44,6 @@ body
 
 .calendar
   @include count( adjust-hue( $primary-color, 160deg ) )
-
 
 
 
