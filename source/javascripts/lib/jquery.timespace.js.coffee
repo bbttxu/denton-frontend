@@ -9,10 +9,9 @@
 
     settings = $.extend(settings, options)
     log = (msg) ->
-      (if typeof console isnt "undefined" and console isnt null then console.log(msg) else undefined)  if settings.debug
+      (if typeof console isnt "undefined" and console isnt null then console.log(msg) else undefined) if settings.debug
 
     fill_time_gap_between = (moment1, moment2, $this) ->
-      console.log moment1, moment2, $this
       range = moment.twix(moment1, moment2)
       return  if moment1 is moment2
       return  if range.length("days") is 1
@@ -20,7 +19,7 @@
       iter.next()
       while iter.hasNext()
         date = iter.next()
-        $span = $("<a>").html("<span>" + date.format("MMM") + "</span> " + date.format("DD")).attr("href", "#")
+        $span = $("<a>").html("<span>" + date.format("MM") + "</span> " + date.format("DD")).attr("href", "#")
         $li = $("<li>").attr("id", date.format("YYYY-MM-DD")).addClass("count-0").append($span)
         $this.before $li
 

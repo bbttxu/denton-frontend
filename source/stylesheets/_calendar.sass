@@ -1,8 +1,103 @@
 // _calendar.sass
 
 
+#header
+  @extend .row
+
+#sitetitle
+  @extend .columns
+  @extend .small-12
+  @extend .large-5
+  @extend .large-offset-1
+  a.title
+    font-family: "Cherry Cream Soda"
+    float: left
 
 
+#pagetitle
+  @extend .columns
+  @extend .small-12
+  @extend .large-5
+  text-align: right
+
+@mixin count( $color: 'red' )
+  span.weekday
+    color: $color !important
+
+
+  // border:
+  //   color: $color
+  h3
+    a
+      span.day
+        color: $primary-color !important
+      span.month
+        color: invert( $primary-color ) !important
+// &.expanded
+  //   background: $color
+
+  //   span
+  //     &.day, &.month
+  //       display: visible
+  //       color: grayscale( $color )
+
+#main
+  @extend .row
+  margin:
+    top: 2em
+
+  padding:
+    top: 2em
+
+  border: 1px solid #ccc
+  background: $body-bg
+
+#upcoming
+  @extend .columns
+  @extend .small-12
+  @extend .large-7
+  @extend .large-offset-4
+
+
+ul#calendar
+  li
+    span.weekday
+      display: none
+
+    &.soonish
+      span.month
+        display: none
+      span.weekday
+        display: inherit
+
+
+    a
+      vertical-align: middle
+      font-size: 1.5em
+      text-align: center
+      line-height: 0.5em
+      padding-top: 0.5em
+    span.weekday
+      color: invert( $primary-color )
+
+    span.month
+      color: $primary-color
+
+    span.day
+      color: black
+
+
+    &.count-0
+      @include count( grayscale( $primary-color) )
+      a
+        color: lighten( grayscale( $primary-color), 40% ) !important
+
+    &.count-1
+      @include count( $primary-color)
+    &.count-2
+      @include count( adjust-hue( $primary-color, 270deg ))
+    &.count-3
+      @include count( adjust-hue( $primary-color, 270deg ))
 
 @mixin date_offset($offset: 0)
   header
@@ -55,8 +150,8 @@
   padding: 0
 
 
-  span.month, span.day, a.menu, a.title
-    display: none
+  // span.month, span.day, a.menu, a.title
+  //   display: none
 
 
   // header
