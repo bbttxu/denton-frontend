@@ -122,10 +122,11 @@ showsViewModel = (calendar)->
   routes = Sammy '#calendar', ()->
 
     this.get '#/shows/:date', (req)->
+      date = req.params['date']
+
       # $('#day').show()
       # $('#calendar').hide()
 
-      # date = req.params['date']
       # $this = $('#' + date )
       # sv.current_date( date )
       # sv.current_data( days[date] )
@@ -136,8 +137,8 @@ showsViewModel = (calendar)->
       $('#day').hide()
       $('#calendar').show()
 
-  # routes.run("#/shows/" + moment().format('YYYY-MM-DD'))
-  routes.run("#/")
+  routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
+  # routes.run("#/")
 
   $('#calendar li').timespace()
 
@@ -153,10 +154,6 @@ initial_ajax = ()->
     for day, shows of days
       calendar.push new dayViewModel( day, shows )
 
-
-    # names = new dayViewModel( day, shows ) for day, shows of calendar
-    console.log 'days', days
-    # console.log 'names', names
     sv = new showsViewModel( calendar )
     ko.applyBindings sv
 
