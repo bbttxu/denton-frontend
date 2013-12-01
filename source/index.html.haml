@@ -16,7 +16,7 @@ body_class: index
         %a.title( href="#/" ) Calendar
 
   #upcoming
-    %ul#calendar.small-block-grid-7( data-bind="template: { foreach: calendar, name: 'day-template' }" )
+    %ul#calendar.small-block-grid-7( data-bind="template: { foreach: days, name: 'day-template' }" )
 
   / #day
   /   .calendar( data-bind="with: current_data")
@@ -46,9 +46,9 @@ body_class: index
   /         %p &raquo;
 
 %script#day-template( type="text/html")
-  %li.day( data-bind="attr: { id: day }, css: soonish" )
+  %li.day( data-bind="attr: { id: date }, css: count" )
     %a( data-bind="attr: { href: link }" )!
-      %span.month( data-bind="text: mmm")!
+      %span.month( data-bind="text: mm")!
       %span.weekday( data-bind="text: ddd")!
       %span.day( data-bind="text: dd")!
 

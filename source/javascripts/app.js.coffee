@@ -50,6 +50,10 @@ showViewModel = (show)->
   self
 
 sv = undefined
+
+
+
+calendar_view = new calendarViewModel
 showsViewModel = (calendar)->
 
   self = this
@@ -118,27 +122,19 @@ showsViewModel = (calendar)->
 
     sv.current_data( shows )
 
-
   routes = Sammy '#calendar', ()->
 
     this.get '#/shows/:date', (req)->
       date = req.params['date']
-
-      # $('#day').show()
-      # $('#calendar').hide()
-
-      # $this = $('#' + date )
-      # sv.current_date( date )
-      # sv.current_data( days[date] )
-      # console.log days[date]
-      # $.getJSON 'http://denton.blackbeartheory.com/shows/' + date + '.json?callback=?', get_show_json
+      console.log date, days[date]
 
     this.get "#/", ()->
       $('#day').hide()
       $('#calendar').show()
+      console.log days
 
-  routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
-  # routes.run("#/")
+  # routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
+  routes.run("#/")
 
   $('#calendar li').timespace()
 
@@ -150,14 +146,18 @@ initial_ajax = ()->
     days = _.groupBy data.shows, (item)->
       moment(item.starts_at).format("YYYY-MM-DD")
 
-    calendar = []
-    for day, shows of days
-      calendar.push new dayViewModel( day, shows )
+    calendar_days = for day, shows of days
+      date: day
+      count: "count-" + shows.length
+      link: "#/shows/" + day
+      mm: m(day).format('MM')
+      dd: m(day).format('DD')
+      ddd: m(day).format('dd')
 
-    sv = new showsViewModel( calendar )
-    ko.applyBindings sv
+    calendar_view.days calendar_days
+
+    ko.applyBindings calendar_view
 
     $('li.day').timespace()
 
 $(document).ready initial_ajax
-
