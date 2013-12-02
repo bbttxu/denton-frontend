@@ -112,13 +112,10 @@ showsViewModel = (calendar)->
         new_show.artists.push artist
         artist_view = new artistViewModel( artist )
         artist_views.push artist_view
-      # console.log show_view
 
-
-      # show_view.artists(artist_views)
       shows.push new_show
 
-    console.log shows
+    # console.log shows
 
     sv.current_data( shows )
 
@@ -134,9 +131,6 @@ showsViewModel = (calendar)->
 
   # routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
   routes.run("#/")
-
-  $('#calendar li').timespace()
-
   self
 
 initial_ajax = ()->
@@ -152,6 +146,6 @@ initial_ajax = ()->
 
     ko.applyBindings calendar_view
 
-    # $('li.day').timespace()
+    $('li.day').timespace()
 
 $(document).ready initial_ajax
