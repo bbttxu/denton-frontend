@@ -9,7 +9,7 @@ calendarDayViewModel = function(date, count) {
     var cssClasses;
     cssClasses = [];
     cssClasses.push("count-" + self.count());
-    if (moment().diff(moment(self.id), 'days') > -10) {
+    if (moment().diff(moment(self.id()), 'days') > -10) {
       cssClasses.push("soonish");
     }
     return cssClasses.join(" ");

@@ -4,56 +4,56 @@ $ = jQuery
 m = moment
 
 
-days = {}
+# days = {}
 
-dayViewModel = (day, shows)->
-  self = this
-  self.day = ko.observable(day)
-  self.shows = ko.observableArray(shows)
-  self.mmm = ko.computed ()->
-    moment( self.day() ).format('MM')
-  self.ddd = ko.computed ()->
-    moment( self.day() ).format('dd')
-  self.dd = ko.computed ()->
-    moment( self.day() ).format('DD')
-  self.link = ko.computed ()->
-    "#/shows/" + self.day()
+# dayViewModel = (day, shows)->
+#   self = this
+#   self.day = ko.observable(day)
+#   self.shows = ko.observableArray(shows)
+#   self.mmm = ko.computed ()->
+#     moment( self.day() ).format('MM')
+#   self.ddd = ko.computed ()->
+#     moment( self.day() ).format('dd')
+#   self.dd = ko.computed ()->
+#     moment( self.day() ).format('DD')
+#   self.link = ko.computed ()->
+#     "#/shows/" + self.day()
 
-  self.soonish = ko.computed ()->
-    if (moment().diff(moment(day), 'days') > -10)
-      "soonish"
+#   self.soonish = ko.computed ()->
+#     if (moment().diff(moment(day), 'days') > -10)
+#       "soonish"
 
-  self
+#   self
 
-artistViewModel = (artist)->
-  self = this
-  self.name = ko.observable artist.name
-  self
-
-
-venueViewModel = (venue)->
-  self = this
-  self.name = ko.observable venue.name
-  self
+# artistViewModel = (artist)->
+#   self = this
+#   self.name = ko.observable artist.name
+#   self
 
 
-showViewModel = (show)->
-  self = this
-  self.starts_at = ko.observable show.starts_at
-  self.venue = ko.observable()
-  self.artists = ko.observable()
-  self.css_class = ko.computed ()->
-    length = 0
-    length = self.artists.length if self.artists
-    "count-" + length
+# venueViewModel = (venue)->
+#   self = this
+#   self.name = ko.observable venue.name
+#   self
 
-  self
 
-sv = undefined
+# showViewModel = (show)->
+#   self = this
+#   self.starts_at = ko.observable show.starts_at
+#   self.venue = ko.observable()
+#   self.artists = ko.observable()
+#   self.css_class = ko.computed ()->
+#     length = 0
+#     length = self.artists.length if self.artists
+#     "count-" + length
 
+#   self
+
+# sv = undefined
 
 
 calendar_view = new calendarViewModel
+
 showsViewModel = (calendar)->
 
   self = this
@@ -131,7 +131,6 @@ showsViewModel = (calendar)->
     this.get "#/", ()->
       $('#day').hide()
       $('#calendar').show()
-      console.log days
 
   # routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
   routes.run("#/")
@@ -147,17 +146,12 @@ initial_ajax = ()->
       moment(item.starts_at).format("YYYY-MM-DD")
 
     calendar_days = for day, shows of days
-      date: day
-      count: "count-" + shows.length
-      link: "#/shows/" + day
-      mm: m(day).format('MM')
-      dd: m(day).format('DD')
-      ddd: m(day).format('dd')
+      new calendarDayViewModel day, shows.length
 
     calendar_view.days calendar_days
 
     ko.applyBindings calendar_view
 
-    $('li.day').timespace()
+    # $('li.day').timespace()
 
 $(document).ready initial_ajax

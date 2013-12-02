@@ -46,11 +46,11 @@ body_class: index
   /         %p &raquo;
 
 %script#day-template( type="text/html")
-  %li.day( data-bind="attr: { id: date }, css: count" )
+  %li.day( data-bind="attr: { id: id }, css: classes" )
     %a( data-bind="attr: { href: link }" )!
-      %span.month( data-bind="text: mm")!
-      %span.weekday( data-bind="text: ddd")!
-      %span.day( data-bind="text: dd")!
+      %span.day( data-bind="text: day")!
+      %span.month( data-bind="text: month")!
+      %span.date( data-bind="text: date")!
 
 %script#show-template( type="text/html")
   %li
