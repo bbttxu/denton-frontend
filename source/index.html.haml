@@ -2,15 +2,11 @@
 title: d, tx | BBTTXU
 body_class: index
 ---
-/ %header#header
-/   .title
-/     %h1= link_to "Denton, TX", "#/"
-
 #main
-  #header
+  %header#header
     #sitetitle
       %h3
-        %a.title( href="#/" ) Music in Denton, TX
+        %a.title( href="#/" ) Denton, TX
     #pagetitle
       %h3.title
         %a.title( href="#/" ) Calendar
@@ -52,16 +48,16 @@ body_class: index
       %span.month( data-bind="text: month")!
       %span.date( data-bind="text: date")!
 
-%script#show-template( type="text/html")
-  %li
-    %div.meta
-      %h6
-        %span.time(data-bind="text: moment( show.starts_at ).format('ddd, hA') " ) ???
-        %span.subhead.venue(data-bind="text: venue.name") ???
-        %span.price.right( data-bind="text: show.price" ) ???
+/ %script#show-template( type="text/html")
+/   %li
+/     %div.meta
+/       %h6
+/         %span.time(data-bind="text: moment( show.starts_at ).format('ddd, hA') " ) ???
+/         %span.subhead.venue(data-bind="text: venue.name") ???
+/         %span.price.right( data-bind="text: show.price" ) ???
 
-    .artists
-      %ul.artists.small-block-grid-1( data-bind="template: { foreach: artists, name: 'artist-template' }")
+/     .artists
+/       %ul.artists.small-block-grid-1( data-bind="template: { foreach: artists, name: 'artist-template' }")
 
-%script#artist-template( type="text/html")
-  %li(data-bind="text: name") ???
+/ %script#artist-template( type="text/html")
+/   %li(data-bind="text: name") ???

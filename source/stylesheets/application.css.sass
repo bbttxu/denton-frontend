@@ -28,8 +28,9 @@
 body
   background: darken( $body-bg, 10% )
 
-  margin:
-    bottom: 1em
+  @media (min-width: 768px)
+    margin:
+      bottom: 1em
   // border:
   //   top: 1em solid lightblue
 
@@ -168,3 +169,8 @@ ul.artists
 //   @include expanded(6)
 // .day-sun.expanded
 //   @include expanded(7)
+
+
+header
+  h
+

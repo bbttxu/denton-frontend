@@ -119,19 +119,6 @@ showsViewModel = (calendar)->
 
     sv.current_data( shows )
 
-  routes = Sammy '#calendar', ()->
-
-    this.get '#/shows/:date', (req)->
-      date = req.params['date']
-      console.log date, days[date]
-
-    this.get "#/", ()->
-      $('#day').hide()
-      $('#calendar').show()
-
-  # routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
-  routes.run("#/")
-  self
 
 initial_ajax = ()->
   $.getJSON 'http://denton.blackbeartheory.com/shows.json?callback=?', (data, status)->
@@ -149,3 +136,17 @@ initial_ajax = ()->
     $('li.day').timespace()
 
 $(document).ready initial_ajax
+
+routes = Sammy '#calendar', ()->
+
+  this.get '#/shows/:date', (req)->
+    date = req.params['date']
+    console.log date, days[date]
+
+  this.get "#/", ()->
+    $('#day').hide()
+    $('#calendar').show()
+
+# routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
+routes.run("#/")
+self

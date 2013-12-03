@@ -1,12 +1,23 @@
 // _calendar.sass
-
+$black: #333
 
 #header
   @extend .row
 
+  border:
+    bottom: 3px solid invert( $primary-color )
+
+
+#sitetitle, #pagetitle
+  padding:
+    top: 0.5em
+    // bottom: 0.5em
+  a
+    color: $black
+
 #sitetitle
   @extend .columns
-  @extend .small-12
+  @extend .small-7
   @extend .large-5
   @extend .large-offset-1
   a.title
@@ -16,12 +27,12 @@
 
 #pagetitle
   @extend .columns
-  @extend .small-12
+  @extend .small-5
   @extend .large-5
   text-align: right
 
 @mixin count( $color: 'red' )
-  span.weekday
+  span.day, span.month
     color: $color !important
 
 
@@ -32,7 +43,7 @@
       span.day
         color: $primary-color !important
       span.month
-        color: invert( $primary-color ) !important
+        color: $primary-color !important
 // &.expanded
   //   background: $color
 
@@ -43,11 +54,13 @@
 
 #main
   @extend .row
-  margin:
-    top: 2em
+  @media (min-width: 768px)
 
-  padding:
-    top: 2em
+    margin:
+      top: 1em
+
+    padding:
+      top: 1em
 
   border: 1px solid #ccc
   background: $body-bg
@@ -57,10 +70,15 @@
   @extend .small-12
   @extend .large-5
   @extend .large-offset-5
+  padding:
+    top: 1em
 
 
 ul#calendar
   li
+    vertical-align: middle
+    text-align: center
+
     span.day
       display: none
 
@@ -70,15 +88,14 @@ ul#calendar
       span.day
         display: inherit
 
-
     a
-      vertical-align: middle
       font-size: 1.5em
       text-align: center
       line-height: 0.5em
       padding-top: 0.5em
+
     span.day
-      color: invert( $primary-color )
+      // color: invert( $primary-color )
 
     span.month
       color: $primary-color
@@ -93,11 +110,13 @@ ul#calendar
         color: lighten( grayscale( $primary-color), 40% ) !important
 
     &.count-1
-      @include count( $primary-color)
+      @include count( adjust-hue( $primary-color, 360deg ))
     &.count-2
-      @include count( adjust-hue( $primary-color, 270deg ))
+      @include count( adjust-hue( $primary-color, 300deg ))
     &.count-3
-      @include count( adjust-hue( $primary-color, 270deg ))
+      @include count( adjust-hue( $primary-color, 210deg ))
+    &.count-4
+      @include count( adjust-hue( $primary-color, 165deg ))
 
 @mixin date_offset($offset: 0)
   header
