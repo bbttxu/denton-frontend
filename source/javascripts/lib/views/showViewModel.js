@@ -10,7 +10,7 @@ showViewModel = function(show, venue, gigs) {
   self.venue = ko.observable(venue);
   self.gigs = ko.observableArray(gigs);
   self.time = ko.computed( function() {
-    return moment(self.starts_at()).format('hA');
+    return moment(self.starts_at()).format('h:mmA');
   });
   return self;
 };
