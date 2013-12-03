@@ -23,13 +23,14 @@ venue_by_id = _.memoize venue_by_id
 
 gig_by_id = (id)->
   for gig in local_data.gigs
-    return new gigViewModel(gig) if gig.id is id
+    artist = artist_by_id gig.artists
+    return new gigViewModel(artist, gig.position) if gig.id is id
   nil
 gig_by_id = _.memoize gig_by_id
 
 artist_by_id = (id)->
   for artist in local_data.artists
-    return new artistViewModel(artist.name) if artist.id is id
+    return artist.name if artist.id is id
   nil
 artist_by_id = _.memoize artist_by_id
 
@@ -156,18 +157,24 @@ initial_ajax = ()->
         shows = for show in days[date]
           venue = venue_by_id show.venues
 
+          gigs = for gig_id in show.gigs
+            # console.log gig_id
+            gig = gig_by_id gig_id
+            # console.log gig
+            # artist = artist_by_id gig.artists
+            # console.log gig
+            # gig.artist = artist_by_id gig.artists
+            console.log gig
+            gig
 
-          new showViewModel show, venue.name
+          console.log gigs
+          new showViewModel show, venue.name, gigs
 
         calendar_shows.shows(shows)
 
         console.log calendar_shows
 
 
-        # for gig_id in show.gigs
-        #   console.log gig_id
-        #   gig = gig_by_id gig_id
-        #   gig.artist = artist_by_id gig.artists
 
       this.get "#/", ()->
         $('#day').hide()

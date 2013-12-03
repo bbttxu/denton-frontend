@@ -2,10 +2,10 @@
 
 var gigViewModel;
 
-gigViewModel = function(gig) {
+gigViewModel = function(artist, position) {
   var self;
   self = this;
-  self.position = ko.observable(gig.position);
-  self.artist = ko.observable();
+  self.artist = ko.observable(artist);
+  self.position = ko.observable(position);
   return self;
 };
