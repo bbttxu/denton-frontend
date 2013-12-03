@@ -24,7 +24,7 @@ calendarDayViewModel = function(date, count) {
     return moment(self.id()).format("MM");
   });
   self.link = ko.computed(function() {
-    return "#/" + self.id();
+    return "#/shows/" + self.id();
   });
   return self;
 };

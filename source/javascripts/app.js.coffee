@@ -4,7 +4,35 @@ $ = jQuery
 m = moment
 
 
-# days = {}
+days = {}
+shows_days = {}
+local_data = {}
+
+
+venue_by_id = (id)->
+  for venue in local_data.venues
+    return venue if venue.id is id
+  nil
+venue_by_id = _.memoize venue_by_id
+
+# show_by_id = (id)->
+#   for show in data.shows
+#     return show if show.id is id
+#   nil
+# show_by_id = _.memoize show_by_id
+
+gig_by_id = (id)->
+  for gig in local_data.gigs
+    return new gigViewModel(gig) if gig.id is id
+  nil
+gig_by_id = _.memoize gig_by_id
+
+artist_by_id = (id)->
+  for artist in local_data.artists
+    return new artistViewModel(artist.name) if artist.id is id
+  nil
+artist_by_id = _.memoize artist_by_id
+
 
 # dayViewModel = (day, shows)->
 #   self = this
@@ -53,75 +81,55 @@ m = moment
 
 
 calendar_view = new calendarViewModel
+calendar_shows = new calendarShowsViewModel
 
-showsViewModel = (calendar)->
+# showsViewModel = (calendar)->
 
-  self = this
-  self.calendar = ko.observable( calendar )
-  self.current_date = ko.observable('')
-  self.current_data = ko.observable([])
+#   self = this
+#   self.calendar = ko.observable( calendar )
+#   self.current_date = ko.observable('')
+#   self.current_data = ko.observable([])
 
-  get_show_json = (data)->
+#   get_show_json = (data)->
 
-    self.current_data( data )
+#     self.current_data( data )
 
-    venue_by_id = (id)->
-      for venue in data.venues
-        return venue if venue.id is id
-      nil
-    venue_by_id = _.memoize venue_by_id
 
-    show_by_id = (id)->
-      for show in data.shows
-        return show if show.id is id
-      nil
-    show_by_id = _.memoize show_by_id
+#     shows = []
 
-    gig_by_id = (id)->
-      for gig in data.gigs
-        return gig if gig.id is id
-      nil
-    gig_by_id = _.memoize gig_by_id
+#     for show in data.shows
 
-    artist_by_id = (id)->
-      for artist in data.artists
-        return artist if artist.id is id
-      nil
-    artist_by_id = _.memoize artist_by_id
+#       new_show = {}
+#       sh = show_by_id show.id
+#       console.log sh
+#       show_view = new showViewModel sh
 
-    shows = []
+#       venue = venue_by_id show.venues
+#       new_show.venue = venue.name
 
-    for show in data.shows
+#       # show_view.venue(venue_view)
+#       console.log show_view
+#       artist_views = []
+#       artists = []
+#       for gig_id in show.gigs
+#         gig = gig_by_id gig_id
 
-      new_show = {}
-      sh = show_by_id show.id
-      console.log sh
-      show_view = new showViewModel sh
+#         artist = artist_by_id gig.artists
+#         new_show.artists.push artist
+#         artist_view = new artistViewModel( artist )
+#         artist_views.push artist_view
 
-      venue = venue_by_id show.venues
-      new_show.venue = venue.name
+#       shows.push new_show
 
-      # show_view.venue(venue_view)
-      console.log show_view
-      artist_views = []
-      artists = []
-      for gig_id in show.gigs
-        gig = gig_by_id gig_id
+#     # console.log shows
 
-        artist = artist_by_id gig.artists
-        new_show.artists.push artist
-        artist_view = new artistViewModel( artist )
-        artist_views.push artist_view
+#     sv.current_data( shows )
 
-      shows.push new_show
-
-    # console.log shows
-
-    sv.current_data( shows )
-
+set_local_data = (data, status)->
 
 initial_ajax = ()->
   $.getJSON 'http://denton.blackbeartheory.com/shows.json?callback=?', (data, status)->
+    local_data = data
 
     days = _.groupBy data.shows, (item)->
       moment(item.starts_at).format("YYYY-MM-DD")
@@ -131,22 +139,44 @@ initial_ajax = ()->
 
     calendar_view.days calendar_days
 
-    ko.applyBindings calendar_view
+    ko.applyBindings calendar_view, $('#upcoming')[0]
+    ko.applyBindings calendar_shows, $('#day')[0]
 
     $('li.day').timespace()
 
+    routes = Sammy '#calendar', ()->
+
+      this.get '#/shows/:date', (req)->
+        $('#day').show()
+        $('#calendar').hide()
+
+        date = req.params['date']
+        calendar_shows.id(date)
+
+        shows = for show in days[date]
+          venue = venue_by_id show.venues
+
+
+          new showViewModel show, venue.name
+
+        calendar_shows.shows(shows)
+
+        console.log calendar_shows
+
+
+        # for gig_id in show.gigs
+        #   console.log gig_id
+        #   gig = gig_by_id gig_id
+        #   gig.artist = artist_by_id gig.artists
+
+      this.get "#/", ()->
+        $('#day').hide()
+        $('#calendar').show()
+
+    routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
+    # routes.run("#/")
+    self
+
+
 $(document).ready initial_ajax
 
-routes = Sammy '#calendar', ()->
-
-  this.get '#/shows/:date', (req)->
-    date = req.params['date']
-    console.log date, days[date]
-
-  this.get "#/", ()->
-    $('#day').hide()
-    $('#calendar').show()
-
-# routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
-routes.run("#/")
-self
