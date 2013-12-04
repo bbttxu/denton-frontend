@@ -212,7 +212,6 @@ initial_ajax = ()->
         $('#calendar').show()
 
     routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
-    # routes.run("#/")
     self
 
 

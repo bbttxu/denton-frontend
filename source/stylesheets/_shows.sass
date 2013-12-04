@@ -3,8 +3,8 @@
 
 div.shows
   @extend .columns
-  @extend .small-8
-  @extend .large-10
+  @extend .small-7
+  @extend .large-8
 
   ul.shows
     // @include block-grid(2, 3ex)
@@ -14,12 +14,12 @@ div.shows
 
   li
     div.meta
-      $some-color: invert($primary-color)
+      $some-color: $primary-color
       overflow: hidden
       background:
         color: $some-color
       border:
-        bottom: 3px solid $some-color
+        bottom: 2px solid $some-color
       h6
 
         line-height: 1.4em
@@ -38,7 +38,7 @@ div.shows
           top: 0.0em
           bottom: 0.0em
         span.venue
-          color: $primary-color
+          color: invert($primary-color)
           // body.night &
           //   color: #ccc
 

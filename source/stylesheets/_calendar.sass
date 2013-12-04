@@ -32,18 +32,19 @@ $black: #333
   text-align: right
 
 @mixin count( $color: 'red' )
-  span.day, span.month
+  span.day
     color: $color !important
 
 
   // border:
   //   color: $color
-  h3
-    a
+  header
+    h3
+      a
       span.day
-        color: $primary-color !important
-      span.month
-        color: $primary-color !important
+        color: $color !important
+      // span.month
+      //   color: $primary-color !important
 // &.expanded
   //   background: $color
 
@@ -73,6 +74,13 @@ $black: #333
   padding:
     top: 1em
 
+#day
+  display: none
+
+  .calendar header
+    @extend .columns
+    @extend .small-10
+    text-align: right
 
 ul#calendar
   li
@@ -97,8 +105,8 @@ ul#calendar
     span.day
       // color: invert( $primary-color )
 
-    span.month
-      color: $primary-color
+    // span.month
+    //   color: $primary-color
 
     span.date
       color: black
@@ -109,22 +117,24 @@ ul#calendar
       a
         color: lighten( grayscale( $primary-color), 40% ) !important
 
-    &.count-1
-      @include count( adjust-hue( $primary-color, 360deg ))
-    &.count-2
-      @include count( adjust-hue( $primary-color, 300deg ))
-    &.count-3
-      @include count( adjust-hue( $primary-color, 210deg ))
-    &.count-4
-      @include count( adjust-hue( $primary-color, 165deg ))
+.calendar, .day
+  &.count-1
+    @include count( adjust-hue( $primary-color, 360deg ))
+  &.count-2
+    @include count( adjust-hue( $primary-color, 300deg ))
+  &.count-3
+    @include count( adjust-hue( $primary-color, 210deg ))
+  &.count-4
+    @include count( adjust-hue( $primary-color, 165deg ))
 
 @mixin date_offset($offset: 0)
   header
     // @extend .small-offset-#{$offset - 1}
     // @extend .large-offset-#{$offset + 1}
     // @extend .right
-    // @extend .small-offset-2
+    @extend .small-offset-2
     @extend .columns
+    @extend .small-12
     text-align: right
 
   &.expanded
@@ -176,6 +186,14 @@ ul#calendar
   // header
   //   background: whitesmoke
 
+  header
+    // font:
+    //   size: 1.2em
+
+    padding:
+      bottom: 2em
+    // margin:
+    //   top: -1.2em
 
   .content
     // display: none
@@ -239,10 +257,10 @@ ul#calendar
     // padding: 0
 
     // text-align: center
-    span.month
-      color: $primary-color
+    // span.month
+    //   color: $primary-color
     span.day
-      color: invert( $primary-color )
+      // color: invert( $primary-color )
 
   &.day-mon
     @include date_offset(1)

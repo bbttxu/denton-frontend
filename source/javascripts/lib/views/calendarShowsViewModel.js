@@ -21,14 +21,20 @@ calendarShowsViewModel = function(date) {
     return false;
   });
   self.day = ko.computed(function() {
-    return moment(self.id()).format("dd");
+    return moment(self.id()).format("dddd");
   });
   self.date = ko.computed(function() {
-    return moment(self.id()).format("DD");
+    return moment(self.id()).format("D");
   });
   self.month = ko.computed(function() {
-    return moment(self.id()).format("MM");
+    return moment(self.id()).format("MMMM");
   });
   self.shows = ko.observableArray([]);
+  self.countClass = ko.computed( function() {
+    if ( self.shows() ) {
+      return "count-" + self.shows().length;
+    }
+    return "count-0";
+  });
   return self;
 };
