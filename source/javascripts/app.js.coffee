@@ -8,8 +8,6 @@ days = {}
 shows_days = {}
 local_data = {}
 
-
-
 nextShowDateFrom = (date)->
   true
 
@@ -18,12 +16,6 @@ venue_by_id = (id)->
     return venue if venue.id is id
   nil
 venue_by_id = _.memoize venue_by_id
-
-# show_by_id = (id)->
-#   for show in data.shows
-#     return show if show.id is id
-#   nil
-# show_by_id = _.memoize show_by_id
 
 gig_by_id = (id)->
   for gig in local_data.gigs
@@ -38,99 +30,8 @@ artist_by_id = (id)->
   nil
 artist_by_id = _.memoize artist_by_id
 
-
-# dayViewModel = (day, shows)->
-#   self = this
-#   self.day = ko.observable(day)
-#   self.shows = ko.observableArray(shows)
-#   self.mmm = ko.computed ()->
-#     moment( self.day() ).format('MM')
-#   self.ddd = ko.computed ()->
-#     moment( self.day() ).format('dd')
-#   self.dd = ko.computed ()->
-#     moment( self.day() ).format('DD')
-#   self.link = ko.computed ()->
-#     "#/shows/" + self.day()
-
-#   self.soonish = ko.computed ()->
-#     if (moment().diff(moment(day), 'days') > -10)
-#       "soonish"
-
-#   self
-
-# artistViewModel = (artist)->
-#   self = this
-#   self.name = ko.observable artist.name
-#   self
-
-
-# venueViewModel = (venue)->
-#   self = this
-#   self.name = ko.observable venue.name
-#   self
-
-
-# showViewModel = (show)->
-#   self = this
-#   self.starts_at = ko.observable show.starts_at
-#   self.venue = ko.observable()
-#   self.artists = ko.observable()
-#   self.css_class = ko.computed ()->
-#     length = 0
-#     length = self.artists.length if self.artists
-#     "count-" + length
-
-#   self
-
-# sv = undefined
-
-
 calendar_view = new calendarViewModel
 calendar_shows = new calendarShowsViewModel
-
-# showsViewModel = (calendar)->
-
-#   self = this
-#   self.calendar = ko.observable( calendar )
-#   self.current_date = ko.observable('')
-#   self.current_data = ko.observable([])
-
-#   get_show_json = (data)->
-
-#     self.current_data( data )
-
-
-#     shows = []
-
-#     for show in data.shows
-
-#       new_show = {}
-#       sh = show_by_id show.id
-#       console.log sh
-#       show_view = new showViewModel sh
-
-#       venue = venue_by_id show.venues
-#       new_show.venue = venue.name
-
-#       # show_view.venue(venue_view)
-#       console.log show_view
-#       artist_views = []
-#       artists = []
-#       for gig_id in show.gigs
-#         gig = gig_by_id gig_id
-
-#         artist = artist_by_id gig.artists
-#         new_show.artists.push artist
-#         artist_view = new artistViewModel( artist )
-#         artist_views.push artist_view
-
-#       shows.push new_show
-
-#     # console.log shows
-
-#     sv.current_data( shows )
-
-set_local_data = (data, status)->
 
 initial_ajax = ()->
   $.getJSON 'http://denton.blackbeartheory.com/shows.json?callback=?', (data, status)->
@@ -159,7 +60,8 @@ initial_ajax = ()->
     #     item = calendar[(calendar.indexOf(date) + offset)]
     #     return item if item
     #     false
-
+    # previousShowDateTo = adjacentCalendarDate(date, -1)
+    # nextShowDateFrom = adjacentCalendarDate(date, +1)
 
     previousShowDateTo = (date)->
       prev = calendar[(calendar.indexOf(date) - 1)]
@@ -171,11 +73,6 @@ initial_ajax = ()->
       return next if next
       false
 
-    # previousShowDateTo = adjacentCalendarDate(date, -1)
-    # nextShowDateFrom = adjacentCalendarDate(date, +1)
-
-
-
     routes = Sammy '#calendar', ()->
 
       this.get '#/shows/:date', (req)->
@@ -185,13 +82,9 @@ initial_ajax = ()->
         date = req.params['date']
         calendar_shows.id(date)
 
-        # console.log calendar
-        # prev = previousShowDateTo date
         calendar_shows.prevDay previousShowDateTo date
 
-        # next = nextShowDateFrom date
         calendar_shows.nextDay nextShowDateFrom date
-        # console.log next
 
         shows = for show in days[date]
           venue = venue_by_id show.venues
@@ -203,9 +96,7 @@ initial_ajax = ()->
 
         calendar_shows.shows(shows)
 
-        console.log calendar_shows
-
-
+        $.scrollTo '#day'
 
       this.get "#/", ()->
         $('#day').hide()
