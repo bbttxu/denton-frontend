@@ -74,6 +74,7 @@ initial_ajax = ()->
       false
 
     routes = Sammy '#calendar', ()->
+      this.use('GoogleAnalytics')
 
       this.get '#/shows/:date', (req)->
         $('#day').show()
