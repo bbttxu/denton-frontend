@@ -3,11 +3,15 @@
 $ = jQuery
 m = moment
 
-
+calendar = []
 days = {}
 shows_days = {}
 local_data = {}
 
+
+
+nextShowDateFrom = (date)->
+  true
 
 venue_by_id = (id)->
   for venue in local_data.venues
@@ -135,6 +139,10 @@ initial_ajax = ()->
     days = _.groupBy data.shows, (item)->
       moment(item.starts_at).format("YYYY-MM-DD")
 
+    calendar = _.map days, (value, key)-> key
+    calendar.sort
+    # console.log calendar
+
     calendar_days = for day, shows of days
       new calendarDayViewModel day, shows.length
 
@@ -145,6 +153,24 @@ initial_ajax = ()->
 
     $('li.day').timespace()
 
+    previousShowDateTo = (date)->
+      index = calendar.indexOf(date)
+      console.log calendar
+      console.log index, calendar[index]
+      prev = calendar[(index - 1)]
+      return prev if prev
+      false
+
+    nextShowDateFrom = (date)->
+      index = calendar.indexOf(date)
+      console.log calendar
+      console.log index, calendar[index]
+      next = calendar[(index + 1)]
+      return next if next
+      false
+
+
+
     routes = Sammy '#calendar', ()->
 
       this.get '#/shows/:date', (req)->
@@ -154,20 +180,20 @@ initial_ajax = ()->
         date = req.params['date']
         calendar_shows.id(date)
 
+        console.log calendar
+        prev = previousShowDateTo date
+        calendar_shows.prevDay prev if prev
+
+        next = nextShowDateFrom date
+        calendar_shows.nextDay next if next
+        console.log next
+
         shows = for show in days[date]
           venue = venue_by_id show.venues
 
           gigs = for gig_id in show.gigs
-            # console.log gig_id
-            gig = gig_by_id gig_id
-            # console.log gig
-            # artist = artist_by_id gig.artists
-            # console.log gig
-            # gig.artist = artist_by_id gig.artists
-            console.log gig
-            gig
+            gig_by_id gig_id
 
-          console.log gigs
           new showViewModel show, venue.name, gigs
 
         calendar_shows.shows(shows)

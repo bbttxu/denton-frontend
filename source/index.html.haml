@@ -24,8 +24,8 @@ body_class: index
 
           %a.menu( href="#/" ) &#9776;
       .content
-        .prev
-          %p &laquo;
+        .prev( data-bind="'if': prevDay" )
+          %a( data-bind="attr: { href: prevDayLink }" ) &laquo;
         .shows
           %ul.shows.small-block-grid-1.large-block-grid-2(data-bind="foreach: shows")
             %li
@@ -38,8 +38,8 @@ body_class: index
               .artists
                 %ul.artists.small-block-grid-1( data-bind="template: { foreach: gigs, name: 'artist-template' }")
 
-        .next
-          %p &raquo;
+        .next( data-bind="if: nextDay" )
+          %a( data-bind="attr: { href: nextDayLink }" ) &raquo;
 
 %script#day-template( type="text/html")
   %li.day( data-bind="attr: { id: id }, css: classes" )
@@ -47,6 +47,10 @@ body_class: index
       %span.day( data-bind="text: day")!
       %span.month( data-bind="text: month")!
       %span.date( data-bind="text: date")!
+
+%script#artist-template( type="text/html")
+  %li(data-bind="text: artist") ???
+
 
 / %script#show-template( type="text/html")
 /   %li
@@ -58,6 +62,3 @@ body_class: index
 
 /     .artists
 /       %ul.artists.small-block-grid-1( data-bind="template: { foreach: artists, name: 'artist-template' }")
-
-%script#artist-template( type="text/html")
-  %li(data-bind="text: artist") ???
