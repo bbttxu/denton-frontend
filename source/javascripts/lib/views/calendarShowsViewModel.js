@@ -6,14 +6,14 @@ calendarShowsViewModel = function(date) {
   var self;
   self = this;
   self.id = ko.observable(date);
-  self.prevDay = ko.observable(true);
+  self.prevDay = ko.observable(false);
   self.prevDayLink = ko.computed( function() {
     if ( self.prevDay() ) {
       return "#/shows/" + self.prevDay();
     }
     return false;
   });
-  self.nextDay = ko.observable(true);
+  self.nextDay = ko.observable(false);
   self.nextDayLink = ko.computed( function() {
     if ( self.nextDay() ) {
       return "#/shows/" + self.nextDay();

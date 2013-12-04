@@ -153,21 +153,26 @@ initial_ajax = ()->
 
     $('li.day').timespace()
 
+
+    # adjacentCalendarDate = (date, offset) ->
+    #   (date)->
+    #     item = calendar[(calendar.indexOf(date) + offset)]
+    #     return item if item
+    #     false
+
+
     previousShowDateTo = (date)->
-      index = calendar.indexOf(date)
-      console.log calendar
-      console.log index, calendar[index]
-      prev = calendar[(index - 1)]
+      prev = calendar[(calendar.indexOf(date) - 1)]
       return prev if prev
       false
 
     nextShowDateFrom = (date)->
-      index = calendar.indexOf(date)
-      console.log calendar
-      console.log index, calendar[index]
-      next = calendar[(index + 1)]
+      next = calendar[(calendar.indexOf(date) + 1)]
       return next if next
       false
+
+    # previousShowDateTo = adjacentCalendarDate(date, -1)
+    # nextShowDateFrom = adjacentCalendarDate(date, +1)
 
 
 
@@ -180,13 +185,13 @@ initial_ajax = ()->
         date = req.params['date']
         calendar_shows.id(date)
 
-        console.log calendar
-        prev = previousShowDateTo date
-        calendar_shows.prevDay prev if prev
+        # console.log calendar
+        # prev = previousShowDateTo date
+        calendar_shows.prevDay previousShowDateTo date
 
-        next = nextShowDateFrom date
-        calendar_shows.nextDay next if next
-        console.log next
+        # next = nextShowDateFrom date
+        calendar_shows.nextDay nextShowDateFrom date
+        # console.log next
 
         shows = for show in days[date]
           venue = venue_by_id show.venues
