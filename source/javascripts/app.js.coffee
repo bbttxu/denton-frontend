@@ -54,9 +54,8 @@ initial_ajax = ()->
 
     $('li.day').timespace()
 
-
     # adjacentCalendarDate = (date, offset) ->
-    #   (date)->
+    #   (offset)->
     #     item = calendar[(calendar.indexOf(date) + offset)]
     #     return item if item
     #     false
@@ -98,7 +97,6 @@ initial_ajax = ()->
         calendar_shows.shows(shows)
 
         $.scrollTo '#day'
-        ga('send', 'pageview')
 
       this.get "#/", ()->
         $('#day').hide()

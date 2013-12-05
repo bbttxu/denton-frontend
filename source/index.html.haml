@@ -1,5 +1,5 @@
 ---
-title: d, tx | BBTTXU
+title: "Denton, TX Show list | BBTTXU"
 body_class: index
 ---
 #main
@@ -26,16 +26,7 @@ body_class: index
         .prev( data-bind="'if': prevDay" )
           %a( data-bind="attr: { href: prevDayLink }" ) &laquo;
         .shows
-          %ul.shows.small-block-grid-1.large-block-grid-2(data-bind="foreach: shows")
-            %li
-              %div.meta
-                %h6
-                  %span.time(data-bind="text: time" ) Starts At
-                  %span.subhead.venue(data-bind="text: venue") Venue
-                  %span.price.right( data-bind="text: price" ) Price
-
-              .artists
-                %ul.artists.small-block-grid-1( data-bind="template: { foreach: gigs, name: 'artist-template' }")
+          %ul.shows.small-block-grid-1.large-block-grid-2( data-bind="template: { name: 'show-template', foreach: shows }" )
 
         .next( data-bind="if: nextDay" )
           %a( data-bind="attr: { href: nextDayLink }" ) &raquo;
@@ -46,6 +37,17 @@ body_class: index
       %span.day( data-bind="text: day")!
       %span.month( data-bind="text: month")!
       %span.date( data-bind="text: date")!
+
+%script#show-template( type="text/html")
+  %li
+    %div.meta
+      %h6
+        %span.time(data-bind="text: time" ) Starts At
+        %span.subhead.venue(data-bind="text: venue") Venue
+        %span.price.right( data-bind="text: price" ) Price
+
+    .artists
+      %ul.artists.small-block-grid-1( data-bind="template: { foreach: gigs, name: 'artist-template' }")
 
 %script#artist-template( type="text/html")
   %li(data-bind="text: artist") ???
