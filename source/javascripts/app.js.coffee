@@ -98,6 +98,7 @@ initial_ajax = ()->
         calendar_shows.shows(shows)
 
         $.scrollTo '#day'
+        ga('send', 'pageview')
 
       this.get "#/", ()->
         $('#day').hide()
