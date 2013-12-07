@@ -30,6 +30,8 @@ body_class: index
 
         .next( data-bind="if: nextDay" )
           %a( data-bind="attr: { href: nextDayLink }" ) &raquo;
+  = partial 'shared/_footer'
+
 
 %script#day-template( type="text/html")
   %li.day( data-bind="attr: { id: id }, css: classes" )
