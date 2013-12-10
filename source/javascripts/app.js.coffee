@@ -34,7 +34,7 @@ calendar_view = new calendarViewModel
 calendar_shows = new calendarShowsViewModel
 
 initial_ajax = ()->
-  $.getJSON 'http://denton.blackbeartheory.com/shows.json?callback=?', (data, status)->
+  $.getJSON 'http://denton-api1.blackbeartheory.com/shows.json?callback=?', (data, status)->
     local_data = data
 
     days = _.groupBy data.shows, (item)->
