@@ -34,7 +34,7 @@ calendar_view = new calendarViewModel
 calendar_shows = new calendarShowsViewModel
 
 initial_ajax = ()->
-  $.getJSON 'http://denton.blackbeartheory.com/shows.json?callback=?', (data, status)->
+  $.getJSON 'http://denton-api1.blackbeartheory.com/shows.json?callback=?', (data, status)->
     local_data = data
 
     days = _.groupBy data.shows, (item)->
@@ -76,8 +76,8 @@ initial_ajax = ()->
       this.use('GoogleAnalytics')
 
       this.get '#/shows/:date', (req)->
-        $('#day').show()
-        $('#calendar').hide()
+        $('#day').fadeIn()
+        $('#calendar').fadeOut()
 
         date = req.params['date']
         calendar_shows.id(date)
@@ -99,12 +99,34 @@ initial_ajax = ()->
         $.scrollTo '#day'
 
       this.get "#/", ()->
-        $('#day').hide()
-        $('#calendar').show()
+        $('#day').fadeOut()
+        $('#calendar').fadeIn()
 
     routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
     self
 
 
 $(document).ready initial_ajax
+
+
+
+
+
+
+
+
+
+do ( $ = jQuery, m = moment, window )->
+  day_or_night = ( today, time = moment() )->
+    if (today.sunrise < time.to_i and time.to_i < today.sunset) then "day" else "night"
+
+  $(document).ready ()->
+    request =
+      # url: "https://api.forecast.io/forecast/APIKEY/40.463487,17.248535"
+      url: "http://api.openweathermap.org/data/2.5/weather?id=4685907"
+      dataType: "jsonp"
+      success: (data)->
+        $('body').toggleClass day_or_night data.sys
+
+    $.ajax request
 
