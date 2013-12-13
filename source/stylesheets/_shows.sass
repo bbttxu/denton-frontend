@@ -29,10 +29,11 @@ div.shows
           // color: whitesmoke
         color: black
 
-        body.night &
-          color: #ccc
-          background:
-            color: #222
+        @include day_or_night($body-bg)
+        // body.night &
+        //   color: #ccc
+        //   background:
+        //     color: #222
 
         margin:
           top: 0.0em

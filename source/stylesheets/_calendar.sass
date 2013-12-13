@@ -10,6 +10,9 @@ $black: #333
   a
     color: $black
 
+    body.night &
+      color: invert( $black )
+
 #sitetitle
   @extend .columns
   @extend .small-7
@@ -47,19 +50,6 @@ $black: #333
   //     &.day, &.month
   //       display: visible
   //       color: grayscale( $color )
-
-#main
-  @extend .row
-  @media (min-width: 768px)
-
-    margin:
-      top: 1em
-
-    padding:
-      top: 1em
-
-  border: 1px solid #ccc
-  background: $body-bg
 
 #upcoming
   @extend .columns
@@ -104,13 +94,22 @@ ul#calendar
     //   color: $primary-color
 
     span.date
-      color: black
+      color: $black
 
+      body.night &
+        color: invert( $black )
 
     &.count-0
       @include count( grayscale( $primary-color) )
       a
         color: lighten( grayscale( $primary-color), 40% ) !important
+
+        body.night &
+          color: darken( grayscale( $primary-color), 30% ) !important
+
+
+
+
 
 .calendar, .day
   &.count-1
@@ -237,7 +236,9 @@ ul#calendar
 
 
   h3
-    text-shadow: #eee 1px 1px 10px
+    // text-shadow: #eee 1px 1px 10px
+
+
     margin:
       // left: 1ex
       bottom: 0
@@ -257,17 +258,17 @@ ul#calendar
     span.day
       // color: invert( $primary-color )
 
-  &.day-mon
-    @include date_offset(1)
-  &.day-tue
-    @include date_offset(2)
-  &.day-wed
-    @include date_offset(3)
-  &.day-thu
-    @include date_offset(4)
-  &.day-fri
-    @include date_offset(5)
-  &.day-sat
-    @include date_offset(6)
-  &.day-sun
-    @include date_offset(7)
+  // &.day-mon
+  //   @include date_offset(1)
+  // &.day-tue
+  //   @include date_offset(2)
+  // &.day-wed
+  //   @include date_offset(3)
+  // &.day-thu
+  //   @include date_offset(4)
+  // &.day-fri
+  //   @include date_offset(5)
+  // &.day-sat
+  //   @include date_offset(6)
+  // &.day-sun
+  //   @include date_offset(7)

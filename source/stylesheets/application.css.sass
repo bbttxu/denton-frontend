@@ -1,25 +1,22 @@
 
 @import "foundation_and_overrides"
 
-@import "base"
-@import "header"
-@import "footer"
-
-@import "buttons"
-@import "artists"
-@import "calendar"
-@import "shows"
-@import "venues"
-
 @mixin count( $color: 'red' )
   // border:
   //   color: $color
   h3
+    text-shadow: $color 1px 1px 5px
     a
       span.day
         color: $primary-color !important
       span.month
         color: invert( $primary-color )
+
+@mixin day_or_night( $dayColor: $body-bg, $nightColor: invert( $dayColor ) )
+  body &
+    background: $dayColor
+  body.night &
+    background: $nightColor
 // &.expanded
   //   background: $color
 
@@ -35,12 +32,57 @@
 //   width: 100%
 //   text-align: center
 
+
+
+@import "base"
+@import "header"
+@import "footer"
+
+@import "buttons"
+@import "artists"
+@import "calendar"
+@import "shows"
+@import "venues"
+
 #main
+  @extend .row
+
+  @include day_or_night( lighten($body-bg, 20% ), invert( $body-bg) )
+
   min-height: 30em
-  box-shadow: 2px 4px 8px #999
+
+  background: $body-bg
+
+
+
+  @media (min-width: 768px)
+
+    border: 1px solid #ccc
+    box-shadow: 2px 4px 8px #999
+
+    body.night &
+      box-shadow: none
+      // background: invert( $body-bg )
+      border: 0px
+
+
+    margin:
+      top: 1em
+
+    padding:
+      top: 1em
+
+
+
+
+// h1, h2, h3, h4, h5, h6
+//   @include day_or_night($primary-color)
 
 body
-  background: darken( $body-bg, 10% )
+  background: $body-bg
+
+  &.night
+    background: invert( $body-bg )
 
   @media (min-width: 768px)
     margin:
@@ -115,12 +157,12 @@ body
 
 
 
-.count-1
-  @include count( $primary-color)
-.count-2
-  @include count( adjust-hue( $primary-color, 270deg ))
-.count-3
-  @include count( adjust-hue( $primary-color, 270deg ))
+// .count-1
+//   @include count( $primary-color)
+// .count-2
+//   @include count( adjust-hue( $primary-color, 270deg ))
+// .count-3
+//   @include count( adjust-hue( $primary-color, 270deg ))
 
 
 .calendar
