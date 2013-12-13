@@ -43,9 +43,10 @@ body_class: index
   %li
     %div.meta
       %h6
-        %span.time(data-bind="text: time" ) Starts At
-        %span.subhead.venue(data-bind="text: venue") Venue
-        %span.price.right( data-bind="text: price" ) Price
+        %a(data-bind="attr: { href: source }")
+          %span.time(data-bind="text: time" ) Starts At
+          %span.subhead.venue(data-bind="text: venue") Venue
+          %span.price.right( data-bind="text: price" ) Price
 
     .artists
       %ul.artists.small-block-grid-1( data-bind="template: { foreach: gigs, name: 'artist-template' }")
