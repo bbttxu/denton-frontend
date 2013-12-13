@@ -33,6 +33,21 @@ artist_by_id = _.memoize artist_by_id
 calendar_view = new calendarViewModel
 calendar_shows = new calendarShowsViewModel
 
+
+
+animateShow =
+  opacity: 'show'
+  margin: 'show'
+  padding: 'show'
+  height: 'show'
+
+animateHide =
+  opacity: 'hide'
+  margin: 'hide'
+  padding: 'hide'
+  height: 'hide'
+
+
 initial_ajax = ()->
   $.getJSON 'http://denton-api1.blackbeartheory.com/shows.json?callback=?', (data, status)->
     local_data = data
@@ -76,8 +91,8 @@ initial_ajax = ()->
       this.use('GoogleAnalytics')
 
       this.get '#/shows/:date', (req)->
-        $('#day').fadeIn()
-        $('#calendar').fadeOut()
+        $('#day').animate animateShow, 'fast'
+        $('#calendar').animate animateHide, 'fast'
 
         date = req.params['date']
         calendar_shows.id(date)
@@ -99,8 +114,8 @@ initial_ajax = ()->
         $.scrollTo '#day'
 
       this.get "#/", ()->
-        $('#day').fadeOut()
-        $('#calendar').fadeIn()
+        $('#day').animate animateHide, 'fast'
+        $('#calendar').animate animateShow, 'fast'
 
     routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
     self

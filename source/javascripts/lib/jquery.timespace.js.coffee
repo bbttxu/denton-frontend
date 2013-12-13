@@ -1,4 +1,4 @@
-(($, m) ->
+do ( $ = jQuery, m = moment ) ->
   $.fn.extend timespace: (options) ->
     log = undefined
     settings = undefined
@@ -29,6 +29,3 @@
       $prev = $this.prev()
       earliest = moment($prev.attr("id")) unless $prev.length is 0
       fill_time_gap_between earliest.format("YYYY-MM-DD"), $this.attr("id"), $this
-
-
-) jQuery, moment
