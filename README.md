@@ -15,7 +15,7 @@
 * Google Analytics (async)
 
 ### Installation ###
- 
+
 Clone **middleman-hamlsasscoffee** into `~/.middleman`. You will need to create this directory if it doesn't exist.
 ```$ git clone git://github.com/pixelsonly/middleman-hamlsasscoffee.git ~/.middleman/middleman-hamlsasscoffee```
 
