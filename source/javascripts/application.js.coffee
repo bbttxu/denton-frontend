@@ -1,3 +1,7 @@
+###
+sprockets
+###
+
 #= require_tree ./vendor
 #= require ./lib/sammy
 #= require ./lib/moment.min
