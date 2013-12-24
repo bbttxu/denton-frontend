@@ -10,8 +10,6 @@ shows_days = {}
 local_data = ()->
   store.get 'data'
 
-
-
 nextShowDateFrom = (date)->
   true
 
@@ -145,17 +143,27 @@ $(document).ready ()->
 
 
 
-do ( $ = jQuery, m = moment, window )->
-  day_or_night = ( today, time = moment() )->
-    if (today.sunrise < time.to_i and time.to_i < today.sunset) then "day" else "night"
+do ( $ = jQuery, m = moment )->
+  day_or_night = ( today, now = moment().format('X') )->
+    if (today.sunrise < now and now < today.sunset) then "day" else "night"
+
+  update = (data)->
+    store.set 'weather', data
+    store.set 'weatherUpdatedAt', m().format('X')
+    setBodyClass()
+
+  setBodyClass = ()->
+    weather = store.get 'weather'
+    $('body').toggleClass day_or_night weather.sys
 
   $(document).ready ()->
     request =
       # url: "https://api.forecast.io/forecast/APIKEY/40.463487,17.248535"
       url: "http://api.openweathermap.org/data/2.5/weather?id=4685907"
       dataType: "jsonp"
-      success: (data)->
-        $('body').toggleClass day_or_night data.sys
+      success: update
 
-    $.ajax request
+    weatherUpdatedAt = store.get 'weatherUpdatedAt'
+    $.ajax request if ( m().format('X') - weatherUpdatedAt ) > 3600
+    setBodyClass()
 
