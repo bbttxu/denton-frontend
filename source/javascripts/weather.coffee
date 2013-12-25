@@ -48,17 +48,6 @@ do ( $ = jQuery, U = _, M = moment, S = Sammy )->
     $('body').removeClass classes.disnt
 
   $(document).ready ()->
-    request =
-      # url: "https://api.forecast.io/forecast/APIKEY/40.463487,17.248535"
-      url: "http://api.openweathermap.org/data/2.5/weather?id=4685907"
-      dataType: "jsonp"
-      success: update
-
-
     do asdf = ()->
       update()
-      setTimeout asdf, 5 * 1000
-
-
-  $(document).ready ()->
-    $('body').weather()
+      setTimeout asdf, 60 * 1000

@@ -96,14 +96,20 @@ start_app = ()->
     false
 
   routes = Sammy '#calendar', ()->
-    this.use('GoogleAnalytics')
+    this.use 'GoogleAnalytics'
+    this.use 'Title'
+
+    this.setTitle ( title )->
+      [title, "Denton, TX Showlist", "BBTTXU" ].join(' | ')
 
     this.get '#/shows/:date', (req)->
       $('#day').animate animateShow, 'fast'
       $('#calendar').animate animateHide, 'fast'
 
+
       date = req.params['date']
       calendar_shows.id(date)
+      this.title date
 
       calendar_shows.prevDay previousShowDateTo date
 
@@ -122,8 +128,10 @@ start_app = ()->
       $.scrollTo '#day'
 
     this.get "#/", ()->
+      this.title "Calendar"
       $('#day').animate animateHide, 'fast'
       $('#calendar').animate animateShow, 'fast'
+
 
   routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
   self
