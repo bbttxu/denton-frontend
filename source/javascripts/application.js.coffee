@@ -7,3 +7,4 @@ sprockets
 #= require ./lib/moment.min
 #= require_tree ./lib
 #= require app
+#= require weather
