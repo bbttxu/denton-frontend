@@ -53,30 +53,24 @@
 
   background: $body-bg
 
+  border: 1px solid #ccc
+  box-shadow: 2px 4px 8px #999
 
 
-  @media (min-width: 768px)
-
-    border: 1px solid #ccc
-    box-shadow: 2px 4px 8px #999
-
-    body.night &
-      box-shadow: none
-      // background: invert( $body-bg )
-      border: 0px
-
-
+@media(min-width: 768px)
+  #main
     margin:
       top: 1em
 
     padding:
       top: 1em
 
+    body.night &
+      box-shadow: 2px 4px 8px #999
+      box-shadow: none
+      border: 0px
 
 
-
-// h1, h2, h3, h4, h5, h6
-//   @include day_or_night($primary-color)
 
 body
   background: $body-bg
@@ -84,7 +78,8 @@ body
   &.night
     background: invert( $body-bg )
 
-  @media (min-width: 768px)
+@media(min-width: 768px)
+  body
     margin:
       bottom: 1em
   // border:
@@ -95,7 +90,8 @@ body
   @include grid-row
   @extend .row
 
-  @media( min-width: 480px )
+@media( min-width: 480px )
+  #calendar
     padding:
       top: 1em
 
