@@ -32,10 +32,21 @@ artist_by_id = (id)->
   nil
 artist_by_id = _.memoize artist_by_id
 
-calendar_view = new calendarViewModel
+store = new Sammy.Store({name: 'mystore', element: 'body', type: 'local'})
+
+data = store.get 'data' or []
+updatedAt = store.get 'updated_at' or null
+
+setupData = (data)->
+  days = _.groupBy data, (item)->
+    moment(item.starts_at).format("YYYY-MM-DD")
+
+  calendar = _.map days, (value, key)-> key
+  calendar.sort()
+
+calendar_view = new calendarViewModel setupData(data), updatedAt
 calendar_shows = new calendarShowsViewModel
 
-store = new Sammy.Store({name: 'mystore', element: 'body', type: 'local'})
 
 animateShow =
   opacity: 'show'
@@ -54,7 +65,9 @@ initial_ajax = ()->
   $.getJSON 'http://denton-api1.blackbeartheory.com/shows.json?callback=?', (data, status)->
     store.set 'data', data
     store.set 'updated_at', m().format('X')
+    calendar_view.updatedAt moment().format('X')
     start_app()
+
 
 
 start_app = ()->
@@ -104,7 +117,7 @@ start_app = ()->
 
     this.get '#/shows/:date', (req)->
       $('#day').animate animateShow, 'fast'
-      $('#calendar').animate animateHide, 'fast'
+      $('#upcoming').animate animateHide, 'fast'
 
 
       date = req.params['date']
@@ -130,7 +143,7 @@ start_app = ()->
     this.get "#/", ()->
       this.title "Calendar"
       $('#day').animate animateHide, 'fast'
-      $('#calendar').animate animateShow, 'fast'
+      $('#upcoming').animate animateShow, 'fast'
 
 
   routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )

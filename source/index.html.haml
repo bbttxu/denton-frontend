@@ -10,7 +10,14 @@ body_class: index
     #pagetitle
       %h3.title
         %a.menu( href="#/" ) &#9776;
+
+  #lastUpdated
+
   #upcoming
+    %p.updated
+      Updated:
+      / %span.date( data-bind="text: updatedAtDate" )
+      %span.ago( data-bind="text: updatedAtInWords")
     %ul#calendar.small-block-grid-7( data-bind="template: { foreach: days, name: 'day-template' }" )
 
   #day
