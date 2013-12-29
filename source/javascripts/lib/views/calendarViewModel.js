@@ -8,8 +8,8 @@ calendarViewModel = function(days, updatedAt) {
   self.updatedAtInWords = ko.computed( function() {
     return moment.unix( self.updatedAt() ).fromNow();
   });
-  self.updatedAtDate = ko.computed( function() {
-    return moment.unix( self.updatedAt() ).format('YYYY-MM-DD h:mm:ss a');
-  });
+  // self.updatedAtDate = ko.computed( function() {
+  //   return moment.unix( self.updatedAt() ).format('YYYY-MM-DD h:mm:ss a');
+  // });
   return self;
 };

@@ -6,6 +6,17 @@ div.shows
   @extend .small-7
   @extend .large-8
 
+
+  &.count-1
+    @extend .large-6
+    @extend .large-offset-1
+
+    // if there is only one, show it full-width
+    .large-block-grid-2 > li
+      width: 100%
+      // font:
+      //   size: 1.2em
+
   ul.shows
     // @include block-grid(2, 3ex)
     // @extend .small-block-grid-1
