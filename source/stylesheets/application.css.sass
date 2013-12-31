@@ -46,19 +46,18 @@
 
 #main
   @extend .row
-
-  @include day_or_night( lighten($body-bg, 20% ), invert( $body-bg) )
-
   min-height: 30em
 
   background: $body-bg
 
-  border: 1px solid #ccc
-  box-shadow: 2px 4px 8px #999
+  box-shadow: none
 
 
-@media(min-width: 768px)
+@media(min-width: 920px)
   #main
+    @include day_or_night( lighten($body-bg, 20% ), invert( $body-bg) )
+    border: 1px solid #ccc
+    box-shadow: 2px 4px 8px #999
     margin:
       top: 1em
 
@@ -66,9 +65,9 @@
       top: 1em
 
     body.night &
-      box-shadow: 2px 4px 8px #999
+      // box-shadow: 2px 4px 8px #999
       box-shadow: none
-      border: 0px
+      border: 0
 
 
 
