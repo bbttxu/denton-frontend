@@ -133,11 +133,9 @@ routes = Sammy '#calendar', ()->
 
       new showViewModel show, venue.name, gigs
 
-
-    # console.log shows
     asdf.shows(shows)
     calendar_view.featured(asdf)
-    # console.log calendar_view.featured()
+
     calendar_view.featured.valueHasMutated()
     $.scrollTo '#day'
     $('#featured').animate showOptions, 'fast'
@@ -153,8 +151,6 @@ routes = Sammy '#calendar', ()->
 
 
 calendar_view = new calendarViewModel setupData(data), updatedAt
-# calendar_view.featured new calendarShowsViewModel
-# calendar_shows = new calendarShowsViewModel
 
 ko.applyBindings calendar_view
 

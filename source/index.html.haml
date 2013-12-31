@@ -16,18 +16,10 @@ body_class: index
   #upcoming
     %p.updated
       Updated:
-      / %span.date( data-bind="text: updatedAtDate" )
       %span.ago( data-bind="text: updatedAtInWords")
     /ko if: ( days().length > 0 )
-    %ul#calendar.small-block-grid-7( data-bind="template: { foreach: days, name: 'day-template' }" )
+    %ul#calendar.small-block-grid-7( data-bind="template: { foreach: days, name: 'calendar-template' }" )
     //ko
-
-    / .day( data-bind="template: { with: featured(), name: 'show-template' }" )
-    /   %p
-    /     hello
-    /     %span(data-bind="text: id")
-    / %ul#day.small-block-grid-2( data-bind="template: { with: featured(), name: 'show-template' }" )
-
 
   #featured( data-bind="foreach: featured")
     .day( data-bind="css: countClass")
@@ -48,7 +40,7 @@ body_class: index
   = partial 'shared/_footer'
 
 
-%script#day-template( type="text/html")
+%script#calendar-template( type="text/html")
   %li.day( data-bind="attr: { id: id }, css: classes" )
     %a( data-bind="attr: { href: link }" )!
       %span.day( data-bind="text: day")!
