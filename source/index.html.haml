@@ -33,8 +33,9 @@ body_class: index
         .prev( data-bind="'if': prevDay" )
           %a( data-bind="attr: { href: prevDayLink }" ) &laquo;
         .shows( data-bind="css: countClass")
+          /ko if: ( shows().length > 0 )
           %ul.shows.small-block-grid-1.large-block-grid-2( data-bind="template: { name: 'show-template', foreach: shows }" )
-
+          //ko
         .next( data-bind="if: nextDay" )
           %a( data-bind="attr: { href: nextDayLink }" ) &raquo;
   = partial 'shared/_footer'

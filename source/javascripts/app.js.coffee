@@ -124,13 +124,14 @@ routes = Sammy '#calendar', ()->
 
 calendar_view = new calendarViewModel setupData(data), updatedAt
 
-ko.applyBindings calendar_view
-
-routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
 
 
 # using jQuery
 $(document).ready ()->
+
+  ko.applyBindings calendar_view
+
+  routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
 
   do refresh = ()->
     console.log 'refresh'
