@@ -35,7 +35,7 @@ artist_by_id = _.memoize artist_by_id
 store = new Sammy.Store({name: 'mystore', element: 'body', type: 'local'})
 
 data = store.get 'data' or []
-updatedAt = store.get 'updated_at' or null
+updatedAt = store.get 'updated_at' or 0
 
 setupData = (data)->
   days = _.groupBy data.shows, (item)->
@@ -59,40 +59,12 @@ hideOptions =
   height: 'hide'
 
 
-initial_ajax = ()->
+updateData = ()->
   $.getJSON 'http://denton-api1.blackbeartheory.com/shows.json?callback=?', (data, status)->
     store.set 'data', data
-    store.set 'updated_at', m().format('X')
-    calendar_view.updatedAt moment().format('X')
+    store.set 'updated_at', m().valueOf()
+    calendar_view.updatedAt m().valueOf()
     # start_app()
-
-
-
-start_app = ()->
-  data = store.get 'data'
-
-  days = _.groupBy data.shows, (item)->
-    moment(item.starts_at).format("YYYY-MM-DD")
-
-  calendar = _.map days, (value, key)-> key
-  calendar.sort
-  # console.log calendar
-
-  calendar_days = for day, shows of days
-    new calendarDayViewModel day, shows.length
-
-  calendar_view.days calendar_days
-
-  # ko.applyBindings calendar_shows, $('#day')[0]
-
-
-  # adjacentCalendarDate = (date, offset) ->
-  #   (offset)->
-  #     item = calendar[(calendar.indexOf(date) + offset)]
-  #     return item if item
-  #     false
-  # previousShowDateTo = adjacentCalendarDate(date, -1)
-  # nextShowDateFrom = adjacentCalendarDate(date, +1)
 
 previousShowDateTo = (date)->
   prev = calendar[(calendar.indexOf(date) - 1)]
@@ -136,7 +108,7 @@ routes = Sammy '#calendar', ()->
     asdf.shows(shows)
     calendar_view.featured(asdf)
 
-    calendar_view.featured.valueHasMutated()
+    # calendar_view.featured.valueHasMutated()
     $.scrollTo '#day'
     $('#featured').animate showOptions, 'fast'
     $('#upcoming').animate hideOptions, 'fast'
@@ -156,6 +128,20 @@ ko.applyBindings calendar_view
 
 routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
 
+
+# using jQuery
+$(document).ready ()->
+
+do refresh = ()->
+  console.log 'refresh'
+  now = moment()
+  lastUpdated = moment( store.get 'updated_at' )
+  updateData() if ( now.diff( lastUpdated ) ) > ( 5 * 60 * 1000 )
+
+  # if calendar_view.updated_at
+  #   calendar_view.updated_at(calendar_view.updated_at())
+
+  setTimeout refresh, 5 * 1000
 
 
 
