@@ -41,8 +41,8 @@ setupData = (data)->
   days = _.groupBy data.shows, (item)->
     m(item.starts_at).format("YYYY-MM-DD")
 
-  # calendar = _.map days, (value, key)-> key
-  # calendar.sort()
+  calendar = _.map days, (value, key)-> key
+  calendar.sort()
 
   new calendarDayViewModel day, shows.length for day, shows of days
 
@@ -141,7 +141,7 @@ do refresh = ()->
   # if calendar_view.updated_at
   #   calendar_view.updated_at(calendar_view.updated_at())
 
-  setTimeout refresh, 5 * 1000
+  setTimeout refresh, 50 * 1000
 
 
 
