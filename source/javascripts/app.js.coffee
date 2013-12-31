@@ -132,16 +132,16 @@ routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
 # using jQuery
 $(document).ready ()->
 
-do refresh = ()->
-  console.log 'refresh'
-  now = moment()
-  lastUpdated = moment( store.get 'updated_at' )
-  updateData() if ( now.diff( lastUpdated ) ) > ( 5 * 60 * 1000 )
+  do refresh = ()->
+    console.log 'refresh'
+    now = moment()
+    lastUpdated = moment( store.get 'updated_at' )
+    updateData() if ( now.diff( lastUpdated ) ) > ( 5 * 60 * 1000 )
 
-  # if calendar_view.updated_at
-  #   calendar_view.updated_at(calendar_view.updated_at())
+    # if calendar_view.updated_at
+    #   calendar_view.updated_at(calendar_view.updated_at())
 
-  setTimeout refresh, 50 * 1000
+    setTimeout refresh, 50 * 1000
 
 
 
