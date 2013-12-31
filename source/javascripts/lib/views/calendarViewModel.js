@@ -5,7 +5,7 @@ calendarViewModel = function(days, updatedAt) {
   self = this;
   self.days = ko.observableArray( days );
 
-  self.current_day = ko.observableArray();
+  self.featured = ko.observableArray();
   // self.showDate = ko.observable();
 
   self.updatedAt = ko.observable( updatedAt );

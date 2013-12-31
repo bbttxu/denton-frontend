@@ -112,10 +112,6 @@ routes = Sammy '#calendar', ()->
     [title, "Denton, TX Showlist", "BBTTXU" ].join(' | ')
 
   this.get '#/shows/:date', (req)->
-    # $('#day').animate showOptions, 'fast'
-    # $('#upcoming').animate hideOptions, 'fast'
-
-
     date = req.params['date']
 
 
@@ -140,18 +136,24 @@ routes = Sammy '#calendar', ()->
 
     # console.log shows
     asdf.shows(shows)
-    calendar_view.current_day asdf
+    calendar_view.featured(asdf)
+    # console.log calendar_view.featured()
+    calendar_view.featured.valueHasMutated()
     $.scrollTo '#day'
+    $('#featured').animate showOptions, 'fast'
+    $('#upcoming').animate hideOptions, 'fast'
+
+
 
   this.get "#/", ()->
     this.title "Calendar"
-    # $('#day').animate hideOptions, 'fast'
-    # $('#upcoming').animate showOptions, 'fast'
+    $('#featured').animate hideOptions, 'fast'
+    $('#upcoming').animate showOptions, 'fast'
     $('li.day', '#calendar').timespace()
 
 
 calendar_view = new calendarViewModel setupData(data), updatedAt
-# calendar_view.current_day new calendarShowsViewModel
+# calendar_view.featured new calendarShowsViewModel
 # calendar_shows = new calendarShowsViewModel
 
 ko.applyBindings calendar_view

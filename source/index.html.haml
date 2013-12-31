@@ -22,30 +22,29 @@ body_class: index
     %ul#calendar.small-block-grid-7( data-bind="template: { foreach: days, name: 'day-template' }" )
     //ko
 
-    /ko with: current_day
-    %p(data-bind="text: id, if: current_day")
-    //ko
+    / .day( data-bind="template: { with: featured(), name: 'show-template' }" )
+    /   %p
+    /     hello
+    /     %span(data-bind="text: id")
+    / %ul#day.small-block-grid-2( data-bind="template: { with: featured(), name: 'show-template' }" )
 
-    %ul#day.small-block-grid-2( data-bind="template: { with: current_day, name: 'show-template' }" )
-    //tko
 
+  #featured( data-bind="foreach: featured")
+    .day( data-bind="css: countClass")
+      %header
+        %h3
+          %span.day( data-bind="text: day" ) ???
+          %span.month( data-bind="text: month" ) ???
+          %span.date( data-bind="text: date" ) ???
 
-    / #day
-    /   .calendar( data-bind="css: countClass")
-    /     %header
-    /       %h3
-    /         %span.day( data-bind="text: day" ) ???
-    /         %span.month( data-bind="text: month" ) ???
-    /         %span.date( data-bind="text: date" ) ???
+      .content
+        .prev( data-bind="'if': prevDay" )
+          %a( data-bind="attr: { href: prevDayLink }" ) &laquo;
+        .shows( data-bind="css: countClass")
+          %ul.shows.small-block-grid-1.large-block-grid-2( data-bind="template: { name: 'show-template', foreach: shows }" )
 
-    /     .content
-    /       .prev( data-bind="'if': prevDay" )
-    /         %a( data-bind="attr: { href: prevDayLink }" ) &laquo;
-    /       .shows( data-bind="css: countClass")
-    /         / %ul.shows.small-block-grid-1.large-block-grid-2( data-bind="template: { name: 'show-template', foreach: shows }" )
-
-    /       .next( data-bind="if: nextDay" )
-    /         %a( data-bind="attr: { href: nextDayLink }" ) &raquo;
+        .next( data-bind="if: nextDay" )
+          %a( data-bind="attr: { href: nextDayLink }" ) &raquo;
   = partial 'shared/_footer'
 
 
@@ -65,10 +64,10 @@ body_class: index
           %span.subhead.venue(data-bind="text: venue") Venue
           %span.price.right( data-bind="text: price" ) Price
 
-/     .artists
-/       %ul.artists.small-block-grid-1( data-bind="template: { foreach: gigs, name: 'artist-template' }")
+    .artists
+      %ul.artists.small-block-grid-1( data-bind="template: { foreach: gigs, name: 'artist-template' }")
 
-/ %script#artist-template( type="text/html")
-/   %li(data-bind="text: artist") ???
+%script#artist-template( type="text/html")
+  %li(data-bind="text: artist") ???
 
 
