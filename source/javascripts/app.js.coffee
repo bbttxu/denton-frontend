@@ -38,23 +38,21 @@ data = store.get 'data' or []
 updatedAt = store.get 'updated_at' or null
 
 setupData = (data)->
-  days = _.groupBy data, (item)->
-    moment(item.starts_at).format("YYYY-MM-DD")
+  days = _.groupBy data.shows, (item)->
+    m(item.starts_at).format("YYYY-MM-DD")
 
-  calendar = _.map days, (value, key)-> key
-  calendar.sort()
+  # calendar = _.map days, (value, key)-> key
+  # calendar.sort()
 
-calendar_view = new calendarViewModel setupData(data), updatedAt
-calendar_shows = new calendarShowsViewModel
+  new calendarDayViewModel day, shows.length for day, shows of days
 
-
-animateShow =
+showOptions =
   opacity: 'show'
   margin: 'show'
   padding: 'show'
   height: 'show'
 
-animateHide =
+hideOptions =
   opacity: 'hide'
   margin: 'hide'
   padding: 'hide'
@@ -66,7 +64,7 @@ initial_ajax = ()->
     store.set 'data', data
     store.set 'updated_at', m().format('X')
     calendar_view.updatedAt moment().format('X')
-    start_app()
+    # start_app()
 
 
 
@@ -85,10 +83,8 @@ start_app = ()->
 
   calendar_view.days calendar_days
 
-  ko.applyBindings calendar_view, $('#upcoming')[0]
-  ko.applyBindings calendar_shows, $('#day')[0]
+  # ko.applyBindings calendar_shows, $('#day')[0]
 
-  $('li.day').timespace()
 
   # adjacentCalendarDate = (date, offset) ->
   #   (offset)->
@@ -98,64 +94,69 @@ start_app = ()->
   # previousShowDateTo = adjacentCalendarDate(date, -1)
   # nextShowDateFrom = adjacentCalendarDate(date, +1)
 
-  previousShowDateTo = (date)->
-    prev = calendar[(calendar.indexOf(date) - 1)]
-    return prev if prev
-    false
+previousShowDateTo = (date)->
+  prev = calendar[(calendar.indexOf(date) - 1)]
+  return prev if prev
+  false
 
-  nextShowDateFrom = (date)->
-    next = calendar[(calendar.indexOf(date) + 1)]
-    return next if next
-    false
+nextShowDateFrom = (date)->
+  next = calendar[(calendar.indexOf(date) + 1)]
+  return next if next
+  false
 
-  routes = Sammy '#calendar', ()->
-    this.use 'GoogleAnalytics'
-    this.use 'Title'
+routes = Sammy '#calendar', ()->
+  this.use 'GoogleAnalytics'
+  this.use 'Title'
 
-    this.setTitle ( title )->
-      [title, "Denton, TX Showlist", "BBTTXU" ].join(' | ')
+  this.setTitle ( title )->
+    [title, "Denton, TX Showlist", "BBTTXU" ].join(' | ')
 
-    this.get '#/shows/:date', (req)->
-      $('#day').animate animateShow, 'fast'
-      $('#upcoming').animate animateHide, 'fast'
-
-
-      date = req.params['date']
-      calendar_shows.id(date)
-      this.title date
-
-      calendar_shows.prevDay previousShowDateTo date
-
-      calendar_shows.nextDay nextShowDateFrom date
-
-      shows = for show in days[date]
-        venue = venue_by_id show.venues
-
-        gigs = for gig_id in show.gigs
-          gig_by_id gig_id
-
-        new showViewModel show, venue.name, gigs
-
-      calendar_shows.shows(shows)
-
-      $.scrollTo '#day'
-
-    this.get "#/", ()->
-      this.title "Calendar"
-      $('#day').animate animateHide, 'fast'
-      $('#upcoming').animate animateShow, 'fast'
+  this.get '#/shows/:date', (req)->
+    # $('#day').animate showOptions, 'fast'
+    # $('#upcoming').animate hideOptions, 'fast'
 
 
-  routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
-  self
+    date = req.params['date']
 
 
-$(document).ready ()->
-  now = m().format('X')
-  updated_at =  store.get 'updated_at'
-  initial_ajax() if ( now - updated_at ) > 300
-  start_app()
+    asdf = new calendarShowsViewModel date
 
+
+    asdf.id(date)
+    this.title date
+
+    asdf.prevDay previousShowDateTo date
+
+    asdf.nextDay nextShowDateFrom date
+
+    shows = for show in days[date]
+      venue = venue_by_id show.venues
+
+      gigs = for gig_id in show.gigs
+        gig_by_id gig_id
+
+      new showViewModel show, venue.name, gigs
+
+
+    # console.log shows
+    asdf.shows(shows)
+    calendar_view.current_day asdf
+    $.scrollTo '#day'
+
+  this.get "#/", ()->
+    this.title "Calendar"
+    # $('#day').animate hideOptions, 'fast'
+    # $('#upcoming').animate showOptions, 'fast'
+    $('li.day', '#calendar').timespace()
+
+
+calendar_view = new calendarViewModel setupData(data), updatedAt
+# calendar_view.current_day new calendarShowsViewModel
+# calendar_shows = new calendarShowsViewModel
+
+ko.applyBindings calendar_view
+
+routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
 
 
 
