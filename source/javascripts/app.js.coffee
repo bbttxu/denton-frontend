@@ -7,39 +7,46 @@ calendar = []
 days = {}
 shows_days = {}
 
-local_data = ()->
-  store.get 'data'
+localData = ()->
+  console.log 'localData', store.get 'data'
+  stored = store.get 'data'
+  return stored if stored
+  []
 
 nextShowDateFrom = (date)->
   true
 
 venue_by_id = (id)->
-  for venue in local_data().venues
+  for venue in localData().venues
     return venue if venue.id is id
   nil
 venue_by_id = _.memoize venue_by_id
 
 gig_by_id = (id)->
-  for gig in local_data().gigs
+  for gig in localData().gigs
     artist = artist_by_id gig.artists
     return new gigViewModel(artist, gig.position) if gig.id is id
   nil
 gig_by_id = _.memoize gig_by_id
 
 artist_by_id = (id)->
-  for artist in local_data().artists
+  for artist in localData().artists
     return artist.name if artist.id is id
   nil
 artist_by_id = _.memoize artist_by_id
 
 store = new Sammy.Store({name: 'mystore', element: 'body', type: 'local'})
 
-data = store.get 'data' or []
-updatedAt = store.get 'updated_at' or 0
+# data = store.get 'data' or []
+updatedAt = store.get 'updatedAt' or 0
 
 setupData = (data)->
-  days = _.groupBy data.shows, (item)->
-    m(item.starts_at).format("YYYY-MM-DD")
+  console.log 'setupData', data
+  if data.shows
+    days = _.groupBy data.shows, (item)->
+      m(item.starts_at).format("YYYY-MM-DD")
+  else
+    days = {}
 
   calendar = _.map days, (value, key)-> key
   calendar.sort()
@@ -62,7 +69,7 @@ hideOptions =
 updateData = ()->
   $.getJSON 'http://denton-api1.blackbeartheory.com/shows.json?callback=?', (data, status)->
     store.set 'data', data
-    store.set 'updated_at', m().valueOf()
+    store.set 'updatedAt', m().valueOf()
     calendar_view.updatedAt m().valueOf()
     # start_app()
 
@@ -122,6 +129,9 @@ routes = Sammy '#calendar', ()->
     $('li.day', '#calendar').timespace()
 
 
+data = localData()
+console.log 'data', data
+
 calendar_view = new calendarViewModel setupData(data), updatedAt
 
 
@@ -133,16 +143,18 @@ $(document).ready ()->
 
   routes.run( "#/shows/" + moment().format('YYYY-MM-DD') )
 
+  updateData()
   do refresh = ()->
     console.log 'refresh'
     now = moment()
-    lastUpdated = moment( store.get 'updated_at' )
+    lastUpdated = moment store.get 'updatedAt'
+    console.log lastUpdated
     updateData() if ( now.diff( lastUpdated ) ) > ( 5 * 60 * 1000 )
 
     # if calendar_view.updated_at
     #   calendar_view.updated_at(calendar_view.updated_at())
 
-    setTimeout refresh, 50 * 1000
+    setTimeout refresh, 5 * 1000
 
 
 
