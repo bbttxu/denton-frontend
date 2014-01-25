@@ -10,8 +10,8 @@ showViewModel = function(show, venue, gigs) {
   self.venue = ko.observable(venue);
   self.gigs = ko.observableArray(gigs);
   self.source = ko.observable(show.source);
-  self.time = ko.computed( function() {
-    return moment(self.starts_at()).format('h:mmA');
+  self.time = ko.computed( function(timezoneOffset) {
+    return moment(self.starts_at()).zone(0).format('h:mmA');
   });
   return self;
 };
