@@ -67,7 +67,7 @@ hideOptions =
 
 
 updateData = ()->
-  $.getJSON 'http://denton-api1.blackbeartheory.com/shows.json?callback=?', (data, status)->
+  $.getJSON 'http://denton.krakatoa.io/shows.json?callback=?', (data, status)->
     store.set 'data', data
     store.set 'updatedAt', m().valueOf()
     calendar_view.updatedAt m().valueOf()
