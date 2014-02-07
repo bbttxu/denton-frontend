@@ -8,13 +8,15 @@ days = {}
 shows_days = {}
 
 localData = ()->
-  console.log 'localData', store.get 'data'
+  # console.log 'localData', store.get 'data'
   stored = store.get 'data'
   return stored if stored
   []
 
 nextShowDateFrom = (date)->
   true
+
+nil = null
 
 venue_by_id = (id)->
   for venue in localData().venues
@@ -41,7 +43,7 @@ store = new Sammy.Store({name: 'mystore', element: 'body', type: 'local'})
 updatedAt = store.get 'updatedAt' or 0
 
 setupData = (data)->
-  console.log 'setupData', data
+  # console.log 'setupData', data
   if data.shows
     days = _.groupBy data.shows, (item)->
       m(item.starts_at).format("YYYY-MM-DD")
@@ -92,7 +94,7 @@ routes = Sammy '#calendar', ()->
 
   this.get '#/shows/:date', (req)->
     date = req.params['date']
-
+    # console.log date
 
     asdf = new calendarShowsViewModel date
 
@@ -130,7 +132,7 @@ routes = Sammy '#calendar', ()->
 
 
 data = localData()
-console.log 'data', data
+# console.log 'data', data
 
 calendar_view = new calendarViewModel setupData(data), updatedAt
 
@@ -145,10 +147,10 @@ $(document).ready ()->
 
   updateData()
   do refresh = ()->
-    console.log 'refresh'
+    # console.log 'refresh'
     now = moment()
-    lastUpdated = moment store.get 'updatedAt'
-    console.log lastUpdated
+    lastUpdated = moment store.get 'updatedAt' || 0
+    # console.log lastUpdated
     updateData() if ( now.diff( lastUpdated ) ) > ( 5 * 60 * 1000 )
 
     # if calendar_view.updated_at

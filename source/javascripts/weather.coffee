@@ -22,7 +22,7 @@ do ( $ = jQuery, U = _, M = moment, S = Sammy )->
 
     # within 6 hours is good enough for now, since we're only concerned with sunrise/sunset
     if ( M().format('X') - weatherUpdatedAt ) > ( 6 * 60 * 60 )
-      console.log 'update weather'
+      # console.log 'update weather'
       request =
         # url: "https://api.forecast.io/forecast/APIKEY/40.463487,17.248535"
         url: "http://api.openweathermap.org/data/2.5/weather?id=4685907"
@@ -30,19 +30,19 @@ do ( $ = jQuery, U = _, M = moment, S = Sammy )->
         success: (data)->
           store.set 'weather', data
           store.set 'weatherUpdatedAt', M().format('X')
-          console.log 'weather updated'
+          # console.log 'weather updated'
           setBodyClass()
 
       $.ajax request
     else
-      console.log 'NO weather update needed'
+      # console.log 'NO weather update needed'
       setBodyClass()
 
 
   setBodyClass = ()->
     # weather = store.get 'weather'
-    console.log 'updating day/night'
-    console.log weather().sys
+    # console.log 'updating day/night'
+    # console.log weather().sys
     classes = day_or_night weather().sys
     $('body').addClass classes.dis
     $('body').removeClass classes.disnt
