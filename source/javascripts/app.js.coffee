@@ -69,7 +69,7 @@ hideOptions =
 
 
 updateData = ()->
-  $.getJSON 'http://denton.krakatoa.io/shows.json?callback=?', { timestamp: moment().format('X') }, (data, status)->
+  $.getJSON 'http://denton1.krakatoa.io/shows.json?callback=?', { timestamp: moment().format('X') }, (data, status)->
     store.set 'data', data
     store.set 'updatedAt', m().valueOf()
     calendar_view.updatedAt m().valueOf()
