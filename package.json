@@ -1,26 +1,16 @@
 {
-  "name": "denton_frontend",
-  "version": "0.0.0",
-  "description": "frontend ",
-  "main": "index.js",
+  "name": "denton-frontend",
+  "version": "0.0.1",
+  "description": "A Mimosa starter skeleton",
   "dependencies": {
-    "grunt": "~0.4.2",
-    "grunt-docco": "~0.3.0",
-    "grunt-newer": "~0.6.0"
+    "consolidate": "0.10.0",
+    "jade": "0.35.0",
+    "coffee-script": "1.6.3",
+    "express": "3.4.7"
   },
   "devDependencies": {
-    "grunt-contrib-watch": "~0.5.3"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/bbttxu/denton_frontend.git"
-  },
-  "author": "adam krawiec",
-  "license": "BSD-2-Clause",
-  "bugs": {
-    "url": "https://github.com/bbttxu/denton_frontend/issues"
+    "mimosa-coffeescript": "*",
+    "mimosa-stylus": "*",
+    "mimosa-dust": "*"
   }
 }
