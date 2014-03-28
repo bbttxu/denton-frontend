@@ -11,6 +11,7 @@ exports.config = {
         "bower",
         "coffeescript",
         "stylus",
-        "dust"
+        "dust",
+        "server-template-compile"
     ]
 }
