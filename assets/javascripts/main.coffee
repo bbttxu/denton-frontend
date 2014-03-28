@@ -169,6 +169,7 @@ require ["jquery", "moment", "underscore", "sammy", 'sammy.storage', 'sammy.goog
       this.title "Calendar"
       $('#featured').animate hideOptions, 'fast'
       $('#upcoming').animate showOptions, 'fast'
+      $('li.day', '#calendar').timespace()
 
 
   data = localData()
