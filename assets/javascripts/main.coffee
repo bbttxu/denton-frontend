@@ -2,6 +2,10 @@ requirejs.config
 
   paths:
     jquery: "vendor/jquery/jquery"
+    'jquery.scrollTo': "lib/jquery.scrollTo"
+    'jquery.timespace': "lib/jquery.timespace"
+    twix: 'lib/twix'
+
     sammy: "vendor/sammy/sammy"
     'sammy.google-analytics': "vendor/sammy.google-analytics/sammy.google-analytics"
     'sammy.storage': "vendor/sammy.storage/sammy.storage"
@@ -23,12 +27,16 @@ requirejs.config
       exports: "_"
     moment:
       exports: "moment"
+    twix: ["moment"]
+    'jquery.scrollTo': ["jquery"]
+    'jquery.timespace': ["jquery"]
+
     # leaflet:
     #   exports: 'L'
     # 'leaflet.awesome-markers':
     #   deps: [ "leaflet" ]
 
-require ["jquery", "moment", "underscore", "sammy", 'sammy.storage', 'sammy.google-analytics', 'sammy.title', "lib/views/calendarViewModel", "lib/views/calendarDayViewModel", "knockout", "lib/views/calendarShowsViewModel", "lib/views/showViewModel", "lib/views/gigViewModel"], ($, moment, _, Sammy, Store, GoogleAnalytics, Title, calendarViewModel, calendarDayViewModel, ko, calendarShowsViewModel, showViewModel, gigViewModel)->
+require ["jquery", "moment", "underscore", "sammy", 'sammy.storage', 'sammy.google-analytics', 'sammy.title', "lib/views/calendarViewModel", "lib/views/calendarDayViewModel", "knockout", "lib/views/calendarShowsViewModel", "lib/views/showViewModel", "lib/views/gigViewModel", "jquery.scrollTo", "jquery.timespace"], ($, moment, _, Sammy, Store, GoogleAnalytics, Title, calendarViewModel, calendarDayViewModel, ko, calendarShowsViewModel, showViewModel, gigViewModel)->
   # app.js.coffee
 
   $ = jQuery
@@ -105,6 +113,8 @@ require ["jquery", "moment", "underscore", "sammy", 'sammy.storage', 'sammy.goog
       store.set 'updatedAt', m().valueOf()
       calendar_view.updatedAt m().valueOf()
       # start_app()
+      # $('li.day', '#calendar').timespace()
+
 
   previousShowDateTo = (date)->
     prev = calendar[(calendar.indexOf(date) - 1)]
@@ -149,7 +159,7 @@ require ["jquery", "moment", "underscore", "sammy", 'sammy.storage', 'sammy.goog
       calendar_view.featured(asdf)
 
       # calendar_view.featured.valueHasMutated()
-      # $.scrollTo '#day'
+      $.scrollTo '#day'
       $('#featured').animate showOptions, 'fast'
       $('#upcoming').animate hideOptions, 'fast'
 
@@ -159,7 +169,6 @@ require ["jquery", "moment", "underscore", "sammy", 'sammy.storage', 'sammy.goog
       this.title "Calendar"
       $('#featured').animate hideOptions, 'fast'
       $('#upcoming').animate showOptions, 'fast'
-      # $('li.day', '#calendar').timespace()
 
 
   data = localData()
