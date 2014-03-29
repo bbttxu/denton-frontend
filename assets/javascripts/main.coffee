@@ -43,7 +43,6 @@ require ["app/api", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib
 
   featured = new calendarShowsViewModel
 
-
   sortedCalendarDates = ()->
     dates = _.map calendar, (value, key)->
       key
@@ -76,7 +75,26 @@ require ["app/api", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib
     padding: 'hide'
     height: 'hide'
 
+  updateCalendar = ()->
+    $.getJSON 'http://denton1.krakatoa.io/shows/calendar.json?callback=?', { timestamp: moment().format('X') }, (data, status)->
+      date = moment().format('YYYY-MM-DD')
+      calendar = data
 
+      days = _.map data, (count, date)->
+        new calendarDayViewModel date, count
+
+      days = _.sortBy days, (day)->
+        day.id()
+
+      prevDay = previousShowDateTo date
+      nextDay = nextShowDateFrom date
+
+      featured = new calendarShowsViewModel date, prevDay, nextDay
+
+      calendarView.days days
+      $('li.day', '#calendar').timespace()
+
+  updateCalendar()  
 
   routes = Sammy 'body', ()->
     this.use 'GoogleAnalytics'
@@ -91,20 +109,7 @@ require ["app/api", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib
 
     this.get "#/", ()->
       this.title "Calendar"
-      $.getJSON 'http://denton1.krakatoa.io/shows/calendar.json?callback=?', { timestamp: moment().format('X') }, (data, status)->
-        calendar = data
-
-        days = _.map data, (count, date)->
-          new calendarDayViewModel date, count
-
-        days = _.sortBy days, (day)->
-          day.id()
-
-        calendarView.days days
-        $('li.day', '#calendar').timespace()
-
       showSection '#upcoming'
-
 
     this.get '#/shows/:date', (req)->
       date = req.params['date']
@@ -114,16 +119,9 @@ require ["app/api", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib
       prevDay = previousShowDateTo date
       nextDay = nextShowDateFrom date
 
-      console.log prevDay, nextDay
-
       featured = new calendarShowsViewModel id, prevDay, nextDay
 
-      featured.prevDay prevDay
-      featured.nextDay nextShowDateFrom date
-
-
       $.getJSON "http://denton1.krakatoa.io/shows/#{id}.json?callback=?", { timestamp: moment().format('X') }, (data, status)->
-        # featured = new calendarShowsViewModel id
 
         venue_by_id = (id)->
           for venue in data.venues
@@ -161,8 +159,8 @@ require ["app/api", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib
 
     routes
 
-
-  routes.run "#/shows/" + moment().format('YYYY-MM-DD')
+  $(document).ready ()->
+    routes.run "#/shows/" + moment().format('YYYY-MM-DD')
 
 # require ["jquery", "moment", "underscore", "sammy", 'sammy.storage', 'sammy.google-analytics', 'sammy.title', "lib/views/calendarViewModel", "lib/views/calendarDayViewModel", "knockout", "lib/views/calendarShowsViewModel", "lib/views/showViewModel", "lib/views/gigViewModel", "jquery.scrollTo", "jquery.timespace"], ($, moment, _, Sammy, Store, GoogleAnalytics, Title, calendarViewModel, calendarDayViewModel, ko, calendarShowsViewModel, showViewModel, gigViewModel)->
 #   # app.js.coffee
