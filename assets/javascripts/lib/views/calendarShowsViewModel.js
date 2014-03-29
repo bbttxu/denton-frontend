@@ -1,4 +1,4 @@
-define(["knockout"], function(ko) {
+define(["knockout", "moment"], function(ko, moment) {
     // calendarShowsViewModel.js
 
     var calendarShowsViewModel;
