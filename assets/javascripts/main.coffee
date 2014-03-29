@@ -36,19 +36,118 @@ requirejs.config
     # 'leaflet.awesome-markers':
     #   deps: [ "leaflet" ]
 
-require ["app/api", "jquery", "knockout", "lib/views/calendarViewModel", "underscore", "moment", 'jquery.timespace'], (api, $, ko, calendarDayViewModel, calendarViewModel, _, moment)->
+require ["app/api", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel", "lib/views/calendarShowsViewModel", "lib/views/gigViewModel", "lib/views/showViewModel", "underscore", "sammy", 'sammy.storage', 'sammy.google-analytics', 'sammy.title', 'jquery.timespace'], (api, $, ko, calendarDayViewModel, calendarViewModel, calendarShowsViewModel, gigViewModel, showViewModel, _, Sammy, Store, GoogleAnalytics, Title)->
+  calendar = []
+  calendarView = new calendarViewModel
+  ko.applyBindings calendarView
 
-  days = api.calendar()
+  featured = new calendarShowsViewModel
 
-  calendar = new calendarViewModel days
-  ko.applyBindings calendar, $('#upcoming')[0]
-  $('li.day', '#calendar').timespace()
+  previousShowDateTo = (date)->
+    prev = calendar[(calendar.indexOf(date) - 1)]
+    return prev if prev
+    false
 
-  # $.getJSON "http://denton1.krakatoa.io/shows/#{moment().format('YYYY-MM-DD')}.json?callback=?", { timestamp: moment().format('X') }, (data, status)->
-  #   console.log data
+  nextShowDateFrom = (date)->
+    next = calendar[(calendar.indexOf(date) + 1)]
+    return next if next
+    false
 
-  # console.log api.date moment()
+  showOptions =
+    opacity: 'show'
+    margin: 'show'
+    padding: 'show'
+    height: 'show'
 
+  hideOptions =
+    opacity: 'hide'
+    margin: 'hide'
+    padding: 'hide'
+    height: 'hide'
+
+
+
+  routes = Sammy 'body', ()->
+    this.use 'GoogleAnalytics'
+    this.use 'Title'
+
+    showSection = (selector)->
+      $('.primary').animate hideOptions, 'fast'
+      $(selector).animate showOptions, 'fast'
+
+    this.setTitle ( title )->
+      [title, "Denton, TX Showlist", "BBTTXU" ].join(' | ')
+
+    this.get "#/", ()->
+      this.title "Calendar"
+      $.getJSON 'http://denton1.krakatoa.io/shows/calendar.json?callback=?', { timestamp: moment().format('X') }, (data, status)->
+        # calendar = data
+
+        days = _.map data, (count, date)->
+          new calendarDayViewModel date, count
+
+        days = _.sortBy days, (day)->
+          day.id()
+
+        calendarView.days days
+        $('li.day', '#calendar').timespace()
+
+      showSection '#upcoming'
+
+
+    this.get '#/shows/:date', (req)->
+      date = req.params['date']
+
+      id = moment(date).format('YYYY-MM-DD')
+
+      featured = new calendarShowsViewModel id
+      # featured = new calendarShowsViewModel id
+
+
+      $.getJSON "http://denton1.krakatoa.io/shows/#{id}.json?callback=?", { timestamp: moment().format('X') }, (data, status)->
+        featured = new calendarShowsViewModel id
+
+        venue_by_id = (id)->
+          for venue in data.venues
+            return venue.name if venue.id is id
+          null
+        venue_by_id = _.memoize venue_by_id
+
+        gig_by_id = (id)->
+          for gig in data.gigs
+            console.log 'gig match', gig.id, id
+            artist = artist_by_id gig.artists
+            console.log artist, gig.position
+            return new gigViewModel(artist, gig.position) if gig.id is id
+          nil
+        gig_by_id = _.memoize gig_by_id
+
+        artist_by_id = (id)->
+          for artist in data.artists
+            console.log 'artist match', artist.id, id
+            return artist.name if artist.id is id
+          null
+        artist_by_id = _.memoize artist_by_id
+
+
+        shows = for show in data.shows
+          venue = venue_by_id show.venues
+
+          gigs = for gig in show.gigs
+            gig_by_id gig
+
+          new showViewModel show, venue, gigs
+
+        featured.shows shows
+        calendarView.featured featured
+
+        showSection '#featured'
+
+
+    routes
+
+
+  routes.run "#/shows/" + moment().format('YYYY-MM-DD')
 
 # require ["jquery", "moment", "underscore", "sammy", 'sammy.storage', 'sammy.google-analytics', 'sammy.title', "lib/views/calendarViewModel", "lib/views/calendarDayViewModel", "knockout", "lib/views/calendarShowsViewModel", "lib/views/showViewModel", "lib/views/gigViewModel", "jquery.scrollTo", "jquery.timespace"], ($, moment, _, Sammy, Store, GoogleAnalytics, Title, calendarViewModel, calendarDayViewModel, ko, calendarShowsViewModel, showViewModel, gigViewModel)->
 #   # app.js.coffee
@@ -108,17 +207,6 @@ require ["app/api", "jquery", "knockout", "lib/views/calendarViewModel", "unders
 
 #     # new calendarDayViewModel day, shows.length for day, shows of days
 
-#   showOptions =
-#     opacity: 'show'
-#     margin: 'show'
-#     padding: 'show'
-#     height: 'show'
-
-#   hideOptions =
-#     opacity: 'hide'
-#     margin: 'hide'
-#     padding: 'hide'
-#     height: 'hide'
 
 
 #   updateData = ()->
