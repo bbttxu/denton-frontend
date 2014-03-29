@@ -9,9 +9,12 @@ exports.config = {
         "minify-css",
         "live-reload",
         "bower",
-        "coffeescript",
+        "iced-coffeescript",
         "stylus",
         "dust",
         "server-template-compile"
-    ]
+    ],
+    "iced": {
+        extensions: ["coffee"]
+    }
 }
