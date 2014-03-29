@@ -12,9 +12,9 @@ block append content
             a.menu(href='#/') &#9776;
       #lastUpdated
       #upcoming.primary
-        p.updated
-          | Updated&colon;
-          span.ago &nbsp;
+        //- p.updated
+        //-   | Updated&colon;
+        //-   span.ago &nbsp;
         // ko if: ( days().length > 0 )
         ul#calendar.small-block-grid-7(data-bind='template: { foreach: days, name: "calendar-template" }')
         // /ko
@@ -26,7 +26,7 @@ block append content
               span.month(data-bind='text: month') &quest;&quest;&quest;
               span.date(data-bind='text: date') &quest;&quest;&quest;
           .content.row
-            .prev(data-bind='"if": prevDay')
+            .prev(data-bind='if: prevDay')
               a(data-bind='attr: { href: prevDayLink }') &laquo;
             .shows(data-bind='css: countClass')
               // ko if: ( shows().length > 0 )

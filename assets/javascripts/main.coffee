@@ -83,7 +83,7 @@ require ["app/api", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib
     this.use 'Title'
 
     showSection = (selector)->
-      $('.primary').animate hideOptions, 'fast'
+      $('.primary').not(selector).animate hideOptions, 'fast'
       $(selector).animate showOptions, 'fast'
 
     this.setTitle ( title )->
@@ -114,6 +114,8 @@ require ["app/api", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib
       prevDay = previousShowDateTo date
       nextDay = nextShowDateFrom date
 
+      console.log prevDay, nextDay
+
       featured = new calendarShowsViewModel id, prevDay, nextDay
 
       featured.prevDay prevDay
@@ -121,7 +123,7 @@ require ["app/api", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib
 
 
       $.getJSON "http://denton1.krakatoa.io/shows/#{id}.json?callback=?", { timestamp: moment().format('X') }, (data, status)->
-        featured = new calendarShowsViewModel id
+        # featured = new calendarShowsViewModel id
 
         venue_by_id = (id)->
           for venue in data.venues
