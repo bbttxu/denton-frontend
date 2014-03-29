@@ -43,13 +43,24 @@ require ["app/api", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib
 
   featured = new calendarShowsViewModel
 
+
+  sortedCalendarDates = ()->
+    dates = _.map calendar, (value, key)->
+      key
+
+    _.sortBy dates, (object)-> object
+
   previousShowDateTo = (date)->
-    prev = calendar[(calendar.indexOf(date) - 1)]
+    calendarDates = sortedCalendarDates()
+
+    prev = calendarDates[(calendarDates.indexOf(date) - 1)]
     return prev if prev
     false
 
   nextShowDateFrom = (date)->
-    next = calendar[(calendar.indexOf(date) + 1)]
+    calendarDates = sortedCalendarDates()
+
+    next = calendarDates[(calendarDates.indexOf(date) + 1)]
     return next if next
     false
 
@@ -81,7 +92,7 @@ require ["app/api", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib
     this.get "#/", ()->
       this.title "Calendar"
       $.getJSON 'http://denton1.krakatoa.io/shows/calendar.json?callback=?', { timestamp: moment().format('X') }, (data, status)->
-        # calendar = data
+        calendar = data
 
         days = _.map data, (count, date)->
           new calendarDayViewModel date, count
@@ -100,8 +111,13 @@ require ["app/api", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib
 
       id = moment(date).format('YYYY-MM-DD')
 
-      featured = new calendarShowsViewModel id
-      # featured = new calendarShowsViewModel id
+      prevDay = previousShowDateTo date
+      nextDay = nextShowDateFrom date
+
+      featured = new calendarShowsViewModel id, prevDay, nextDay
+
+      featured.prevDay prevDay
+      featured.nextDay nextShowDateFrom date
 
 
       $.getJSON "http://denton1.krakatoa.io/shows/#{id}.json?callback=?", { timestamp: moment().format('X') }, (data, status)->
@@ -115,16 +131,13 @@ require ["app/api", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib
 
         gig_by_id = (id)->
           for gig in data.gigs
-            console.log 'gig match', gig.id, id
             artist = artist_by_id gig.artists
-            console.log artist, gig.position
             return new gigViewModel(artist, gig.position) if gig.id is id
           nil
         gig_by_id = _.memoize gig_by_id
 
         artist_by_id = (id)->
           for artist in data.artists
-            console.log 'artist match', artist.id, id
             return artist.name if artist.id is id
           null
         artist_by_id = _.memoize artist_by_id

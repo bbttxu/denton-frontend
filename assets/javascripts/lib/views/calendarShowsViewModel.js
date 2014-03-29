@@ -3,18 +3,18 @@ define(["knockout", "moment"], function(ko, moment) {
 
     var calendarShowsViewModel;
 
-    calendarShowsViewModel = function(date) {
+    calendarShowsViewModel = function(date, prevDay, nextDay) {
         var self;
         self = this;
         self.id = ko.observable(date);
-        self.prevDay = ko.observable(false);
+        self.prevDay = ko.observable(prevDay);
         self.prevDayLink = ko.computed(function() {
             if (self.prevDay()) {
                 return "#/shows/" + self.prevDay();
             }
             return false;
         });
-        self.nextDay = ko.observable(false);
+        self.nextDay = ko.observable(nextDay);
         self.nextDayLink = ko.computed(function() {
             if (self.nextDay()) {
                 return "#/shows/" + self.nextDay();
