@@ -19,7 +19,7 @@ define ["jquery", "underscore", "postal"], ($, _, postal)->
 
 	  $.when $.getJSON "http://denton1.krakatoa.io/shows/#{date}.json?callback=?", { timestamp: moment().format('X') }
 	  	.then (data)-> 
-		  	channel.publish "set.date", data
+		  	channel.publish "set.date", { date: date, data: data }
 	  	
 	channel.subscribe "get.date", date	
 

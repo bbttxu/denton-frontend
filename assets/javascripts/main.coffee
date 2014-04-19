@@ -39,6 +39,29 @@ requirejs.config
     # 'jquery.fittext': ["jquery"]
 
 
+
+# require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel", "jquery.timespace"], (API, postal, $, ko, calendarDayViewModel, calendarViewModel)->
+#   channel = postal.channel()
+
+#   calendar = []
+
+
+#   channel.subscribe "set.calendar", (data)->
+#     console.log "set.calendar", data
+#     calendar = data
+
+
+#   channel.subscribe "get.date", (date)->
+#     console.log "set.date", date 
+#     prev = previousShowDateTo(date)
+#     console.log "prev", prev
+#     channel.publish "set.prevDate", prev
+
+#     next = nextShowDateFrom(date)
+#     console.log "next", next
+#     channel.publish "set.nextDate", next
+
+
 require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel", "jquery.timespace"], (API, postal, $, ko, calendarDayViewModel, calendarViewModel)->
   channel = postal.channel()
 
@@ -46,7 +69,7 @@ require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarDayViewMo
   ko.applyBindings calendarView, $('#upcoming')[0]
 
   channel.subscribe "set.calendar", (data)->
-    console.log "calendar is now", data
+    # console.log "calendar is now", data
     days = _.map data, (count, date)->
       new calendarDayViewModel date, count
 
@@ -61,38 +84,57 @@ require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarDayViewMo
     $.when calendarView.days days
       .then $('li.day', '#calendar').timespace()
 
-require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarShowsViewModel", "lib/views/gigViewModel", "lib/views/showViewModel"], (API, postal, $, ko, calendarShowsViewModel, gigViewModel, showViewModel)->
+require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarShowsViewModel", "lib/views/gigViewModel", "lib/views/showViewModel", "jquery.isotope"], (API, postal, $, ko, calendarShowsViewModel, gigViewModel, showViewModel)->
   channel = postal.channel()
 
   featured = new calendarShowsViewModel
   ko.applyBindings featured, $('#featured')[0]
 
-  channel.subscribe "set.date", (data)->
-    console.log "handle date data", data
+  calendar = []
 
+  sortedCalendarDates = ()->
+    dates = _.map calendar, (value, key)->
+      key
+
+    _.sortBy dates, (object)-> object
+
+  previousShowDateTo = (date)->
+    calendarDates = sortedCalendarDates()
+    prev = calendarDates[(calendarDates.indexOf(date) - 1)]
+    return prev if prev
+    false
+
+  nextShowDateFrom = (date)->
+    calendarDates = sortedCalendarDates()
+    next = calendarDates[(calendarDates.indexOf(date) + 1)]
+    return next if next
+    false
+
+  channel.subscribe "set.calendar", (data)->
+    calendar = data
+
+  channel.subscribe "set.date", (payload)->
+    console.log payload
     venue_by_id = (id)->
-      for venue in data.venues
+      for venue in payload.data.venues
         return venue.name if venue.id is id
       null
     venue_by_id = _.memoize venue_by_id
 
     gig_by_id = (id)->
-      for gig in data.gigs
+      for gig in payload.data.gigs
         artist = artist_by_id gig.artists
         return new gigViewModel(artist, gig.position) if gig.id is id
       nil
     gig_by_id = _.memoize gig_by_id
 
     artist_by_id = (id)->
-      for artist in data.artists
+      for artist in payload.data.artists
         return artist.name if artist.id is id
       null
     artist_by_id = _.memoize artist_by_id
 
-
-    console.log data.shows
-
-    shows = for show in data.shows
+    shows = for show in payload.data.shows
       venue = venue_by_id show.venues
 
       gigs = for gig in show.gigs
@@ -100,14 +142,21 @@ require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarShowsView
 
       new showViewModel show, venue, gigs
 
-    $.when featured.shows shows
-      .then $('ul.artists').each ()->
-        options = 
-          maxFontSize: 100
-          minCharsPerLine: 7
-          precision: 1
-        $('li:first', $(this) ).slabText options
-      .then $('ul.shows').isotope()
+
+
+    featured.id payload.date
+    featured.prevDay previousShowDateTo payload.date
+    featured.nextDay nextShowDateFrom payload.date
+    featured.shows shows
+
+    # $.when $('ul.artists').each ()->
+    #   options = 
+    #     maxFontSize: 100
+    #     minCharsPerLine: 7
+    #     precision: 1
+    #   $('li:first', $(this) ).slabText options
+
+    # .done $('ul.shows').isotope('reloadItems').isotope()
 
 
 
@@ -228,6 +277,7 @@ require ["postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/
     this.get '#/shows/:date', (req)->
       date = req.params['date']
 
+      channel.publish "get.calendar"
       channel.publish "get.date", date
 
       # id = moment(date).format('YYYY-MM-DD')
