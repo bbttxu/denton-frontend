@@ -85,7 +85,6 @@ require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarShowsView
     calendar = data
 
   channel.subscribe "set.date", (payload)->
-    console.log payload
     venue_by_id = (id)->
       for venue in payload.data.venues
         return venue.name if venue.id is id
