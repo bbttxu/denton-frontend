@@ -1,6 +1,13 @@
 SSH_USER = 'deploy'
 #SSH_HOST = 'static2.blackbeartheory.com'
-SSH_DIR  = '/var/www/bbttxu.com/denton'
+
+if ENV['DEPLOY'] == 'PRODUCTION'
+  SSH_DIR  = '/var/www/bbttxu.com/denton'
+else
+  # TODO add a dev version of the site
+  SSH_DIR  = '/var/www/bbttxu.com/denton'
+end
+
 
 SSH_HOSTS = [
   'static2.blackbeartheory.com',
