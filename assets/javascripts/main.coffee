@@ -43,8 +43,7 @@ require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarDayViewMo
   channel = postal.channel()
 
   calendarView = new calendarViewModel
-  ko.applyBindings calendarView
-
+  ko.applyBindings calendarView, $('#upcoming')[0]
 
   channel.subscribe "set.calendar", (data)->
     console.log "calendar is now", data
@@ -62,35 +61,87 @@ require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarDayViewMo
     $.when calendarView.days days
       .then $('li.day', '#calendar').timespace()
 
-  channel.publish "get.calendar"
+require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarShowsViewModel", "lib/views/gigViewModel", "lib/views/showViewModel"], (API, postal, $, ko, calendarShowsViewModel, gigViewModel, showViewModel)->
+  channel = postal.channel()
+
+  featured = new calendarShowsViewModel
+  ko.applyBindings featured, $('#featured')[0]
+
+  channel.subscribe "set.date", (data)->
+    console.log "handle date data", data
+
+    venue_by_id = (id)->
+      for venue in data.venues
+        return venue.name if venue.id is id
+      null
+    venue_by_id = _.memoize venue_by_id
+
+    gig_by_id = (id)->
+      for gig in data.gigs
+        artist = artist_by_id gig.artists
+        return new gigViewModel(artist, gig.position) if gig.id is id
+      nil
+    gig_by_id = _.memoize gig_by_id
+
+    artist_by_id = (id)->
+      for artist in data.artists
+        return artist.name if artist.id is id
+      null
+    artist_by_id = _.memoize artist_by_id
 
 
-require ["jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel", "lib/views/calendarShowsViewModel", "lib/views/gigViewModel", "lib/views/showViewModel", "underscore", "sammy", 'sammy.storage', 'sammy.google-analytics', 'sammy.title', 'jquery.timespace', 'jquery.isotope','jquery.slabtext'], ($, ko, calendarDayViewModel, calendarViewModel, calendarShowsViewModel, gigViewModel, showViewModel, _, Sammy, Store, GoogleAnalytics, Title)->
+    console.log data.shows
+
+    shows = for show in data.shows
+      venue = venue_by_id show.venues
+
+      gigs = for gig in show.gigs
+        gig_by_id gig
+
+      new showViewModel show, venue, gigs
+
+    $.when featured.shows shows
+      .then $('ul.artists').each ()->
+        options = 
+          maxFontSize: 100
+          minCharsPerLine: 7
+          precision: 1
+        $('li:first', $(this) ).slabText options
+      .then $('ul.shows').isotope()
+
+
+
+require ["postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel", "lib/views/calendarShowsViewModel", "lib/views/gigViewModel", "lib/views/showViewModel", "underscore", "sammy", 'sammy.storage', 'sammy.google-analytics', 'sammy.title', 'jquery.timespace', 'jquery.isotope','jquery.slabtext'], (postal, $, ko, calendarDayViewModel, calendarViewModel, calendarShowsViewModel, gigViewModel, showViewModel, _, Sammy, Store, GoogleAnalytics, Title)->
+  channel = postal.channel()
+
   calendar = []
+
+
+
   # calendarView = new calendarViewModel
   # ko.applyBindings calendarView
 
-  featured = new calendarShowsViewModel
+  # featured = new calendarShowsViewModel
 
-  sortedCalendarDates = ()->
-    dates = _.map calendar, (value, key)->
-      key
+  # sortedCalendarDates = ()->
+  #   dates = _.map calendar, (value, key)->
+  #     key
 
-    _.sortBy dates, (object)-> object
+  #   _.sortBy dates, (object)-> object
 
-  previousShowDateTo = (date)->
-    calendarDates = sortedCalendarDates()
+  # previousShowDateTo = (date)->
+  #   calendarDates = sortedCalendarDates()
 
-    prev = calendarDates[(calendarDates.indexOf(date) - 1)]
-    return prev if prev
-    false
+  #   prev = calendarDates[(calendarDates.indexOf(date) - 1)]
+  #   return prev if prev
+  #   false
 
-  nextShowDateFrom = (date)->
-    calendarDates = sortedCalendarDates()
+  # nextShowDateFrom = (date)->
+  #   calendarDates = sortedCalendarDates()
 
-    next = calendarDates[(calendarDates.indexOf(date) + 1)]
-    return next if next
-    false
+  #   next = calendarDates[(calendarDates.indexOf(date) + 1)]
+  #   return next if next
+  #   false
 
   showOptions =
     opacity: 'show'
@@ -104,25 +155,25 @@ require ["jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/cale
     padding: 'hide'
     height: 'hide'
 
-  updateCalendar = ()->
-    $.getJSON 'http://denton1.krakatoa.io/shows/calendar.json?callback=?', { timestamp: moment().format('X') }, (data, status)->
-      date = moment().format('YYYY-MM-DD')
-      calendar = data
+  # updateCalendar = ()->
+  #   $.getJSON 'http://denton1.krakatoa.io/shows/calendar.json?callback=?', { timestamp: moment().format('X') }, (data, status)->
+  #     date = moment().format('YYYY-MM-DD')
+  #     calendar = data
 
-      days = _.map data, (count, date)->
-        new calendarDayViewModel date, count
+  #     days = _.map data, (count, date)->
+  #       new calendarDayViewModel date, count
 
-      days = _.sortBy days, (day)->
-        day.id()
+  #     days = _.sortBy days, (day)->
+  #       day.id()
 
-      prevDay = previousShowDateTo date
-      nextDay = nextShowDateFrom date
+  #     prevDay = previousShowDateTo date
+  #     nextDay = nextShowDateFrom date
 
-      featured = new calendarShowsViewModel date, prevDay, nextDay
+  #     featured = new calendarShowsViewModel date, prevDay, nextDay
 
-      # calendarView.days days
+  #     # calendarView.days days
 
-  updateCalendar()  
+  # updateCalendar()  
 
   getShows = (date)->
 
@@ -135,30 +186,30 @@ require ["jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/cale
 
       effectsCallback = ()->
 
-        changeTypography = ()->
-          console.log 'changeTypography'
-          $('ul.artists').each ()->
-            options = 
-              maxFontSize: 100
-              minCharsPerLine: 7
-              precision: 1
-            $('li:first', $(this) ).slabText options
-            console.log 'changeTypography 1'
+        # changeTypography = ()->
+        #   console.log 'changeTypography'
+        #   $('ul.artists').each ()->
+        #     options = 
+        #       maxFontSize: 100
+        #       minCharsPerLine: 7
+        #       precision: 1
+        #     $('li:first', $(this) ).slabText options
+        #     console.log 'changeTypography 1'
 
 
 
-        updateLayout = ()->
-          console.log 'updateLayout'
+        # updateLayout = ()->
+        #   console.log 'updateLayout'
 
-          $('ul.shows').isotope()
+        #   $('ul.shows').isotope()
 
-        updateCalendar = ()->
-          console.log 'updateCalendar'
-          # $('li.day', '#calendar').timespace()
+        # updateCalendar = ()->
+        #   console.log 'updateCalendar'
+        #   # $('li.day', '#calendar').timespace()
 
-        $.when changeTypography()
-          # .then updateCalendar()
-          .done updateLayout()
+        # $.when changeTypography()
+        #   # .then updateCalendar()
+        #   .done updateLayout()
 
 
 
@@ -171,59 +222,62 @@ require ["jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/cale
 
     this.get "#/", ()->
       this.title "Calendar"
+      channel.publish "get.calendar"
       showSection '#upcoming'
 
     this.get '#/shows/:date', (req)->
       date = req.params['date']
 
-      id = moment(date).format('YYYY-MM-DD')
+      channel.publish "get.date", date
 
-      prevDay = previousShowDateTo date
-      nextDay = nextShowDateFrom date
+      # id = moment(date).format('YYYY-MM-DD')
 
-      featured = new calendarShowsViewModel id, prevDay, nextDay
-      $.getJSON "http://denton1.krakatoa.io/shows/#{id}.json?callback=?", { timestamp: moment().format('X') }, (data, status)->
+      # prevDay = previousShowDateTo date
+      # nextDay = nextShowDateFrom date
 
-        venue_by_id = (id)->
-          for venue in data.venues
-            return venue.name if venue.id is id
-          null
-        venue_by_id = _.memoize venue_by_id
+      # featured = new calendarShowsViewModel id, prevDay, nextDay
+      # $.getJSON "http://denton1.krakatoa.io/shows/#{id}.json?callback=?", { timestamp: moment().format('X') }, (data, status)->
 
-        gig_by_id = (id)->
-          for gig in data.gigs
-            artist = artist_by_id gig.artists
-            return new gigViewModel(artist, gig.position) if gig.id is id
-          nil
-        gig_by_id = _.memoize gig_by_id
+      #   venue_by_id = (id)->
+      #     for venue in data.venues
+      #       return venue.name if venue.id is id
+      #     null
+      #   venue_by_id = _.memoize venue_by_id
 
-        artist_by_id = (id)->
-          for artist in data.artists
-            return artist.name if artist.id is id
-          null
-        artist_by_id = _.memoize artist_by_id
+      #   gig_by_id = (id)->
+      #     for gig in data.gigs
+      #       artist = artist_by_id gig.artists
+      #       return new gigViewModel(artist, gig.position) if gig.id is id
+      #     nil
+      #   gig_by_id = _.memoize gig_by_id
 
-
-        shows = for show in data.shows
-          venue = venue_by_id show.venues
-
-          gigs = for gig in show.gigs
-            gig_by_id gig
-
-          new showViewModel show, venue, gigs
-
-        featured.shows shows
-        calendarView.featured featured
-
-        # callback = ()->
-        #   $('ul.shows').isotope()
-        #   console.log 'callback'
-
-        showSection '#featured'
+      #   artist_by_id = (id)->
+      #     for artist in data.artists
+      #       return artist.name if artist.id is id
+      #     null
+      #   artist_by_id = _.memoize artist_by_id
 
 
-        # setTimeout callback, 100
-        # setTimeout callback, 1000
+      #   shows = for show in data.shows
+      #     venue = venue_by_id show.venues
+
+      #     gigs = for gig in show.gigs
+      #       gig_by_id gig
+
+      #     new showViewModel show, venue, gigs
+
+      #   featured.shows shows
+        # calendarView.featured featured
+
+        # # callback = ()->
+        # #   $('ul.shows').isotope()
+        # #   console.log 'callback'
+
+
+
+        # # setTimeout callback, 100
+        # # setTimeout callback, 1000
+      showSection '#featured'
 
 
 
