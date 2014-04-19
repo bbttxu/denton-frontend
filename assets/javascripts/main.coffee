@@ -38,30 +38,6 @@ requirejs.config
     'jquery.slabtext': ["jquery"]
     # 'jquery.fittext': ["jquery"]
 
-
-
-# require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel", "jquery.timespace"], (API, postal, $, ko, calendarDayViewModel, calendarViewModel)->
-#   channel = postal.channel()
-
-#   calendar = []
-
-
-#   channel.subscribe "set.calendar", (data)->
-#     console.log "set.calendar", data
-#     calendar = data
-
-
-#   channel.subscribe "get.date", (date)->
-#     console.log "set.date", date 
-#     prev = previousShowDateTo(date)
-#     console.log "prev", prev
-#     channel.publish "set.prevDate", prev
-
-#     next = nextShowDateFrom(date)
-#     console.log "next", next
-#     channel.publish "set.nextDate", next
-
-
 require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel", "jquery.timespace"], (API, postal, $, ko, calendarDayViewModel, calendarViewModel)->
   channel = postal.channel()
 
@@ -75,11 +51,6 @@ require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarDayViewMo
 
     days = _.sortBy days, (day)->
       day.id()
-
-    # prevDay = previousShowDateTo date
-    # nextDay = nextShowDateFrom date
-
-    # featured = new calendarShowsViewModel date, prevDay, nextDay
 
     $.when calendarView.days days
       .then $('li.day', '#calendar').timespace()
@@ -158,39 +129,10 @@ require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarShowsView
 
     # .done $('ul.shows').isotope('reloadItems').isotope()
 
-
-
 require ["postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel", "lib/views/calendarShowsViewModel", "lib/views/gigViewModel", "lib/views/showViewModel", "underscore", "sammy", 'sammy.storage', 'sammy.google-analytics', 'sammy.title', 'jquery.timespace', 'jquery.isotope','jquery.slabtext'], (postal, $, ko, calendarDayViewModel, calendarViewModel, calendarShowsViewModel, gigViewModel, showViewModel, _, Sammy, Store, GoogleAnalytics, Title)->
   channel = postal.channel()
 
   calendar = []
-
-
-
-  # calendarView = new calendarViewModel
-  # ko.applyBindings calendarView
-
-  # featured = new calendarShowsViewModel
-
-  # sortedCalendarDates = ()->
-  #   dates = _.map calendar, (value, key)->
-  #     key
-
-  #   _.sortBy dates, (object)-> object
-
-  # previousShowDateTo = (date)->
-  #   calendarDates = sortedCalendarDates()
-
-  #   prev = calendarDates[(calendarDates.indexOf(date) - 1)]
-  #   return prev if prev
-  #   false
-
-  # nextShowDateFrom = (date)->
-  #   calendarDates = sortedCalendarDates()
-
-  #   next = calendarDates[(calendarDates.indexOf(date) + 1)]
-  #   return next if next
-  #   false
 
   showOptions =
     opacity: 'show'
@@ -204,67 +146,13 @@ require ["postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/
     padding: 'hide'
     height: 'hide'
 
-  # updateCalendar = ()->
-  #   $.getJSON 'http://denton1.krakatoa.io/shows/calendar.json?callback=?', { timestamp: moment().format('X') }, (data, status)->
-  #     date = moment().format('YYYY-MM-DD')
-  #     calendar = data
-
-  #     days = _.map data, (count, date)->
-  #       new calendarDayViewModel date, count
-
-  #     days = _.sortBy days, (day)->
-  #       day.id()
-
-  #     prevDay = previousShowDateTo date
-  #     nextDay = nextShowDateFrom date
-
-  #     featured = new calendarShowsViewModel date, prevDay, nextDay
-
-  #     # calendarView.days days
-
-  # updateCalendar()  
-
-  getShows = (date)->
-
-
   routes = Sammy 'body', ()->
     this.use 'GoogleAnalytics'
     this.use 'Title'
 
     showSection = (selector, callback)->
-
-      effectsCallback = ()->
-
-        # changeTypography = ()->
-        #   console.log 'changeTypography'
-        #   $('ul.artists').each ()->
-        #     options = 
-        #       maxFontSize: 100
-        #       minCharsPerLine: 7
-        #       precision: 1
-        #     $('li:first', $(this) ).slabText options
-        #     console.log 'changeTypography 1'
-
-
-
-        # updateLayout = ()->
-        #   console.log 'updateLayout'
-
-        #   $('ul.shows').isotope()
-
-        # updateCalendar = ()->
-        #   console.log 'updateCalendar'
-        #   # $('li.day', '#calendar').timespace()
-
-        # $.when changeTypography()
-        #   # .then updateCalendar()
-        #   .done updateLayout()
-
-
-
-
-      $('.primary').not(selector).animate hideOptions, 'fast'
-      $(selector).animate showOptions, 'fast', effectsCallback
+      $.when $('.primary').not(selector).animate hideOptions, 'fast'
+        .done $(selector).animate showOptions, 'fast'
 
     this.setTitle ( title )->
       [title, "Denton, TX Showlist", "BBTTXU" ].join(' | ')
