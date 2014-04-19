@@ -131,6 +131,7 @@ require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarShowsView
 
 require ["postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel", "lib/views/calendarShowsViewModel", "lib/views/gigViewModel", "lib/views/showViewModel", "underscore", "sammy", 'sammy.storage', 'sammy.google-analytics', 'sammy.title', 'jquery.timespace', 'jquery.isotope','jquery.slabtext'], (postal, $, ko, calendarDayViewModel, calendarViewModel, calendarShowsViewModel, gigViewModel, showViewModel, _, Sammy, Store, GoogleAnalytics, Title)->
   channel = postal.channel()
+  channel.publish "get.calendar"
 
   calendar = []
 
@@ -150,9 +151,11 @@ require ["postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/
     this.use 'GoogleAnalytics'
     this.use 'Title'
 
-    showSection = (selector, callback)->
-      $.when $('.primary').not(selector).animate hideOptions, 'fast'
-        .done $(selector).animate showOptions, 'fast'
+    showSection = (selector)->
+      $('.primary').not(selector).animate hideOptions, 100
+      $(selector).animate showOptions, 100
+      # $.when $('.primary').not(selector).hide
+      #   .done $(selector).show
 
     this.setTitle ( title )->
       [title, "Denton, TX Showlist", "BBTTXU" ].join(' | ')
@@ -165,59 +168,9 @@ require ["postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/
     this.get '#/shows/:date', (req)->
       date = req.params['date']
 
-      channel.publish "get.calendar"
       channel.publish "get.date", date
 
-      # id = moment(date).format('YYYY-MM-DD')
-
-      # prevDay = previousShowDateTo date
-      # nextDay = nextShowDateFrom date
-
-      # featured = new calendarShowsViewModel id, prevDay, nextDay
-      # $.getJSON "http://denton1.krakatoa.io/shows/#{id}.json?callback=?", { timestamp: moment().format('X') }, (data, status)->
-
-      #   venue_by_id = (id)->
-      #     for venue in data.venues
-      #       return venue.name if venue.id is id
-      #     null
-      #   venue_by_id = _.memoize venue_by_id
-
-      #   gig_by_id = (id)->
-      #     for gig in data.gigs
-      #       artist = artist_by_id gig.artists
-      #       return new gigViewModel(artist, gig.position) if gig.id is id
-      #     nil
-      #   gig_by_id = _.memoize gig_by_id
-
-      #   artist_by_id = (id)->
-      #     for artist in data.artists
-      #       return artist.name if artist.id is id
-      #     null
-      #   artist_by_id = _.memoize artist_by_id
-
-
-      #   shows = for show in data.shows
-      #     venue = venue_by_id show.venues
-
-      #     gigs = for gig in show.gigs
-      #       gig_by_id gig
-
-      #     new showViewModel show, venue, gigs
-
-      #   featured.shows shows
-        # calendarView.featured featured
-
-        # # callback = ()->
-        # #   $('ul.shows').isotope()
-        # #   console.log 'callback'
-
-
-
-        # # setTimeout callback, 100
-        # # setTimeout callback, 1000
       showSection '#featured'
-
-
 
     routes
 
