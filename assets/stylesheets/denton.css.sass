@@ -1,0 +1,223 @@
+
+@import "foundation_and_overrides"
+
+@mixin count( $color: 'red' )
+  // border:
+  //   color: $color
+  h3
+    text-shadow: $color 1px 1px 5px
+    a
+      span.day
+        color: $primary-color !important
+      span.month
+        color: invert( $primary-color )
+
+@mixin day_or_night( $dayColor: $body-bg, $nightColor: invert( $dayColor ) )
+  body &
+    background: $dayColor
+  body.night &
+    background: $nightColor
+// &.expanded
+  //   background: $color
+
+  //   span
+  //     &.day, &.month
+  //       display: visible
+  //       color: grayscale( $color )
+
+
+// hr
+//   background-color: invert( $primary-color )
+//   height: 5px
+//   width: 100%
+//   text-align: center
+
+
+
+@import "base"
+@import "header"
+@import "footer"
+
+@import "buttons"
+@import "artists"
+@import "calendar"
+@import "shows"
+@import "venues"
+
+#main
+  @extend .row
+  min-height: 30em
+
+  // background: $body-bg
+
+  box-shadow: none
+
+
+@media(min-width: 800px)
+  #main
+    @include day_or_night( lighten($body-bg, 20% ), invert( $body-bg) )
+    border: 1px solid #ccc
+    box-shadow: 2px 4px 8px #999
+    margin:
+      top: 1em
+
+    padding:
+      top: 1em
+
+    body.night &
+      // box-shadow: 2px 4px 8px #999
+      box-shadow: none
+      border: 0
+
+
+
+body
+  background: $body-bg
+
+  &.night
+    background: invert( $body-bg )
+
+@media(min-width: 768px)
+  body
+    margin:
+      bottom: 4em
+  // border:
+  //   top: 1em solid lightblue
+
+#calendar
+  // background: #222
+  @include grid-row
+  @extend .row
+
+@media( min-width: 480px )
+  #calendar
+    padding:
+      top: 1em
+
+.calendar
+  @include count( adjust-hue( $primary-color, 160deg ) )
+
+
+
+  // background: #222
+
+  clear: both
+  #text-align: right
+
+  // padding: 0.4em
+  // margin-bottom: -0.4em
+  // &.expanded
+  //   margin-bottom: 0.4em
+  //   margin-top: 0.0em
+
+  // border-radius: 0.6em
+  // border: solid adjust-hue( $primary-color, 160deg ) 2px
+
+  z-index: 2
+  h4
+    margin: 0
+    line-height: 1em
+
+  // span.day
+  //   display: none
+  // &.soon h4
+  //   span.month
+  //     display: none
+  //   span.day
+  //     display: inline
+
+
+  &:first-child .prev p
+    // display: none
+
+  &:last-child .next p
+    // display: none
+
+.calendar:nth-child(even)
+  z-index: 1
+
+.calendar:nth-child(odd)
+  z-index: 1
+
+
+
+
+
+
+// h4
+//   span.month, span.day
+//     color: adjust-hue( $primary-color, 160deg )
+
+
+
+
+
+// .count-1
+//   @include count( $primary-color)
+// .count-2
+//   @include count( adjust-hue( $primary-color, 270deg ))
+// .count-3
+//   @include count( adjust-hue( $primary-color, 270deg ))
+
+
+.calendar
+
+  // @extend .small-block-grid-2
+  // @extend .large-block-grid-3
+
+// .active
+//   // background: lightblue
+//   z-index: 3
+
+//   span.month, span.day
+//     display: inline
+
+ul.artists
+
+  margin: 0
+  li
+    padding: 0
+
+
+@mixin expanded($columns: 1)
+  // background: whitesmoke
+
+  h4
+    @extend .small-offset-#{$columns}
+    @extend .small-4
+    display: block
+
+    // background: #333
+    padding: 0.5em
+    border-radius: 0.5em
+
+    .expanded &
+      span
+        &.day, &.month
+          display: visible
+          // color: grayscale( $primary-color )
+
+
+.expanded
+  ul li, h3
+    color: #333
+
+
+.expanded
+  @include expanded(0)
+
+// .day-mon.expanded
+//   @include expanded(1)
+// .day-tue.expanded
+//   @include expanded(2)
+// .day-wed.expanded
+//   @include expanded(3)
+// .day-thu.expanded
+//   @include expanded(4)
+// .day-fri.expanded
+//   @include expanded(5)
+// .day-sat.expanded
+//   @include expanded(6)
+// .day-sun.expanded
+//   @include expanded(7)
+

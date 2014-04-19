@@ -15,6 +15,11 @@ exports.config = {
         "server-template-compile"
     ],
     "iced": {
-        extensions: ["coffee"]
+        extensions: ["coffee", "iced"],
+        options: {
+            sourceMap: true,
+            bare: true,
+            runtime: "inline"
+        }
     }
 }
