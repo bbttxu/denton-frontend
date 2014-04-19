@@ -22,9 +22,9 @@ block append content
         .day(data-bind='css: countClass')
           header
             h3
-              span.day(data-bind='text: day') &quest;&quest;&quest;
-              span.month(data-bind='text: month') &quest;&quest;&quest;
-              span.date(data-bind='text: date') &quest;&quest;&quest;
+              span.day(data-bind='text: day') Day
+              span.month(data-bind='text: month') Month
+              span.date(data-bind='text: date') Date
           .content.row
             .prev(data-bind='if: prevDay')
               a(data-bind='attr: { href: prevDayLink }') &laquo;
