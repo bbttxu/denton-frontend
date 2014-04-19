@@ -1,12 +1,13 @@
 {
-    "name": "denton-frontend2",
-    "version": "0.1.0",
-    "dependencies": {
-        "jquery": "~2.1.0",
-        "requirejs": "2.1.8",
-        "moment": "~2.5.1",
-        "underscore": "~1.6.0",
-        "sammy": "~0.7.5",
-        "knockout": "~3.1.0"
-    }
+  "name": "denton-frontend2",
+  "version": "0.1.0",
+  "dependencies": {
+    "jquery": "~2.1.0",
+    "requirejs": "2.1.8",
+    "moment": "~2.5.1",
+    "underscore": "~1.6.0",
+    "sammy": "~0.7.5",
+    "knockout": "~3.1.0",
+    "postal.js": "~0.8.11"
+  }
 }

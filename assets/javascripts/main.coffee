@@ -8,6 +8,7 @@ requirejs.config
     # 'jquery.fittext': "vendor/davatron5000/jquery.fittext"
     'jquery.slabtext': "vendor/freqDec/jquery.slabtext"
 
+    postal: "vendor/postal.js/postal"
     moment: "vendor/moment/moment"
     twix: 'lib/twix'
 
@@ -37,10 +38,37 @@ requirejs.config
     'jquery.slabtext': ["jquery"]
     # 'jquery.fittext': ["jquery"]
 
-require ["jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel", "lib/views/calendarShowsViewModel", "lib/views/gigViewModel", "lib/views/showViewModel", "underscore", "sammy", 'sammy.storage', 'sammy.google-analytics', 'sammy.title', 'jquery.timespace', 'jquery.isotope','jquery.slabtext'], ($, ko, calendarDayViewModel, calendarViewModel, calendarShowsViewModel, gigViewModel, showViewModel, _, Sammy, Store, GoogleAnalytics, Title)->
-  calendar = []
+
+require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel", "jquery.timespace"], (API, postal, $, ko, calendarDayViewModel, calendarViewModel)->
+  channel = postal.channel()
+
   calendarView = new calendarViewModel
   ko.applyBindings calendarView
+
+
+  channel.subscribe "set.calendar", (data)->
+    console.log "calendar is now", data
+    days = _.map data, (count, date)->
+      new calendarDayViewModel date, count
+
+    days = _.sortBy days, (day)->
+      day.id()
+
+    # prevDay = previousShowDateTo date
+    # nextDay = nextShowDateFrom date
+
+    # featured = new calendarShowsViewModel date, prevDay, nextDay
+
+    $.when calendarView.days days
+      .then $('li.day', '#calendar').timespace()
+
+  channel.publish "get.calendar"
+
+
+require ["jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel", "lib/views/calendarShowsViewModel", "lib/views/gigViewModel", "lib/views/showViewModel", "underscore", "sammy", 'sammy.storage', 'sammy.google-analytics', 'sammy.title', 'jquery.timespace', 'jquery.isotope','jquery.slabtext'], ($, ko, calendarDayViewModel, calendarViewModel, calendarShowsViewModel, gigViewModel, showViewModel, _, Sammy, Store, GoogleAnalytics, Title)->
+  calendar = []
+  # calendarView = new calendarViewModel
+  # ko.applyBindings calendarView
 
   featured = new calendarShowsViewModel
 
@@ -92,7 +120,7 @@ require ["jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/cale
 
       featured = new calendarShowsViewModel date, prevDay, nextDay
 
-      calendarView.days days
+      # calendarView.days days
 
   updateCalendar()  
 
@@ -126,10 +154,10 @@ require ["jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/cale
 
         updateCalendar = ()->
           console.log 'updateCalendar'
-          $('li.day', '#calendar').timespace()
+          # $('li.day', '#calendar').timespace()
 
         $.when changeTypography()
-          .then updateCalendar()
+          # .then updateCalendar()
           .done updateLayout()
 
 
