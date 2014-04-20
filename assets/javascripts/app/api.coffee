@@ -6,7 +6,7 @@ define ["jquery", "underscore", "postal"], ($, _, postal)->
 	calendar = () ->
 	  host = "http://denton1.krakatoa.io"
 	  url = "#{host}/shows/calendar.json?callback=?"
-	  $.when $.getJSON url
+	  $.when $.getJSON url, { timestamp: moment().unix() }
 	  	.then (data)-> 
 		  	channel.publish "set.calendar", data
 
@@ -17,7 +17,7 @@ define ["jquery", "underscore", "postal"], ($, _, postal)->
 	  host = "http://denton1.krakatoa.io"
 	  url = "#{host}/shows/calendar.json?callback=?"
 
-	  $.when $.getJSON "http://denton1.krakatoa.io/shows/#{date}.json?callback=?", { timestamp: moment().format('X') }
+	  $.when $.getJSON "http://denton1.krakatoa.io/shows/#{date}.json?callback=?", { timestamp: moment().unix() }
 	  	.then (data)-> 
 		  	channel.publish "set.date", { date: date, data: data }
 	  	
