@@ -2337,3 +2337,8 @@ ul.artists li {
 .expanded .expanded h4 span.day,.expanded .expanded h4 span.month {
     display: visible;
 }
+
+p.loading {
+    text-align: center;
+    font-size: 1.2em;
+}

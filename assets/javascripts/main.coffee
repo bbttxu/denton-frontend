@@ -20,6 +20,10 @@ requirejs.config
     'sammy.storage': "vendor/sammy.storage/sammy.storage"
     'sammy.title': "vendor/sammy.title/sammy.title"
 
+    tether: 'vendor/tether'
+    shepherd: 'vendor/shepherd-amd'
+
+
   shim:
     'sammy':
       deps: [ 'jquery' ]
@@ -37,6 +41,10 @@ requirejs.config
     'jquery.isotope': ["jquery"]
     'jquery.slabtext': ["jquery"]
     # 'jquery.fittext': ["jquery"]
+
+
+require ["moment"], (moment)->
+  console.log moment().format('ZZ')
 
 require ["app/weather"], ()->
   # console.log "loading weather"
@@ -56,7 +64,10 @@ require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarDayViewMo
       day.id()
 
     $.when calendarView.days days
-      .then $('li.day', '#calendar').timespace()
+      .then ()->
+        cb = ()->
+          $('li', '#calendar').timespace()
+        setTimeout cb, 100
 
 require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarShowsViewModel", "lib/views/gigViewModel", "lib/views/showViewModel", "jquery.isotope"], (API, postal, $, ko, calendarShowsViewModel, gigViewModel, showViewModel)->
   channel = postal.channel()

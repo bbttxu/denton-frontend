@@ -12,7 +12,7 @@ define(["knockout"], function(ko) {
         self.gigs = ko.observableArray(gigs);
         self.source = ko.observable(show.source);
         self.time = ko.computed(function(timezoneOffset) {
-            return moment(self.starts_at()).zone(0).format('h:mmA');
+            return moment(self.starts_at()).zone(moment().format('ZZ')).format('h:mmA');
         });
         return self;
     };

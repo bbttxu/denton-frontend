@@ -33,7 +33,7 @@ block append content
               ul.shows.small-block-grid-1.large-block-grid-2(data-bind='template: { name: "show-template", foreach: shows }')
               // /ko
               // ko ifnot: ( shows().length > 0 )
-              p nothing here
+              p.loading Loading... Please Wait.
               // /ko
             .next(data-bind='if: nextDay')
               a(data-bind='attr: { href: nextDayLink }') &raquo;
