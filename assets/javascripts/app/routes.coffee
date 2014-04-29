@@ -19,6 +19,7 @@ define ["postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/v
     padding: 'hide'
     height: 'hide'
 
+
   routes = Sammy 'body', ()->
     this.use 'GoogleAnalytics'
     this.use 'Title'
@@ -34,7 +35,6 @@ define ["postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/v
 
     this.get "#/", ()->
       this.title "Calendar"
-      channel.publish "get.calendar"
       showSection '#upcoming'
 
     this.get '#/shows/:date', (req)->
@@ -43,5 +43,6 @@ define ["postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/v
       channel.publish "get.date", date
 
       showSection '#featured'
+
 
 
