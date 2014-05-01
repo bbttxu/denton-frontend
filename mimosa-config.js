@@ -21,5 +21,12 @@ exports.config = {
             bare: true,
             runtime: "inline"
         }
+    },
+    "serverTemplate": {
+        'locals': {
+            "title": "Mimosa",
+            "reload": false,
+            "optimize": true
+        }
     }
 }

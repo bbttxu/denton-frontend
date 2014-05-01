@@ -43,8 +43,8 @@ requirejs.config
     # 'jquery.fittext': ["jquery"]
 
 
-require ["moment"], (moment)->
-  console.log moment().format('ZZ')
+# require ["moment"], (moment)->
+#   console.log moment().format('ZZ')
 
 require ["app/weather"], ()->
   # console.log "loading weather"
