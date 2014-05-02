@@ -17,19 +17,24 @@ requirejs.config
 
     sammy: "vendor/sammy/sammy"
     'sammy.google-analytics': "vendor/sammy.google-analytics/sammy.google-analytics"
+    # 'sammy.json': "vendor/sammy/sammy.json"
     'sammy.storage': "vendor/sammy.storage/sammy.storage"
     'sammy.title': "vendor/sammy.title/sammy.title"
 
-    tether: 'vendor/tether'
-    shepherd: 'vendor/shepherd-amd'
+    # tether: 'vendor/tether'
+    # shepherd: 'vendor/shepherd-amd'
 
+
+    lscache: 'vendor/pamelafox/lscache'
 
   shim:
     'sammy':
       deps: [ 'jquery' ]
       exports: "Sammy"
     'sammy.google-analytics': [ 'sammy' ]
-    'sammy.storage': [ "sammy" ]
+    # 'sammy.storage': 
+    #   deps: [ "sammy", "sammy.json" ]
+    #   exports: "Sammy.JSON"
     'sammy.title': [ "sammy" ]
     underscore:
       exports: "_"
@@ -43,13 +48,10 @@ requirejs.config
     # 'jquery.fittext': ["jquery"]
 
 
-# require ["moment"], (moment)->
-#   console.log moment().format('ZZ')
-
 require ["app/weather"], ()->
   # console.log "loading weather"
 
-require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel", "jquery.timespace"], (API, postal, $, ko, calendarDayViewModel, calendarViewModel)->
+require ["postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel", "jquery.timespace"], (postal, $, ko, calendarDayViewModel, calendarViewModel)->
   channel = postal.channel()
 
   calendarView = new calendarViewModel
