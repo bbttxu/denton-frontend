@@ -33,7 +33,7 @@ define ["jquery","underscore", "moment", "lscache"], ($, _, moment, store)->
         url: "http://api.openweathermap.org/data/2.5/weather?id=4685907"
         dataType: "jsonp"
         success: (data)->
-          store.set 'weather', data, 15
+          store.set 'weather', data, 6 * 60
           # console.log 'weather updated', data
           setBodyClass()
 
