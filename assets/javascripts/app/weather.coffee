@@ -1,10 +1,5 @@
 # weather.coffee
-define ["jquery","underscore", "moment", "sammy", "sammy.storage"], ($, _, moment, Sammy)->
-  store = new Sammy.Store({name: 'weather', element: 'body', type: 'local'})
-
-  weather = ()->
-    store.get 'weather'
-
+define ["jquery","underscore", "moment", "lscache"], ($, _, moment, store)->
 
   day_or_night = ( today, now = moment().format('X') )->
     asdf =
@@ -17,39 +12,34 @@ define ["jquery","underscore", "moment", "sammy", "sammy.storage"], ($, _, momen
 
     asdf
 
-  update = (data)->
-    weatherUpdatedAt = store.get 'weatherUpdatedAt'
+  setBodyClass = ()->
+    weather = store.get 'weather'
+    classes = day_or_night weather.sys
+    $('body').addClass classes.dis
+    $('body').removeClass classes.disnt
 
-    # within 6 hours is good enough for now, since we're only concerned with sunrise/sunset
-    if ( moment().format('X') - weatherUpdatedAt ) > ( 1 * 60 * 60 )
-      # console.log 'update weather'
+  update = (data)->
+
+    weather = store.get 'weather'
+
+    # console.log "cached", weather
+
+    if weather
+      setBodyClass()
+
+    unless weather
       request =
         # url: "https://api.forecast.io/forecast/APIKEY/40.463487,17.248535"
         url: "http://api.openweathermap.org/data/2.5/weather?id=4685907"
         dataType: "jsonp"
         success: (data)->
-          store.set 'weather', data
-          store.set 'weatherUpdatedAt', moment().format('X')
+          store.set 'weather', data, 15
           # console.log 'weather updated', data
           setBodyClass()
 
       $.ajax request
-    else
-      # console.log 'NO weather update needed'
-      setBodyClass()
 
+  do refresh = ()->
+    update()
 
-  setBodyClass = ()->
-    # weather = store.get 'weather'
-    # console.log 'updating day/night'
-    # console.log weather().sys
-    classes = day_or_night weather().sys
-    $('body').addClass classes.dis
-    $('body').removeClass classes.disnt
-
-  # $(document).ready ()->
-  #   do asdf = ()->
-  #     update()
-  # setTimeout asdf, 60 * 1000
-
-  update()
+    setTimeout refresh, 60 * 1000
