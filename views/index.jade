@@ -12,10 +12,10 @@ block append header
 
   header.header
     .sitetitle
-      h3
+      h1.h2
         a.title(href='') Denton&comma; TX
     .pagetitle
-      h3.title
+      h1.h2.title
         a.menu(href='#/') &#9776;
 
 
@@ -25,7 +25,8 @@ block append content
     //-   | Updated&colon;
     //-   span.ago &nbsp;
     // ko if: ( days().length > 0 )
-    ul#calendar.small-block-grid-7(data-bind='template: { foreach: days, name: "calendar-template" }')
+    .calendar
+      ul#calendar.list-unstyled(data-bind='template: { foreach: days, name: "calendar-template" }')
     // /ko
   #featured.featured
     .day(data-bind='css: countClass')

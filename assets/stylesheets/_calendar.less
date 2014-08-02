@@ -1,0 +1,83 @@
+// _calendar.less
+
+@import "vendor/bootstrap-less/variables";
+@import "_variables";
+@import "vendor/bootstrap-less/mixins";
+
+#upcoming {
+	.make-row();
+
+	.calendar {
+		.make-xs-column(10);
+		.make-xs-column-offset(1);
+
+		li {
+			text-align: center;
+			.day {
+				color: @brand-danger;
+				display: none;
+			}
+			&.soonish {
+				.month {
+					display: none;
+				}
+				.day {
+					display: inherit;
+				}
+			}
+		}
+		.count-0 {
+			.day {
+				color: @gray;
+			}
+		}
+		.count-1 {
+			.day {
+				color: @brand-info;
+			}
+		}
+		.count-2 {
+			.day {
+				color: @brand-success;
+			}
+		}
+		.count-3 {
+			.day {
+				color: @brand-warning;
+			}
+		}
+
+	}
+}
+// #featured, .featured {
+// 	.make-row();
+
+// 	header {
+// 		.make-xs-column(@center);
+// 		.make-xs-column-offset(@sides);
+// 	}
+
+// 	div.day {
+// 		.make-xs-column(12);
+
+// 		.content {
+// 			.make-row();
+// 			clear: both;
+
+// 			.prev, .next {
+// 				.make-xs-column(@sides);
+// 				.make-sm-column(@sides + 1);
+// 				text-align: center;
+// 			}
+// 			.shows {
+// 				.make-xs-column(@center);
+// 				.make-sm-column(@center - 2);
+
+// 				ul {
+// 					padding: 0;
+// 				}
+// 			}
+
+// 		}
+// 	}
+// }
