@@ -5,14 +5,24 @@
 @import "vendor/bootstrap-less/mixins";
 
 #upcoming {
+	padding-top: 1em;
 	.make-row();
 
 	.calendar {
 		.make-xs-column(10);
 		.make-xs-column-offset(1);
+		.make-sm-column(5);
+		.make-sm-column-offset(4);
 
 		li {
+			line-height: 1;
+			width: (100% / 7);
+			font-size: 1.6em;
 			text-align: center;
+			padding-bottom: 1em;
+			span {
+				clear: both;
+			}
 			.day {
 				color: @brand-danger;
 				display: none;

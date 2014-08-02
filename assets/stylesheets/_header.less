@@ -6,17 +6,21 @@
 	.make-row();
 	overflow: auto;
 	border-bottom: 3px solid @brand-warning;
+	@media(min-width: @screen-xs-max) {
+		padding-top: 1em;
+	}
 }
 
 
 .sitetitle, .pagetitle {
-	.make-xs-column(6);
-	.make-sm-column(5);
+	// .make-sm-column(5);
 }
 
 .sitetitle {
-	.make-sm-column-offset(1);
+	.make-xs-column(6);
+	.make-xs-column-offset(1);
 }
 .pagetitle {
+	.make-xs-column(4);
 	text-align: right;
 }

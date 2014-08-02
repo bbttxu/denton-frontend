@@ -7,6 +7,8 @@
 @sides: 1;
 @center: 12 - ( 2 * @sides);
 
+@padding: 0.2ex;
+
 .footer {
 	.make-row();
 
@@ -27,6 +29,14 @@
 	.about {
 		.make-sm-column(5);
 		.make-md-column(4);
+	}
+	padding-bottom: 3em;
+
+	p, li {
+		a {
+			padding-left: @padding;
+			padding-right: @padding;
+		}
 	}
 }
 

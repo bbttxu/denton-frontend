@@ -10,16 +10,17 @@
 @import "_footer";
 
 body {
+	background: @gray-lighter;
 	// .container-fixed();
 }
 
 #main {
+	background: white;
+
 	@media(min-width: @screen-xs-max) {
 		margin-top: 3em;
+		box-shadow: 2px 4px 8px #999;
 	}
-
-	// .make-row();
-	box-shadow: 2px 4px 8px #999;
 }
 
 #upcoming {
