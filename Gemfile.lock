@@ -121,5 +121,6 @@ DEPENDENCIES
   middleman (~> 3.0)
   middleman-sprockets
   rake
+  sass
   wraith
   zurb-foundation

@@ -1,0 +1,22 @@
+@import "vendor/bootstrap-less/variables";
+@import "_variables";
+@import "vendor/bootstrap-less/mixins";
+
+#header, .header {
+	.make-row();
+	overflow: auto;
+	border-bottom: 3px solid @brand-warning;
+}
+
+
+.sitetitle, .pagetitle {
+	.make-xs-column(6);
+	.make-sm-column(5);
+}
+
+.sitetitle {
+	.make-sm-column-offset(1);
+}
+.pagetitle {
+	text-align: right;
+}

@@ -1,0 +1,27 @@
+@import "vendor/bootstrap-less/variables";
+@import "_variables";
+@import "vendor/bootstrap-less/mixins";
+
+@import "vendor/bootstrap-less/bootstrap";
+
+@import "_header";
+@import "_featured";
+@import "_footer";
+
+body {
+	// .container-fixed();
+}
+
+#main {
+	@media(min-width: @screen-xs-max) {
+		margin-top: 3em;
+	}
+
+	// .make-row();
+	box-shadow: 2px 4px 8px #999;
+}
+
+#upcoming {
+	.make-row();
+}
+

@@ -29,16 +29,21 @@ html.no-js(lang='en')
     link(href='/images/apple-touch-icon-57x57-precomposed.png', rel='apple-touch-icon-precomposed', sizes='57x57')
     link(href='/images/apple-touch-icon-72x72-precomposed.png', rel='apple-touch-icon-precomposed', sizes='72x72')
     link(href='/images/apple-touch-icon-114x114-precomposed.png', rel='apple-touch-icon-precomposed', sizes='114x114')
-    link(href='stylesheets/application.css?' + cachebust, media='screen', rel='stylesheet', type='text/css')
+
+    //- link(href='stylesheets/application.css?' + cachebust, media='screen', rel='stylesheet', type='text/css')
+    link(href='stylesheets/denton.css?' + cachebust, media='screen', rel='stylesheet', type='text/css')
     //- link(href='stylesheets/slabtext.css?' + cachebust, media='screen', rel='stylesheet', type='text/css')
 
   body
-    #main
-      block header
+    .container
+      .row
+        #main.col-xs-12
 
-      block content
+          block header
 
-      block footer
+          block content
+
+          block footer
 
     block templates
 

@@ -12,7 +12,8 @@ exports.config = {
         "iced-coffeescript",
         "stylus",
         "dust",
-        "server-template-compile"
+        "server-template-compile",
+        "less"
     ],
     "iced": {
         extensions: ["coffee", "iced"],

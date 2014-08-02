@@ -8,3 +8,4 @@ gem "zurb-foundation"
 gem "rake"
 gem "guard", group: :development
 gem "wraith"
+gem "sass"

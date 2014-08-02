@@ -1937,10 +1937,6 @@ aside ul.tags li {
     display: inline;
 }
 
-#header {
-    overflow: auto;
-    border-bottom: 3px solid #d45934;
-}
 
 #footer {
     padding-top: 2em;

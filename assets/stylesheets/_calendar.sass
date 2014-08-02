@@ -3,31 +3,6 @@ $black: #333
 
 
 
-#sitetitle, #pagetitle
-  padding:
-    top: 0.5em
-    // bottom: 0.5em
-  a
-    color: $black
-
-    body.night &
-      color: invert( $black )
-
-#sitetitle
-  @extend .columns
-  @extend .small-7
-  @extend .large-5
-  @extend .large-offset-1
-  a.title
-    font-family: "Cherry Cream Soda"
-    float: left
-
-
-#pagetitle
-  @extend .columns
-  @extend .small-5
-  @extend .large-5
-  text-align: right
 
 @mixin count( $color: 'red' )
   span.day
