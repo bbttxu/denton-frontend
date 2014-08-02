@@ -1,63 +1,67 @@
 extends layout
 
+block append header
+  header#header
+    #sitetitle
+      h3
+        a.title(href='') Denton&comma; TX
+    #pagetitle
+      h3.title
+        a.menu(href='#/') &#9776;
+
+
+
 block append content
-  body.index
-    #main
-      header#header
-        #sitetitle
-          h3
-            a.title(href='') Denton&comma; TX
-        #pagetitle
-          h3.title
-            a.menu(href='#/') &#9776;
-      #lastUpdated
-      #upcoming.primary
-        //- p.updated
-        //-   | Updated&colon;
-        //-   span.ago &nbsp;
-        // ko if: ( days().length > 0 )
-        ul#calendar.small-block-grid-7(data-bind='template: { foreach: days, name: "calendar-template" }')
-        // /ko
-      #featured.primary.container
-        .day(data-bind='css: countClass')
-          header
-            h3
-              span.day(data-bind='text: day') Day
-              span.month(data-bind='text: month') Month
-              span.date(data-bind='text: date') Date
-          .content.row
-            .prev(data-bind='if: prevDay')
-              a(data-bind='attr: { href: prevDayLink }') &laquo;
-            .shows(data-bind='css: countClass')
-              // ko if: ( shows().length > 0 )
-              ul.shows.small-block-grid-1.large-block-grid-2(data-bind='template: { name: "show-template", foreach: shows }')
-              // /ko
-              // ko ifnot: ( shows().length > 0 )
-              p.loading Loading... Please Wait.
-              // /ko
-            .next(data-bind='if: nextDay')
-              a(data-bind='attr: { href: nextDayLink }') &raquo;
-      // _footer.haml
-      #footer
-        ul.small-block-grid-2
-          li#contact
-            h6 Connect &amp; Contribute
-            ul.contacts
-              li
-                | twitter&colon;
-                a(href='http://twitter.com/bbttxu') &commat;bbttxu
-              li
-                | github&colon;
-                a(href='http://github.com/bbttxu/denton') bbttxu&sol;denton
-              li
-                | docco&colon;
-                a(href='docs/main.html') docs&sol;
-          li#about
-            h6 About this site
-            p.small
-              | This
-              a(href='https://github.com/bbttxu/denton') open-source music showlist
-              | aggregates shows for Denton&comma; TX using public data
+  #upcoming.primary
+    //- p.updated
+    //-   | Updated&colon;
+    //-   span.ago &nbsp;
+    // ko if: ( days().length > 0 )
+    ul#calendar.small-block-grid-7(data-bind='template: { foreach: days, name: "calendar-template" }')
+    // /ko
+  #featured.primary.container
+    .day(data-bind='css: countClass')
+      header
+        h3
+          span.day(data-bind='text: day') Day
+          span.month(data-bind='text: month') Month
+          span.date(data-bind='text: date') Date
+      .content.row
+        .prev(data-bind='if: prevDay')
+          a(data-bind='attr: { href: prevDayLink }') &laquo;
+        .shows(data-bind='css: countClass')
+          // ko if: ( shows().length > 0 )
+          ul.shows.small-block-grid-1.large-block-grid-2(data-bind='template: { name: "show-template", foreach: shows }')
+          // /ko
+          // ko ifnot: ( shows().length > 0 )
+          p.loading Loading... Please Wait.
+          // /ko
+        .next(data-bind='if: nextDay')
+          a(data-bind='attr: { href: nextDayLink }') &raquo;
+
+block append footer
+  // _footer.haml
+  #footer
+    ul.small-block-grid-2
+      li#contact
+        h6 Connect &amp; Contribute
+        ul.contacts
+          li
+            | twitter&colon;
+            a(href='http://twitter.com/bbttxu') &commat;bbttxu
+          li
+            | github&colon;
+            a(href='http://github.com/bbttxu/denton') bbttxu&sol;denton
+          li
+            | docco&colon;
+            a(href='docs/main.html') docs&sol;
+      li#about
+        h6 About this site
+        p.small
+          | This
+          a(href='https://github.com/bbttxu/denton') open-source music showlist
+          | aggregates shows for Denton&comma; TX using public data
+
 
 block append templates
 

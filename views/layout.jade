@@ -1,14 +1,14 @@
 doctype html
 //if lt IE 7
-  html.no-js.lt-ie10.lt-ie9.lt-ie8.lt-ie7(lang='en-us')  
+  html.no-js.lt-ie10.lt-ie9.lt-ie8.lt-ie7(lang='en-us')
 //if IE 7
-  html.no-js.lt-ie10.lt-ie9.lt-ie8(lang='en-us')  
+  html.no-js.lt-ie10.lt-ie9.lt-ie8(lang='en-us')
 //if IE 8
-  html.no-js.lt-ie10.lt-ie9(lang='en-us')  
+  html.no-js.lt-ie10.lt-ie9(lang='en-us')
 //if IE 9
-  html.no-js.lt-ie10.lt-ie9(lang='en-us')  
+  html.no-js.lt-ie10.lt-ie9(lang='en-us')
 //if lt IE 10
-  html.no-js.lt-ie10(lang='en-us')  
+  html.no-js.lt-ie10(lang='en-us')
 //if !IE
   | &gt;
 html.no-js(lang='en')
@@ -32,26 +32,31 @@ html.no-js(lang='en')
     link(href='stylesheets/application.css?' + cachebust, media='screen', rel='stylesheet', type='text/css')
     //- link(href='stylesheets/slabtext.css?' + cachebust, media='screen', rel='stylesheet', type='text/css')
 
+  body
+    #main
+      block header
 
-  block content
+      block content
 
-  block templates
+      block footer
+
+    block templates
 
   if build
-  script.
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-46188129-1']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+    script.
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-46188129-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
 
 
 //- script(src='javascripts/main-built.js')
 if optimize
-  script(src='javascripts/main-built.js' + cachebust)  
+  script(src='javascripts/main-built.js' + cachebust)
 else
-  script(src="javascripts/vendor/requirejs/require.js" data-main='javascripts/main.js' + cachebust)  
+  script(src="javascripts/vendor/requirejs/require.js" data-main='javascripts/main.js' + cachebust)
 //- script(src='javascripts/application.js?1393382169', type='text/javascript')
