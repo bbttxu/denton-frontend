@@ -30,9 +30,7 @@ html.no-js(lang='en')
     link(href='/images/apple-touch-icon-72x72-precomposed.png', rel='apple-touch-icon-precomposed', sizes='72x72')
     link(href='/images/apple-touch-icon-114x114-precomposed.png', rel='apple-touch-icon-precomposed', sizes='114x114')
 
-    //- link(href='stylesheets/application.css?' + cachebust, media='screen', rel='stylesheet', type='text/css')
-    link(href='stylesheets/denton.css?' + cachebust, media='screen', rel='stylesheet', type='text/css')
-    //- link(href='stylesheets/slabtext.css?' + cachebust, media='screen', rel='stylesheet', type='text/css')
+    link(href='stylesheets/denton.css' + cachebust, media='screen', rel='stylesheet', type='text/css')
 
   body
     .container
@@ -83,9 +81,7 @@ html.no-js(lang='en')
       })();
 
 
-//- script(src='javascripts/main-built.js')
 if optimize
   script(src='javascripts/main-built.js' + cachebust)
 else
   script(src="javascripts/vendor/requirejs/require.js" data-main='javascripts/main.js' + cachebust)
-//- script(src='javascripts/application.js?1393382169', type='text/javascript')
