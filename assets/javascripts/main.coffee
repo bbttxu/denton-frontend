@@ -18,7 +18,7 @@ requirejs.config
     sammy: "vendor/sammy/sammy"
     'sammy.google-analytics': "vendor/sammy.google-analytics/sammy.google-analytics"
     # 'sammy.json': "vendor/sammy/sammy.json"
-    'sammy.storage': "vendor/sammy.storage/sammy.storage"
+    # 'sammy.storage': "vendor/sammy.storage/sammy.storage"
     'sammy.title': "vendor/sammy.title/sammy.title"
 
     # tether: 'vendor/tether'
@@ -32,7 +32,7 @@ requirejs.config
       deps: [ 'jquery' ]
       exports: "Sammy"
     'sammy.google-analytics': [ 'sammy' ]
-    # 'sammy.storage': 
+    # 'sammy.storage':
     #   deps: [ "sammy", "sammy.json" ]
     #   exports: "Sammy.JSON"
     'sammy.title': [ "sammy" ]
@@ -136,7 +136,7 @@ require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarShowsView
     featured.shows shows
 
     # $.when $('ul.artists').each ()->
-    #   options = 
+    #   options =
     #     maxFontSize: 100
     #     minCharsPerLine: 7
     #     precision: 1
