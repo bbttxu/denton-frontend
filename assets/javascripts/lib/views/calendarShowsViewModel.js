@@ -31,11 +31,17 @@ define(["knockout", "moment"], function(ko, moment) {
             return moment(self.id()).format("MMMM");
         });
         self.shows = ko.observableArray([]);
-        self.countClass = ko.computed(function() {
-            if (self.shows()) {
-                return "count-" + self.shows().length;
+        self.classes = ko.computed(function() {
+            var cssClasses, month;
+            cssClasses = [];
+            month = moment(self.id()).format('M');
+            if ((month % 2) === 0) {
+                cssClasses.push("month-even");
+            } else {
+                cssClasses.push("month-odd");
             }
-            return "count-0";
+            cssClasses.push("count-" + self.shows().length);
+            return cssClasses.join(" ");
         });
         return self;
     };

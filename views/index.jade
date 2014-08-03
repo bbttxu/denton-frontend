@@ -10,7 +10,7 @@ block append content
       ul#calendar.list-inline(data-bind='template: { foreach: days, name: "calendar-template" }')
     // /ko
   #featured.featured.primary
-    .day(data-bind='css: countClass')
+    .day(data-bind='css: classes')
       header
         h3
           span.day(data-bind='text: day') Day
@@ -19,7 +19,7 @@ block append content
       .content
         .prev(data-bind='if: prevDay')
           a.h1(data-bind='attr: { href: prevDayLink }') &laquo;
-        .shows(data-bind='css: countClass')
+        .shows(data-bind='css: classes')
           // ko if: ( shows().length > 0 )
           ul.shows(data-bind='template: { name: "show-template", foreach: shows }')
           // /ko
