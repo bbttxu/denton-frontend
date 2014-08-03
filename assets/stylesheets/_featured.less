@@ -17,7 +17,21 @@
 		.make-xs-column-offset(@sides);
 		.make-sm-column(@center - 1);
 		.make-sm-column-offset(@sides + 1);
+
+		h3 {
+			span {
+				padding-right: 0.2ex;
+			}
+		}
 	}
+
+	.month {
+		color: @brand-info;
+	}
+	.month-odd .month {
+		color: @gray;
+	}
+
 
 	div.day {
 		.make-xs-column(12);
