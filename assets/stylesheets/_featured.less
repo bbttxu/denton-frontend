@@ -10,6 +10,8 @@
 #featured, .featured {
 	.make-row();
 
+	min-height: 20em;
+
 	header {
 		.make-xs-column(@center);
 		.make-xs-column-offset(@sides);
@@ -23,21 +25,38 @@
 		.content {
 			.make-row();
 			clear: both;
+			padding-bottom: 2em;
 
 			.prev, .next {
 				.make-xs-column(@sides);
 				.make-sm-column(@sides + 1);
 				text-align: center;
+				a {
+					color: @brand-primary;
+				}
 			}
-			.shows {
+			div.shows {
 				.make-xs-column(@center);
 				.make-sm-column(@center - 2);
 
 				ul {
+					list-style: none;
 					padding: 0;
 				}
-			}
 
+			}
+			@media (min-width: 480px) {
+				ul.shows > li {
+					width: 48%;
+					&:nth-child(2n+1) {
+						clear: both;
+						float: left;
+					}
+					&:nth-child(2n) {
+						float: right;
+					}
+				}
+			}
 		}
 	}
 }
@@ -73,5 +92,6 @@ ul.artists {
 		font-size: 2em;
 		line-height: 1;
 		margin: 0;
+		margin-bottom: 0.2em;
 	}
 }
