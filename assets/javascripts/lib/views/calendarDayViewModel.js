@@ -7,8 +7,19 @@ define(["knockout", "moment"], function(ko, moment) {
         self.id = ko.observable(date);
         self.count = ko.observable(count);
         self.classes = ko.computed(function() {
-            var cssClasses;
+            var cssClasses, month;
             cssClasses = [];
+            cssClasses.push("count-" + self.count());
+            month = moment(self.id()).format('M');
+            if ((month % 2) === 0) {
+                cssClasses.push("month-even");
+            } else {
+                cssClasses.push("month-odd");
+            }
+            if (moment().diff(moment(self.id()), 'days') > -10) {
+                cssClasses.push("soonish");
+            }
+
             cssClasses.push("count-" + self.count());
             if (moment().diff(moment(self.id()), 'days') > -10) {
                 cssClasses.push("soonish");

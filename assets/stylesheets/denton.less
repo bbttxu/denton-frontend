@@ -15,7 +15,27 @@ body {
 	@media (min-width: @screen-sm-min) {
 		background: @gray-light;
 	}
+	// .container-fixed();
 }
+
+.wrapper {
+	.container-fixed();
+
+	// http://stackoverflow.com/a/20532235
+	@media (min-width: @screen-sm) {
+    width: @container-sm;
+  }
+  @media (min-width: @screen-md) {
+    width: @container-md;
+  }
+  @media (min-width: @screen-lg-min) {
+    width: @container-lg;
+  }
+}
+
+// .row {
+// 	.make-xs-column(12);
+// }
 
 #main {
 	background: white;

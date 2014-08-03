@@ -40,17 +40,17 @@
 			}
 		}
 		.count-1 {
-			.day {
+			.day, .month {
 				color: @brand-info;
 			}
 		}
 		.count-2 {
-			.day {
+			.day, .month {
 				color: @brand-success;
 			}
 		}
 		.count-3 {
-			.day {
+			.day, .month {
 				color: @brand-warning;
 			}
 		}
@@ -62,35 +62,9 @@
 
 	}
 }
-// #featured, .featured {
-// 	.make-row();
-
-// 	header {
-// 		.make-xs-column(@center);
-// 		.make-xs-column-offset(@sides);
-// 	}
-
-// 	div.day {
-// 		.make-xs-column(12);
-
-// 		.content {
-// 			.make-row();
-// 			clear: both;
-
-// 			.prev, .next {
-// 				.make-xs-column(@sides);
-// 				.make-sm-column(@sides + 1);
-// 				text-align: center;
-// 			}
-// 			.shows {
-// 				.make-xs-column(@center);
-// 				.make-sm-column(@center - 2);
-
-// 				ul {
-// 					padding: 0;
-// 				}
-// 			}
-
-// 		}
-// 	}
+// .month-even .month {
+// 	color: @brand-success;
 // }
+.month-odd .date {
+	color: @gray-light;
+}
