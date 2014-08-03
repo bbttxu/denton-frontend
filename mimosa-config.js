@@ -10,7 +10,6 @@ exports.config = {
         "live-reload",
         "bower",
         "iced-coffeescript",
-        "stylus",
         "dust",
         "server-template-compile",
         "less"
