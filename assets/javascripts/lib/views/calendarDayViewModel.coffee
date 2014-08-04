@@ -19,7 +19,8 @@ define ["knockout", "moment"], (ko, moment) ->
             month = moment(self.id()).format("M") % 2
             cssClasses.push "month-even" if month is 0
             cssClasses.push "month-odd" if month isnt 0
-            cssClasses.push "count-" + self.count() if moment().diff(moment(self.id()), "days") > -10
+            cssClasses.push "count-" + self.count()
+            cssClasses.push "soonish" if moment().diff(moment(self.id()), "days") > -10
             cssClasses.join " "
 
         self.day = ko.computed ()->
