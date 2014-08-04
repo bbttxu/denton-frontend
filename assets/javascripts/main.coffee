@@ -2,30 +2,23 @@ requirejs.config
 
   paths:
     jquery: "vendor/jquery/jquery"
-    'jquery.scrollTo': "lib/jquery.scrollTo"
     'jquery.timespace': "lib/jquery.timespace"
-    'jquery.isotope': "vendor/metafizzy/jquery.isotope"
-    # 'jquery.fittext': "vendor/davatron5000/jquery.fittext"
-    'jquery.slabtext': "vendor/freqDec/jquery.slabtext"
 
     postal: "vendor/postal.js/postal"
     moment: "vendor/moment/moment"
     twix: 'lib/twix'
 
-    underscore: "vendor/underscore/underscore"
     knockout: "vendor/knockout/knockout"
+
+    # underscore: "vendor/underscore/underscore"
+    underscore: "vendor/lodash/lodash.compat"
 
     sammy: "vendor/sammy/sammy"
     'sammy.google-analytics': "vendor/sammy.google-analytics/sammy.google-analytics"
-    # 'sammy.json': "vendor/sammy/sammy.json"
-    # 'sammy.storage': "vendor/sammy.storage/sammy.storage"
     'sammy.title': "vendor/sammy.title/sammy.title"
 
-    # tether: 'vendor/tether'
-    # shepherd: 'vendor/shepherd-amd'
-
-
     lscache: 'vendor/pamelafox/lscache'
+
     typogr: 'vendor/ekalinin/typogr'
 
   shim:
@@ -33,25 +26,18 @@ requirejs.config
       deps: [ 'jquery' ]
       exports: "Sammy"
     'sammy.google-analytics': [ 'sammy' ]
-    # 'sammy.storage':
-    #   deps: [ "sammy", "sammy.json" ]
-    #   exports: "Sammy.JSON"
     'sammy.title': [ "sammy" ]
     underscore:
       exports: "_"
     moment:
       exports: "moment"
     twix: ["moment"]
-    'jquery.scrollTo': ["jquery"]
     'jquery.timespace': ["jquery"]
-    'jquery.isotope': ["jquery"]
-    'jquery.slabtext': ["jquery"]
-    # 'jquery.fittext': ["jquery"]
 
 require ["app/weather"], ()->
   # console.log "loading weather"
 
-require ["postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel", "jquery.timespace"], (postal, $, ko, calendarDayViewModel, calendarViewModel)->
+require ["postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel"], (postal, $, ko, calendarDayViewModel, calendarViewModel)->
   channel = postal.channel()
 
   calendarView = new calendarViewModel
@@ -71,7 +57,7 @@ require ["postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/
           $('li', '#calendar').timespace()
         setTimeout cb, 100
 
-require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarShowsViewModel", "lib/views/gigViewModel", "lib/views/showViewModel", "jquery.isotope"], (API, postal, $, ko, calendarShowsViewModel, gigViewModel, showViewModel)->
+require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarShowsViewModel", "lib/views/gigViewModel", "lib/views/showViewModel"], (API, postal, $, ko, calendarShowsViewModel, gigViewModel, showViewModel)->
   channel = postal.channel()
 
   featured = new calendarShowsViewModel
@@ -128,22 +114,10 @@ require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarShowsView
 
       new showViewModel show, venue, gigs
 
-
-
     featured.id payload.date
     featured.prevDay previousShowDateTo payload.date
     featured.nextDay nextShowDateFrom payload.date
     featured.shows shows
-
-    # $.when $('ul.artists').each ()->
-    #   options =
-    #     maxFontSize: 100
-    #     minCharsPerLine: 7
-    #     precision: 1
-    #   $('li:first', $(this) ).slabText options
-
-    # .done $('ul.shows').isotope('reloadItems').isotope()
-
 
 require ["app/routes", "moment"], (routes, moment)->
   routes.run "#/shows/" + moment().format('YYYY-MM-DD')
