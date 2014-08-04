@@ -3,7 +3,7 @@ define ["jquery", "underscore", "postal", "lscache"], ($, _, postal, lscache)->
 	channel = postal.channel()
 
 	API = {}
-	
+
 	calendar = () ->
 		key = "calendar"
 
@@ -18,7 +18,7 @@ define ["jquery", "underscore", "postal", "lscache"], ($, _, postal, lscache)->
 		  host = "http://denton1.krakatoa.io"
 		  url = "#{host}/shows/calendar.json?callback=?"
 		  $.when $.getJSON url, { timestamp: moment().unix() }
-		  	.then (data)-> 
+		  	.then (data)->
 		  		lscache.set key, data, 15
 			  	channel.publish "set.calendar", data
 
@@ -31,9 +31,6 @@ define ["jquery", "underscore", "postal", "lscache"], ($, _, postal, lscache)->
 
 		cachedData = lscache.get key
 
-		# console.log "cached #{key}", lscache.get key
-
-
 		if cachedData
 
 			channel.publish "set.date", { date: date, data: cachedData }
@@ -41,15 +38,13 @@ define ["jquery", "underscore", "postal", "lscache"], ($, _, postal, lscache)->
 		unless cachedData
 		  host = "http://denton1.krakatoa.io"
 		  url = "#{host}/shows/calendar.json?callback=?"
-		  # console.log date
 
 		  $.when $.getJSON "http://denton1.krakatoa.io/shows/#{date}.json?callback=?", { timestamp: moment().unix() }
-		  	.then (data)-> 
+		  	.then (data)->
 		  		lscache.set key, data, 15
-		  		# console.log "caching", key, data
 			  	channel.publish "set.date", { date: date, data: data }
 
-	  	
-	channel.subscribe "get.date", date	
+
+	channel.subscribe "get.date", date
 
 	API
