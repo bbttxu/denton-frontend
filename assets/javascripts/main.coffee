@@ -26,6 +26,7 @@ requirejs.config
 
 
     lscache: 'vendor/pamelafox/lscache'
+    typogr: 'vendor/ekalinin/typogr'
 
   shim:
     'sammy':
@@ -46,7 +47,6 @@ requirejs.config
     'jquery.isotope': ["jquery"]
     'jquery.slabtext': ["jquery"]
     # 'jquery.fittext': ["jquery"]
-
 
 require ["app/weather"], ()->
   # console.log "loading weather"
