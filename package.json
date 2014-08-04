@@ -1,6 +1,6 @@
 {
   "name": "denton-frontend",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A Mimosa starter skeleton",
   "dependencies": {
     "consolidate": "0.10.0",
