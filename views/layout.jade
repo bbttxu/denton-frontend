@@ -39,7 +39,7 @@ html.no-js(lang='en')
         header.header
           .sitetitle
             h1.h3
-              a.title(href='') Denton&comma; TX
+              a.title(href='') Denton&comma;&nbsp;TX
           .pagetitle
             h2.h3.title
               a.menu(href='#/') &#9776;
@@ -79,6 +79,9 @@ html.no-js(lang='en')
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
 
+  if reload
+    script(src='/socket.io/socket.io.js')
+    script(src='/javascripts/reload-client.js')
 
   if optimize
     script(src='javascripts/main-built.js' + cachebust)
