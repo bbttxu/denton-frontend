@@ -1,11 +1,11 @@
 # routes.coffee
 
-define ["postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel", "lib/views/calendarShowsViewModel", "lib/views/gigViewModel", "lib/views/showViewModel", "underscore", "sammy", 'sammy.google-analytics', 'sammy.title', 'jquery.timespace'], (postal, $, ko, calendarDayViewModel, calendarViewModel, calendarShowsViewModel, gigViewModel, showViewModel, _, Sammy, GoogleAnalytics, Title)->
+define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title'], (postal, $, Sammy, GoogleAnalytics, Title)->
 
   channel = postal.channel()
   channel.publish "get.calendar"
 
-  calendar = []
+  # calendar = []
 
   showOptions =
     opacity: 'show'

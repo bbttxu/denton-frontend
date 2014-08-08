@@ -3,13 +3,19 @@ define ["moment"], (moment)->
 	class Day
 		constructor: (@date, @count)->
 
-		link: ()-> "#/shows/#{@date}"
+		link: ()=> "#/shows/#{@date}"
 
 		weekday: ()=>
 			moment(@date).format "dd"
 
+		weekdayFull: ()=>
+			moment(@date).format "dddd"
+
 		month: ()=>
 			moment(@date).format "MM"
+
+		monthName: ()=>
+			moment(@date).format "MMMM"
 
 		formatted: ()=>
 			moment(@date).format "DD"

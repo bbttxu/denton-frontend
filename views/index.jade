@@ -6,53 +6,46 @@ block append content
       ul#calendar
 
   #featured.featured.primary
-    .day(data-bind='css: classes')
-      header
+    .day
+      header#day
         h3
           span.day(data-bind='text: day') Day
           span.month(data-bind='text: month') Month
           span.date(data-bind='text: date') Date
       .content
-        .prev(data-bind='if: prevDay')
-          a.h1(data-bind='attr: { href: prevDayLink }') &laquo;
+        .prev#prev
         .shows(data-bind='css: classes')
-          // ko if: ( shows().length > 0 )
-          ul.shows(data-bind='template: { name: "show-template", foreach: shows }')
-          // /ko
-          // ko ifnot: ( shows().length > 0 )
-          p.loading Loading... Please Wait.
-          // /ko
-        .next(data-bind='if: nextDay')
-          a.h1(data-bind='attr: { href: nextDayLink }') &raquo;
+          ul.shows#shows
+        .next#next
 
 
-block append templates
+//- block append templates
 
-  //- script#calendar-template(type='text/html')
-  //-   <li class='day' data-bind='attr: { id: id }, css: classes'>
-  //-   <a data-bind='attr: { href: link }'>
-  //-   <span class='day' data-bind='text: day'></span>
-  //-   <span class='month' data-bind='text: month'></span>
-  //-   <span class='date' data-bind='text: date'></span>
-  //-   </a>
-  //-   </li>
+//-   //- script#calendar-template(type='text/html')
+//-   //-   <li class='day' data-bind='attr: { id: id }, css: classes'>
+//-   //-   <a data-bind='attr: { href: link }'>
+//-   //-   <span class='day' data-bind='text: day'></span>
+//-   //-   <span class='month' data-bind='text: month'></span>
+//-   //-   <span class='date' data-bind='text: date'></span>
+//-   //-   </a>
+//-   //-   </li>
 
-  script#show-template(type='text/html')
-    <li>
-    <div class='meta'>
-    <h6 class="h5">
-    <a data-bind='attr: { href: source }'>
-    <span class='time' data-bind='text: time'>Starts At</span>
-    <span class='subhead venue' data-bind='text: venue'>Venue</span>
-    <span class='price right' data-bind='text: price'>Price</span>
-    </a>
-    </h6>
-    </div>
-    <div class='artists'>
-    <ul class='artists list-unstyled' data-bind="template: { foreach: gigs, name: 'artist-template' }"></ul>
-    </div>
-    </li>
+//-   //- script#show-template(type='text/html')
+//-   //-   <li>
+//-   //-   <div class='meta'>
+//-   //-   <h6 class="h5">
+//-   //-   <a data-bind='attr: { href: source }'>
+//-   //-   <span class='time' data-bind='text: time'>Starts At</span>
+//-   //-   <span class='subhead venue' data-bind='text: venue'>Venue</span>
+//-   //-   <span class='price right' data-bind='text: price'>Price</span>
+//-   //-   </a>
+//-   //-   </h6>
+//-   //-   </div>
+//-   //-   <div class='artists'>
+//-   //-   <ul class='artists list-unstyled' data-bind="template: { foreach: gigs, name: 'artist-template' }"></ul>
+//-   //-   </div>
+//-   //-   </li>
 
-  script#artist-template(type='text/html')
-    <li data-bind='html: artistName'>???</li>
+//-   //- script#artist-template(type='text/html')
+//-   //-   <li data-bind='html: artistName'>???</li>
 
