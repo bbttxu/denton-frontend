@@ -125,19 +125,19 @@ require [ "jquery", "app/api", "postal", "templates", "models/show", "models/ven
 
 		gig_by_id = (id)->
 			# _.findWhere gigs, id: id
-			# console.log "gigs"
+			console.log "gigs"
 			for gig in gigs
-				# console.log id, gig.id, id is gig.id
+				console.log id, gig.id, id is gig.id
 				return gig if gig.id is id
 			id
 
 		shows = _.map payload.data.shows, (show)->
 			venue = venue_by_id show.venues
-
-			gigs = _.map show.gigs, (gig)->
+			console.log venue
+			show_gigs = _.map show.gigs, (gig)->
 				gig_by_id gig
 
-			new Show payload.date, venue, show.starts_at, show.price, show.source, gigs
+			new Show payload.date, venue, show.starts_at, show.price, show.source, show_gigs
 
 		templated = _.map shows, (show)->
 			# console.log show
