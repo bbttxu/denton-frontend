@@ -1,11 +1,14 @@
 # routes.coffee
 
-define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title'], (postal, $, Sammy, GoogleAnalytics, Title)->
+define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 'spinjs'], (postal, $, Sammy, GoogleAnalytics, Title, Spinner)->
 
   channel = postal.channel()
   channel.publish "get.calendar"
 
   # calendar = []
+
+  opts = {}
+  spinner = new Spinner(opts).spin()
 
   showOptions =
     opacity: 'show'
@@ -35,10 +38,15 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title'], (
 
     this.get "#/", ()->
       this.title "Calendar"
+
+      # $('#calendar').html(spinner.el) if $('#calendar').is(':empty')
+
       showSection '#upcoming'
 
     this.get '#/shows/:date', (req)->
       date = req.params['date']
+
+      $('#shows').html(spinner.spin().el)
 
       channel.publish "get.date", date
 

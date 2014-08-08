@@ -21,6 +21,8 @@ requirejs.config
 
 		typogr: 'vendor/ekalinin/typogr'
 
+		spinjs: 'vendor/spin.js/spin'
+
 	shim:
 		'sammy':
 			deps: [ 'jquery' ]
@@ -29,8 +31,6 @@ requirejs.config
 		'sammy.title': [ "sammy" ]
 		underscore:
 			exports: "_"
-		moment:
-			exports: "moment"
 		twix: ["moment"]
 		'jquery.timespace': ["jquery"]
 
@@ -81,14 +81,14 @@ require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal
 	channel.subscribe "set.date", (payload)->
 		prev = previousShowDateTo payload.date
 		$('#prev').empty()
-		$('#prev').html templates['prev'] prev if prev
+		$('#prev').html templates.prev prev if prev
 
 		next = nextShowDateFrom payload.date
 		$('#next').empty()
-		$('#next').html templates['next'] next if next
+		$('#next').html templates.next next if next
 
 		$('#day').empty()
-		$('#day').html templates['header'] new Day payload.date
+		$('#day').html templates.header new Day payload.date
 
 
 
@@ -133,7 +133,7 @@ require [ "jquery", "app/api", "postal", "templates", "models/show", "models/ven
 			new Show payload.date, venue, show.starts_at, show.price, show.source, show_gigs
 
 		templated = _.map shows, (show)->
-			templates['show'] show
+			templates.show show
 
 		$('#shows').empty
 		$('#shows').html templated.join ""
