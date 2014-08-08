@@ -1,0 +1,6 @@
+//- calendar-li.jade
+li.day(class=classes() id=date)
+	a(href=link())
+		span.day= weekday()
+		span.month= month()
+		span.date= formatted()

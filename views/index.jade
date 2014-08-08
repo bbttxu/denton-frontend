@@ -2,13 +2,9 @@ extends layout
 
 block append content
   #upcoming.upcoming.primary
-    //- p.updated
-    //-   | Updated&colon;
-    //-   span.ago &nbsp;
-    // ko if: ( days().length > 0 )
     .calendar
-      ul#calendar.list-inline(data-bind='template: { foreach: days, name: "calendar-template" }')
-    // /ko
+      ul#calendar
+
   #featured.featured.primary
     .day(data-bind='css: classes')
       header
@@ -32,14 +28,14 @@ block append content
 
 block append templates
 
-  script#calendar-template(type='text/html')
-    <li class='day' data-bind='attr: { id: id }, css: classes'>
-    <a data-bind='attr: { href: link }'>
-    <span class='day' data-bind='text: day'></span>
-    <span class='month' data-bind='text: month'></span>
-    <span class='date' data-bind='text: date'></span>
-    </a>
-    </li>
+  //- script#calendar-template(type='text/html')
+  //-   <li class='day' data-bind='attr: { id: id }, css: classes'>
+  //-   <a data-bind='attr: { href: link }'>
+  //-   <span class='day' data-bind='text: day'></span>
+  //-   <span class='month' data-bind='text: month'></span>
+  //-   <span class='date' data-bind='text: date'></span>
+  //-   </a>
+  //-   </li>
 
   script#show-template(type='text/html')
     <li>

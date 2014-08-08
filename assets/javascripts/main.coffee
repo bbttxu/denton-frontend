@@ -37,25 +37,24 @@ requirejs.config
 require ["app/weather"], ()->
   # console.log "loading weather"
 
-require ["postal", "jquery", "knockout", "lib/views/calendarDayViewModel", "lib/views/calendarViewModel"], (postal, $, ko, calendarDayViewModel, calendarViewModel)->
+
+require ["app/api", "models/day", "postal", "templates", "moment"], (API, Day, postal, templates, moment)->
   channel = postal.channel()
 
-  calendarView = new calendarViewModel
-  ko.applyBindings calendarView, $('#upcoming')[0]
-
   channel.subscribe "set.calendar", (data)->
-    # console.log "calendar is now", data
+
     days = _.map data, (count, date)->
-      new calendarDayViewModel date, count
+      new Day date, count
 
     days = _.sortBy days, (day)->
-      day.id()
+      day.date
 
-    $.when calendarView.days days
-      .then ()->
-        cb = ()->
-          $('li', '#calendar').timespace()
-        setTimeout cb, 100
+    templated = _.map days, (day)->
+      templates['calendar-li'](day)
+
+    $('#calendar').html(templated.join(""))
+    $('li', '#calendar').timespace()
+
 
 require ["app/api", "postal", "jquery", "knockout", "lib/views/calendarShowsViewModel", "lib/views/gigViewModel", "lib/views/showViewModel"], (API, postal, $, ko, calendarShowsViewModel, gigViewModel, showViewModel)->
   channel = postal.channel()

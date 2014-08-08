@@ -16,15 +16,20 @@
 		.make-md-column(4);
 		.make-md-column-offset(5);
 
+		ul {
+			padding-left: 0;
+		}
+
 		li {
+			list-style: none;
+			display: inline-block;
 			line-height: 1;
 			width: (100% / 7);
 			font-size: 1.6em;
 			text-align: center;
 			padding-bottom: 1em;
-			span {
-				// display: block;
-				// clear: both;
+			span:after {
+				content: " ";
 			}
 			.day {
 				color: @brand-danger;

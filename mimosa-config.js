@@ -10,7 +10,7 @@ exports.config = {
         "live-reload",
         "bower",
         "iced-coffeescript",
-        "dust",
+        "jade",
         "server-template-compile",
         "less"
     ],
