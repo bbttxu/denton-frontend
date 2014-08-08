@@ -101,9 +101,7 @@ require [ "jquery", "app/api", "postal", "templates", "models/show", "models/ven
 
 		artist_by_id = (id)->
 			# _.findWhere artists, id: id
-			# console.log "artists"
 			for artist in artists
-				# console.log id, artist.id, id is artist.id
 				return artist if artist.id is id
 			null
 
@@ -112,9 +110,7 @@ require [ "jquery", "app/api", "postal", "templates", "models/show", "models/ven
 
 		venue_by_id = (id)->
 			# _.findWhere venues, id: id
-			# console.log "venues"
 			for venue in venues
-				# console.log id, venue.id, id is venue.id
 				return venue if venue.id is id
 			null
 
@@ -125,25 +121,19 @@ require [ "jquery", "app/api", "postal", "templates", "models/show", "models/ven
 
 		gig_by_id = (id)->
 			# _.findWhere gigs, id: id
-			console.log "gigs"
 			for gig in gigs
-				console.log id, gig.id, id is gig.id
 				return gig if gig.id is id
 			id
 
 		shows = _.map payload.data.shows, (show)->
 			venue = venue_by_id show.venues
-			console.log venue
 			show_gigs = _.map show.gigs, (gig)->
 				gig_by_id gig
 
 			new Show payload.date, venue, show.starts_at, show.price, show.source, show_gigs
 
 		templated = _.map shows, (show)->
-			# console.log show
 			templates['show'] show
-
-		# console.log templated
 
 		$('#shows').empty
 		$('#shows').html templated.join ""
