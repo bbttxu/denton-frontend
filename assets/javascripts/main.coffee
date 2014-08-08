@@ -8,8 +8,6 @@ requirejs.config
 		moment: "vendor/moment/moment"
 		twix: 'lib/twix'
 
-		# knockout: "vendor/knockout/knockout"
-
 		underscore: "vendor/underscore/underscore"
 		# underscore: "vendor/lodash/lodash.compat"
 
