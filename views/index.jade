@@ -17,35 +17,3 @@ block append content
         .shows(data-bind='css: classes')
           ul.shows#shows
         .next#next
-
-
-//- block append templates
-
-//-   //- script#calendar-template(type='text/html')
-//-   //-   <li class='day' data-bind='attr: { id: id }, css: classes'>
-//-   //-   <a data-bind='attr: { href: link }'>
-//-   //-   <span class='day' data-bind='text: day'></span>
-//-   //-   <span class='month' data-bind='text: month'></span>
-//-   //-   <span class='date' data-bind='text: date'></span>
-//-   //-   </a>
-//-   //-   </li>
-
-//-   //- script#show-template(type='text/html')
-//-   //-   <li>
-//-   //-   <div class='meta'>
-//-   //-   <h6 class="h5">
-//-   //-   <a data-bind='attr: { href: source }'>
-//-   //-   <span class='time' data-bind='text: time'>Starts At</span>
-//-   //-   <span class='subhead venue' data-bind='text: venue'>Venue</span>
-//-   //-   <span class='price right' data-bind='text: price'>Price</span>
-//-   //-   </a>
-//-   //-   </h6>
-//-   //-   </div>
-//-   //-   <div class='artists'>
-//-   //-   <ul class='artists list-unstyled' data-bind="template: { foreach: gigs, name: 'artist-template' }"></ul>
-//-   //-   </div>
-//-   //-   </li>
-
-//-   //- script#artist-template(type='text/html')
-//-   //-   <li data-bind='html: artistName'>???</li>
-
