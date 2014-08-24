@@ -133,6 +133,12 @@ require [ "jquery", "app/api", "postal", "templates", "models/show", "models/ven
       new Show payload.date, venue, show.starts_at, show.price, show.source, show_gigs, show.time_is_uncertain
 
 
+    shows = _.sortBy shows, (show)->
+      show.starts_at
+
+    shows = _.sortBy shows, (show)->
+      show.time_is_unknown
+
     templated = _.map shows, (show)->
       templates.show show
 
