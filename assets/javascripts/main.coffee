@@ -130,7 +130,7 @@ require [ "jquery", "app/api", "postal", "templates", "models/show", "models/ven
       show_gigs = _.map show.gigs, (gig)->
         gig_by_id gig
 
-      new Show payload.date, venue, show.starts_at, show.price, show.source, show_gigs
+      new Show payload.date, venue, show.starts_at, show.price, show.source, show_gigs, show.time_is_uncertain
 
 
     templated = _.map shows, (show)->

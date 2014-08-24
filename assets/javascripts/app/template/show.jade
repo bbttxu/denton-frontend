@@ -1,13 +1,17 @@
 //- show.jade
 
 li.show
-	.meta
-		h6.h5
-			a(href=source)
-				span.time= time()
-				span.subhead.venue= venue.name
-				span.price.is.right= price
-	.artists
-		ul.artists.list-unstlyed
-			each gig in gigs
-				li!= gig.artist.formattedName()
+  .meta
+    h6.h5
+      a(href=source)
+        if timeIsCertain()
+          span.time= time()
+        else
+          span.unknown UNK
+
+        span.subhead.venue= venue.name
+        span.price.is.right= price
+  .artists
+    ul.artists.list-unstlyed
+      each gig in gigs
+        li!= gig.artist.formattedName()

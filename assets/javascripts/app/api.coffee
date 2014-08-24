@@ -19,7 +19,7 @@ define ["jquery", "underscore", "postal", "lscache"], ($, _, postal, lscache)->
 			url = "#{host}/shows/calendar.json?callback=?"
 			$.when $.getJSON url, { timestamp: moment().valueOf() }
 				.then (data)->
-					lscache.set key, { data: data, updated: moment().valueOf() }, 15
+					lscache.set key, { data: data, updated: moment().valueOf() }, 3
 					channel.publish "set.calendar", { data: data, updated: moment().valueOf() }
 
 	channel.subscribe "get.calendar", calendar
@@ -41,7 +41,7 @@ define ["jquery", "underscore", "postal", "lscache"], ($, _, postal, lscache)->
 
 			$.when $.getJSON "http://denton1.krakatoa.io/shows/#{date}.json?callback=?", { timestamp: moment().valueOf() }
 				.then (data)->
-					lscache.set key, { date: date, data: data, updated: moment().valueOf() }, 15
+					lscache.set key, { date: date, data: data, updated: moment().valueOf() }, 3
 					channel.publish "set.date", { date: date, data: data, updated: moment().valueOf() }
 
 

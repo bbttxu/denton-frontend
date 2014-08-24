@@ -1,0 +1,35 @@
+// _last_updated.less
+
+@import "vendor/bootstrap-less/variables";
+@import "_variables";
+@import "vendor/bootstrap-less/mixins";
+
+
+.last-updated-wrapper {
+	.make-row();
+
+	p {
+		text-align: right;
+	}
+
+	.label {
+		color: @gray-light;
+
+		&:after {
+			content: ": ";
+		}
+	}
+
+	.date {
+		color: @brand-primary;
+	}
+
+	.last-updated {
+    .make-xs-column(11);
+		.make-sm-column(4);
+		.make-sm-column-offset(6);
+	}
+
+}
+
+
