@@ -47,14 +47,14 @@ require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal
 
 
   channel.subscribe "update.calendar", (payload)->
-    console.log "next/prev", payload
+    console.log "update.calendar", payload
     days = _.map payload.data, (count, date)->
       date
 
     calendar = _.sortBy days, (date)->
       date
 
-    console.log "calendar", calendar
+    # console.log "calendar", calendar
 
   previousShowDateTo = (date)->
     date = moment(date).format('YYYY-MM-DD')
@@ -69,23 +69,23 @@ require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal
     return new Day(next, 0) if next
     false
 
-  channel.subscribe "update.adjacent", (payload)->
-    #   console.log payload
+  # channel.subscribe "update.adjacent", (payload)->
+  #   #   console.log payload
 
-    # channel.subscribe "set.date", (payload)->
-    console.log "set.date in next/prev", payload
-    prev = previousShowDateTo moment(payload.updated).format('YYYY-MM-DD')
+  channel.subscribe "set.date", (payload)->
+    console.log "set.date in next/prev", payload.date
+    prev = previousShowDateTo moment(payload.date).format('YYYY-MM-DD')
     console.log "prev", prev
     $('#prev').empty()
     $('#prev').html templates.prev prev if prev
 
-    next = nextShowDateFrom moment(payload.updated).format('YYYY-MM-DD')
+    next = nextShowDateFrom moment(payload.date).format('YYYY-MM-DD')
     console.log "next", next
     $('#next').empty()
     $('#next').html templates.next next if next
 
     $('#day').empty()
-    $('#day').html templates.header new Day payload.updated
+    $('#day').html templates.header new Day payload
 
 
 
