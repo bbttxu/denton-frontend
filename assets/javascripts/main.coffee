@@ -47,7 +47,7 @@ require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal
 
 
   channel.subscribe "update.calendar", (payload)->
-    console.log "update.calendar", payload
+    # console.log "update.calendar", payload
     days = _.map payload.data, (count, date)->
       date
 
@@ -58,7 +58,7 @@ require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal
 
   previousShowDateTo = (date)->
     date = moment(date).format('YYYY-MM-DD')
-    console.log "pradadadsfadfa", calendar, date
+    # console.log "pradadadsfadfa", calendar, date
     prev = calendar[(calendar.indexOf(date) - 1)]
     return new Day(prev, 0) if prev
     false
@@ -73,19 +73,19 @@ require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal
   #   #   console.log payload
 
   channel.subscribe "set.date", (payload)->
-    console.log "set.date in next/prev", payload.date
+    # console.log "set.date in next/prev", payload.date
     prev = previousShowDateTo moment(payload.date).format('YYYY-MM-DD')
-    console.log "prev", prev
+    # console.log "prev", prev
     $('#prev').empty()
     $('#prev').html templates.prev prev if prev
 
     next = nextShowDateFrom moment(payload.date).format('YYYY-MM-DD')
-    console.log "next", next
+    # console.log "next", next
     $('#next').empty()
     $('#next').html templates.next next if next
 
     $('#day').empty()
-    $('#day').html templates.header new Day payload
+    $('#day').html templates.header new Day moment(payload.date)
 
 
 

@@ -60,7 +60,7 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
     # console.log 'get.calendar', cached
 
     updateCalendar = ()->
-      console.log 'get.updateCalendar'
+      # console.log 'get.updateCalendar'
       $.when $.getJSON url, { timestamp: moment().valueOf() }
         .then (data)->
           payload = { data: data, updated: moment().valueOf() }
@@ -86,7 +86,7 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
     # console.log 'touch.calendar', cached
 
     updateCalendar = ()->
-      console.log 'touch.updateCalendar'
+      # console.log 'touch.updateCalendar'
       $.when $.getJSON url, { timestamp: moment().valueOf() }
         .then (data)->
           payload = { data: data, updated: moment().valueOf() }
@@ -123,7 +123,7 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
       $.when $.getJSON url, { timestamp: moment().valueOf() }
         .then (data)->
           payload = { date: date, data: data, updated: moment().valueOf() }
-          console.log payload
+          # console.log payload
           lscache.set key, payload, defaults.cache.length
           channel.publish "set.date", payload
           channel.publish "update.adjacent", date
@@ -163,7 +163,7 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
 
     cached = lscache.get key
 
-    console.log 'date cached', key, cached
+    # console.log 'date cached', key, cached
 
     updateDate = (date)->
 
