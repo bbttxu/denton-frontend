@@ -91,10 +91,11 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
         .then (data)->
           payload = { data: data, updated: moment().valueOf() }
           lscache.set key, payload, defaults.cache.length
-          # channel.publish "set.calendar", payload
+          channel.publish "update.calendar", payload
+          # channel.publish "update.adjacent", payload
 
     if cached
-      # channel.publish "set.calendar", cached
+      channel.publish "update.calendar", cached
       if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
         updateCalendar()
 
@@ -124,6 +125,8 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
           payload = { data: data, updated: moment().valueOf() }
           lscache.set key, payload, defaults.cache.length
           channel.publish "set.date", payload
+          channel.publish "update.adjacent", date
+
 
 
 
@@ -133,6 +136,7 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
     ###
     if cached
       channel.publish "set.date", cached
+      channel.publish "update.adjacent", date
       if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
         updateDate(date)
 
