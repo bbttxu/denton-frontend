@@ -10,6 +10,7 @@
         "postal.js": "~0.8.11",
         "foundation": "~5.0.0",
         "bootstrap-less": "~3.0.0",
-        "spin.js": "*"
+        "spin.js": "*",
+        "pace": "~0.5.6"
     }
 }

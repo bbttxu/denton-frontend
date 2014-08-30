@@ -23,6 +23,8 @@ requirejs.config
 
     spinjs: 'vendor/spin.js/spin'
 
+    pace: 'vendor/pace/pace'
+
   shim:
     'sammy':
       deps: [ 'jquery' ]
@@ -33,6 +35,9 @@ requirejs.config
       exports: "_"
     twix: ["moment"]
     'jquery.timespace': ["jquery"]
+
+require ["pace"], (pace)->
+  pace.start()
 
 require ["app/weather"], ()->
   # console.log "loading weather"
