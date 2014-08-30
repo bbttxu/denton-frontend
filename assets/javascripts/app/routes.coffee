@@ -3,7 +3,7 @@
 define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 'spinjs'], (postal, $, Sammy, GoogleAnalytics, Title, Spinner)->
 
   channel = postal.channel()
-  channel.publish "get.calendar"
+  channel.publish "touch.calendar"
 
   # calendar = []
 
@@ -30,8 +30,6 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
     showSection = (selector)->
       $('.primary').not(selector).animate hideOptions, 100
       $(selector).animate showOptions, 100
-      # $.when $('.primary').not(selector).hide
-      #   .done $(selector).show
 
     this.setTitle ( title )->
       [title, "Denton, TX Showlist", "BBTTXU" ].join(' | ')
@@ -40,6 +38,8 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
       this.title "Calendar"
 
       # $('#calendar').html(spinner.el) if $('#calendar').is(':empty')
+
+      channel.publish "get.calendar"
 
       showSection '#upcoming'
 

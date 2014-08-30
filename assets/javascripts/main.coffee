@@ -4,6 +4,8 @@ requirejs.config
     jquery: "vendor/jquery/jquery"
     'jquery.timespace': "lib/jquery.timespace"
 
+    domReady: 'vendor/requirejs/domReady'
+
     postal: "vendor/postal.js/postal"
     moment: "vendor/moment/moment"
     twix: 'lib/twix'
@@ -36,32 +38,13 @@ require ["app/weather"], ()->
   # console.log "loading weather"
 
 
-require ["app/api", "models/day", "postal", "templates", "moment", "jquery.timespace"], (API, Day, postal, templates, moment)->
-  channel = postal.channel()
-
-  channel.subscribe "set.calendar", (payload)->
-    days = _.map payload.data, (count, date)->
-      new Day date, count
-
-    days = _.sortBy days, (day)->
-      day.date
-
-    templated = _.map days, (day)->
-      templates['calendar-li'](day)
-
-    $('#last-updated').html( templates['last-updated']( ago: moment(payload.updated).fromNow() ) )
-
-    $('#calendar').html(templated.join(""))
-    $('li', '#calendar').timespace()
-
-  channel.publish "get.calendar"
-
 require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal, Day, templates, $)->
   channel = postal.channel()
 
   calendar = []
 
   channel.subscribe "set.calendar", (payload)->
+    console.log "next/prev", payload
     days = _.map payload.data, (count, date)->
       date
 
@@ -148,5 +131,9 @@ require [ "jquery", "app/api", "postal", "templates", "models/show", "models/ven
     $('#shows').html templated.join ""
 
 
-require ["app/routes", "moment"], (routes, moment)->
-  routes.run "#/shows/" + moment().format('YYYY-MM-DD')
+require ["app/calendar"], ()->
+  # load calendar
+
+require ["app/routes", "moment", "domReady"], (routes, moment, domReady)->
+  domReady ()->
+    routes.run "#/shows/" + moment().format('YYYY-MM-DD')
