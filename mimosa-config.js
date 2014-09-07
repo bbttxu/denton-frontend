@@ -26,7 +26,8 @@ exports.config = {
         'locals': {
             "title": "Mimosa",
             "reload": false,
-            "optimize": true
+            "optimize": true,
+            "build": true
         }
     }
 }
