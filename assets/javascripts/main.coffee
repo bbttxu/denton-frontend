@@ -101,8 +101,6 @@ require [ "jquery", "app/api", "postal", "templates", "models/show", "models/ven
     artists = _.map payload.data.artists, (artist)->
       new Artist artist.name, artist.id
 
-    console.log artists
-
     artist_by_id = (id)->
       # _.findWhere artists, id: id
       for artist in artists
@@ -111,8 +109,6 @@ require [ "jquery", "app/api", "postal", "templates", "models/show", "models/ven
 
     venues = _.map payload.data.venues, (venue)->
       new Venue venue.name, venue.id
-
-    console.log venues
 
     venue_by_id = (id)->
       # _.findWhere venues, id: id
@@ -137,8 +133,6 @@ require [ "jquery", "app/api", "postal", "templates", "models/show", "models/ven
         gig_by_id gig
 
       new Show payload.date, venue, show.starts_at, show.price, show.source, show_gigs, show.time_is_uncertain
-
-    console.log shows
 
     shows = _.sortBy shows, (show)->
       show.starts_at
