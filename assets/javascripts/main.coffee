@@ -140,6 +140,12 @@ require [ "jquery", "app/api", "postal", "templates", "models/show", "models/ven
     shows = _.sortBy shows, (show)->
       show.time_is_unknown
 
+
+    # _.each shows, (show)->
+    #   console.log show
+    #   _.each show.gigs, (gig)->
+    #     console.log 'a', gig.artist
+
     templated = _.map shows, (show)->
       templates.show show
 
