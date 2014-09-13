@@ -1,35 +1,36 @@
 # day.coffee
 define ["moment"], (moment)->
-	class Day
-		constructor: (@date, @count)->
+  class Day
+    constructor: (@date, @count)->
 
-		link: ()=> "#/shows/#{@date}"
+    link: ()=> "#/shows/#{@date}"
 
-		weekday: ()=>
-			moment(@date).format "dd"
+    weekday: ()=>
+      moment(@date).format "dd"
 
-		weekdayFull: ()=>
-			moment(@date).format "dddd"
+    weekdayFull: ()=>
+      moment(@date).format "dddd"
 
-		month: ()=>
-			moment(@date).format "MM"
+    month: ()=>
+      moment(@date).format "MM"
 
-		monthName: ()=>
-			moment(@date).format "MMMM"
+    monthName: ()=>
+      moment(@date).format "MMMM"
 
-		formatted: ()=>
-			moment(@date).format "DD"
+    formatted: ()=>
+      moment(@date).format "DD"
 
-		classes: ()=>
-			classes = []
+    classes: ()=>
+      classes = []
 
-			classes.push "count-#{@count}"
+      classes.push "count-#{@count}"
 
-			if moment(@date).format "MM" % 2 is 0
-				classes.push "month-even"
-			else
-				classes.push "month-odd"
+      console.log moment(@date).format("MM") % 2
+      if moment(@date).format("MM")% 2 is 0
+        classes.push "month-even"
+      else
+        classes.push "month-odd"
 
-			classes.push "soonish" if moment().diff(moment(@date), "days") > -10
+      classes.push "soonish" if moment().diff(moment(@date), "days") > -10
 
-			classes.join " "
+      classes.join " "

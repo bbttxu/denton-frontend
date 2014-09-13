@@ -4,6 +4,7 @@ exports.config = {
         "server",
         "jshint",
         "csslint",
+        "lint",
         "require",
         "minify-js",
         "minify-css",

@@ -23,7 +23,7 @@ requirejs.config
 
     spinjs: 'vendor/spin.js/spin'
 
-    pace: 'vendor/pace/pace'
+    # pace: 'vendor/pace/pace'
 
     tcomb: 'vendor/tcomb/index'
     'tcomb-validation': 'vendor/tcomb-validation/index'
@@ -40,12 +40,11 @@ requirejs.config
     'jquery.timespace': ["jquery"]
     'tcomb-validation': ['tcomb']
 
-require ["pace"], (pace)->
-  pace.start()
+# require ["pace"], (pace)->
+#   pace.start()
 
-require ["app/weather"], ()->
-  # console.log "loading weather"
-
+require ["app/date"], ()->
+  # load calendar
 
 require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal, Day, templates, $)->
   channel = postal.channel()
@@ -98,89 +97,12 @@ require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal
     $('#day').empty()
     $('#day').html templates.header new Day moment(payload.date)
 
-
-
-require [ "jquery", "app/api", "postal", "templates", "models/show", "models/venue", "models/gig", "models/artist"], ($, API, postal, templates, Show, Venue, Gig, Artist)->
-  channel = postal.channel()
-
-  # t.options.onFail = (message)->
-  #   console.log message
-  #   return null
-
-  channel.subscribe "set.date", (payload)->
-
-    artists = _.map payload.data.artists, (artist)->
-      new Artist artist.name, artist.id
-
-    artists = _.filter artists, (artist)->
-      artist.isValid()
-
-    artist_by_id = (id)->
-      # _.findWhere artists, id: id
-      for artist in artists
-        return artist if artist.id is id
-      null
-
-    venues = _.map payload.data.venues, (venue)->
-      new Venue venue.name, venue.id
-
-    venue_by_id = (id)->
-      # _.findWhere venues, id: id
-      for venue in venues
-        return venue if venue.id is id
-      null
-
-    # g = new Gig 1,1, "1"
-    # console.log g
-
-
-    gigs = _.map payload.data.gigs, (gig)->
-      artist = artist_by_id gig.artists
-      new Gig artist, gig.position, gig.id
-
-    gigs = _.filter gigs, (gig)->
-      gig.isValid()
-
-
-    gig_by_id = (id)->
-      # _.findWhere gigs, id: id
-      for gig in gigs
-        return gig if gig.id is id
-      null
-
-    shows = _.map payload.data.shows, (show)->
-      venue = venue_by_id show.venues
-      show_gigs = _.map show.gigs, (gig)->
-        gig_by_id gig
-
-      show_gigs = _.reject show_gigs, (gig)->
-        gig is null
-
-      show_gigs = undefined if show_gigs.length is 0
-
-      new Show payload.date, venue, show.starts_at, show.price, show.source, show_gigs, show.time_is_uncertain
-
-    shows = _.filter shows, (show)->
-      show.isValid()
-
-    shows = _.sortBy shows, (show)->
-      show.starts_at
-
-    shows = _.sortBy shows, (show)->
-      show.time_is_unknown
-
-    templated = _.map shows, (show)->
-      templates.show show
-
-    $('#last-updated').html( templates['last-updated']( ago: moment(payload.updated).fromNow() ) )
-
-    $('#shows').empty
-    $('#shows').html templated.join ""
-
+require ["app/routes", "moment", "domReady"], (routes, moment, domReady)->
+  domReady ()->
+    routes.run "#/shows/" + moment().format('YYYY-MM-DD')
 
 require ["app/calendar"], ()->
   # load calendar
 
-require ["app/routes", "moment", "domReady"], (routes, moment, domReady)->
-  domReady ()->
-    routes.run "#/shows/" + moment().format('YYYY-MM-DD')
+require ["app/weather"], ()->
+  # console.log "loading weather"
