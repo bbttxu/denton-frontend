@@ -109,11 +109,10 @@ require [ "jquery", "app/api", "postal", "templates", "models/show", "models/ven
   channel.subscribe "set.date", (payload)->
 
     artists = _.map payload.data.artists, (artist)->
-      console.log artist.name
-      a = new Artist artist.name, artist.id
-      a if a.isValid()
+      new Artist artist.name, artist.id
 
-    # console.log artists
+    artists = _.filter artists, (artist)->
+      artist.isValid()
 
     artist_by_id = (id)->
       # _.findWhere artists, id: id
@@ -136,12 +135,10 @@ require [ "jquery", "app/api", "postal", "templates", "models/show", "models/ven
 
     gigs = _.map payload.data.gigs, (gig)->
       artist = artist_by_id gig.artists
-      g = new Gig artist, gig.position, gig.id
-      # console.log g, g.isValid()
-      g if g.isValid()
+      new Gig artist, gig.position, gig.id
 
-    gigs = _.reject gigs, (gig)->
-      gig is undefined
+    gigs = _.filter gigs, (gig)->
+      gig.isValid()
 
 
     gig_by_id = (id)->
@@ -163,7 +160,6 @@ require [ "jquery", "app/api", "postal", "templates", "models/show", "models/ven
       new Show payload.date, venue, show.starts_at, show.price, show.source, show_gigs, show.time_is_uncertain
 
     shows = _.filter shows, (show)->
-      console.log show, show.isValid()
       show.isValid()
 
     shows = _.sortBy shows, (show)->
@@ -171,12 +167,6 @@ require [ "jquery", "app/api", "postal", "templates", "models/show", "models/ven
 
     shows = _.sortBy shows, (show)->
       show.time_is_unknown
-
-
-    # _.each shows, (show)->
-    #   console.log show
-    #   _.each show.gigs, (gig)->
-    #     console.log 'a', gig.artist
 
     templated = _.map shows, (show)->
       templates.show show
