@@ -25,6 +25,8 @@ requirejs.config
 
     pace: 'vendor/pace/pace'
 
+    tcomb: 'vendor/tcomb/index'
+
   shim:
     'sammy':
       deps: [ 'jquery' ]

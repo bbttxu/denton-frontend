@@ -11,6 +11,7 @@
     "postal.js": "~0.8.11",
     "bootstrap-less": "~3.0.0",
     "spin.js": "*",
-    "pace": "~0.5.6"
+    "pace": "~0.5.6",
+    "tcomb": "*"
   }
 }
