@@ -3,11 +3,6 @@
 define ["tcomb-validation", "moment"], (t, moment)->
   class Show
     constructor: (@date, @venue, @starts_at, @price, @source, @gigs, @time_is_unknown)->
-      # t.assert t.Dat @date
-      # t.assert not t.Nil.is @venue
-      # t.assert t.Dat @starts_at
-      # t.assert t.Arr.is @gigs
-      # t.assert t.Bool.is @time_is_unknown
 
     time: ()=>
       moment(@starts_at).zone(moment().format('ZZ')).format "h:mm a"
@@ -25,8 +20,8 @@ define ["tcomb-validation", "moment"], (t, moment)->
         time_is_unknown: t.Bool
 
       # TODO can't figure out how to do the opposite of Nil :/
-      invalidations = t.struct
-        # venue: t.Nil
+      # invalidations = t.struct
+      #   venue: t.Nil
 
       data =
         # date: @date

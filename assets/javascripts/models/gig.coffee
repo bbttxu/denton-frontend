@@ -5,21 +5,9 @@ define ['tcomb-validation'], (t)->
   class Gig
     constructor: (@artist, @position, @id)->
 
-    # isValid: ()=>
-    #   t.assert not t.Nil.is @artist
-    #   t.assert t.Num.is @position
-    #   t.assert t.Str.is @id
-
     # validation model works
     # TODO there is probably a better solution for this, lots of boilerplat
     isValid: ()=>
-
-      # notNullPredicate = (x)->
-      #   not x
-
-      # t.NotNull = t.subType t.Nil, notNullPredicate
-
-
 
       validations = t.struct
         position: t.Num
