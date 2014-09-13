@@ -26,6 +26,7 @@ requirejs.config
     pace: 'vendor/pace/pace'
 
     tcomb: 'vendor/tcomb/index'
+    'tcomb-validation': 'vendor/tcomb-validation/index'
 
   shim:
     'sammy':
@@ -50,6 +51,8 @@ require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal
 
   calendar = []
   # date = undefined
+
+
 
 
 
@@ -96,12 +99,21 @@ require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal
 
 
 
-require [ "jquery", "app/api", "postal", "templates", "models/show", "models/venue", "models/gig", "models/artist"], ($, API, postal, templates, Show, Venue, Gig, Artist )->
+require [ "jquery", "app/api", "postal", "templates", "models/show", "models/venue", "models/gig", "models/artist", 'tcomb'], ($, API, postal, templates, Show, Venue, Gig, Artist, t )->
   channel = postal.channel()
 
+  # t.options.onFail = (message)->
+  #   console.log message
+  #   return null
+
   channel.subscribe "set.date", (payload)->
+
     artists = _.map payload.data.artists, (artist)->
-      new Artist artist.name, artist.id
+      console.log artist.name
+      a = new Artist artist.name, artist.id
+      a if a.isValid()
+
+    # console.log artists
 
     artist_by_id = (id)->
       # _.findWhere artists, id: id
@@ -118,23 +130,41 @@ require [ "jquery", "app/api", "postal", "templates", "models/show", "models/ven
         return venue if venue.id is id
       null
 
+    # g = new Gig 1,1, "1"
+    # console.log g
+
+
     gigs = _.map payload.data.gigs, (gig)->
       artist = artist_by_id gig.artists
-      new Gig artist, gig.position, gig.id
+      g = new Gig artist, gig.position, gig.id
+      # console.log g, g.isValid()
+      g if g.isValid()
+
+    gigs = _.reject gigs, (gig)->
+      gig is undefined
 
 
     gig_by_id = (id)->
       # _.findWhere gigs, id: id
       for gig in gigs
         return gig if gig.id is id
-      id
+      null
 
     shows = _.map payload.data.shows, (show)->
       venue = venue_by_id show.venues
       show_gigs = _.map show.gigs, (gig)->
         gig_by_id gig
 
+      show_gigs = _.reject show_gigs, (gig)->
+        gig is null
+
+      show_gigs = undefined if show_gigs.length is 0
+
       new Show payload.date, venue, show.starts_at, show.price, show.source, show_gigs, show.time_is_uncertain
+
+    shows = _.filter shows, (show)->
+      console.log show, show.isValid()
+      show.isValid()
 
     shows = _.sortBy shows, (show)->
       show.starts_at

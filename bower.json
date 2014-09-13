@@ -12,6 +12,7 @@
     "bootstrap-less": "~3.0.0",
     "spin.js": "*",
     "pace": "~0.5.6",
-    "tcomb": "*"
+    "tcomb": "*",
+    "tcomb-validation": "*"
   }
 }
