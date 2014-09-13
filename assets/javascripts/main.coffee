@@ -38,6 +38,7 @@ requirejs.config
       exports: "_"
     twix: ["moment"]
     'jquery.timespace': ["jquery"]
+    'tcomb-validation': ['tcomb']
 
 require ["pace"], (pace)->
   pace.start()
@@ -99,7 +100,7 @@ require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal
 
 
 
-require [ "jquery", "app/api", "postal", "templates", "models/show", "models/venue", "models/gig", "models/artist", 'tcomb'], ($, API, postal, templates, Show, Venue, Gig, Artist, t )->
+require [ "jquery", "app/api", "postal", "templates", "models/show", "models/venue", "models/gig", "models/artist"], ($, API, postal, templates, Show, Venue, Gig, Artist)->
   channel = postal.channel()
 
   # t.options.onFail = (message)->

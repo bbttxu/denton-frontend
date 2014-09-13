@@ -1,7 +1,19 @@
 # venue.coffee
 
-define ["tcomb"], (t)->
+define ["tcomb-validation"], (t)->
 	class Venue
 		constructor: (@name, @id)->
-      t.assert t.Str.is @name
-      t.assert t.Str.is @id
+
+
+    # validation model works
+    # TODO there is probably a better solution for this, lots of boilerplat
+    isValid: ()=>
+      validations = t.struct
+        name: t.Str
+        id: t.Str
+
+      data =
+        name: @name
+        id: @id
+
+      t.validate(data, validations).isValid()
