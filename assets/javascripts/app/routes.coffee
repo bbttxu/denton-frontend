@@ -46,7 +46,7 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
     this.get '#/shows/:date', (req)->
       date = req.params['date']
 
-      # $('#shows').html(spinner.spin().el)
+      $('#shows').html(spinner.spin().el)
 
       # console.log "/shows/#{date}"
 

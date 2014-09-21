@@ -25,7 +25,7 @@ define ["moment"], (moment)->
 
       classes.push "count-#{@count}"
 
-      console.log moment(@date).format("MM") % 2
+      # console.log moment(@date).format("MM") % 2
       if moment(@date).format("MM")% 2 is 0
         classes.push "month-even"
       else

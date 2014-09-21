@@ -6,21 +6,9 @@ define [ "jquery", "app/api", "postal", "templates", "models/show", "models/venu
   lastMD5Hash = undefined
 
   handleSetDate = (payload)->
-    # string = JSON.stringify payload.data
     md5hash = md5 JSON.stringify payload.data
 
-    # console.log md5hash, string
-    # console.log lastMD5Hash, md5hash is lastMD5Hash
-
-    # if md5hash is lastMD5Hash
-    #   console.log 'the same'
-
-    # unless md5hash is lastMD5Hash
-    #   lastMD5Hash = md5hash
-    #   console.log 'would refresh, update md5'
-
-
-    unless md5hash is lastMD5Hash
+    unless false # md5hash is lastMD5Hash
 
       lastMD5Hash = md5hash
 
@@ -114,23 +102,4 @@ define [ "jquery", "app/api", "postal", "templates", "models/show", "models/venu
 
           $('.meta', $(show) ).delay(showIndex * 100).slideDown()
 
-        # console.log $shows
-
-        # $artists = $ 'ul.artists li', '#shows'
-
-        # _.each $artists, (artist, index)->
-        #   console.log artist, index
-        #   $(artist).delay(index * 10).slideDown()
-
-  # clearShows = ()->
-      # $(this).empty()
-
-
-
-  # channel.subscribe "set.date", (date)->
-  #   console.log 'set date', date
-
   channel.subscribe "set.date", _.throttle handleSetDate, 2000
-
-  # channel.subscribe "get.date", _.throttle clearShows, 300
-
