@@ -10,6 +10,7 @@ define [ "jquery", "app/api", "postal", "templates", "models/show", "models/venu
 
     unless false # md5hash is lastMD5Hash
 
+
       lastMD5Hash = md5hash
 
       # console.log 'now the same', md5hash, lastMD5Hash
@@ -77,6 +78,8 @@ define [ "jquery", "app/api", "postal", "templates", "models/show", "models/venu
       templated = _.map shows, (show)->
         templates.show show
 
+      if templated.length is 0
+        templated = [ templates['no-show']() ]
 
       $('#shows').fadeOut ()->
         $(this).show()
