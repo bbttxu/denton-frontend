@@ -1,10 +1,14 @@
 # api.coffee
-define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], ($, _, postal, lscache, moment, defaults)->
+define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults", 'md5'], ($, _, postal, lscache, moment, defaults, md5)->
   channel = postal.channel()
 
   API = {}
 
   host = "http://denton1.krakatoa.io"
+
+
+  isOutOfDate = (date)->
+    moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(date) )
 
 
   # publishData = (channelName)->
@@ -69,8 +73,8 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
 
     if cached
       channel.publish "set.calendar", cached
-      if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
-        updateCalendar()
+      # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
+      updateCalendar() if isOutOfDate cached.updated
 
     unless cached
       updateCalendar()
@@ -96,8 +100,8 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
 
     if cached
       channel.publish "update.calendar", cached
-      if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
-        updateCalendar()
+      # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
+      updateCalendar() if isOutOfDate cached.updated
 
     unless cached
       updateCalendar()
@@ -138,8 +142,8 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
     if cached
       channel.publish "set.date", cached
       channel.publish "update.adjacent", date
-      if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
-        updateDate(date)
+      # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
+      updateDate(date) if isOutOfDate cached.updated
 
     ###
     update because out of date
@@ -177,8 +181,8 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
     but update if out of date
     ###
     if cached
-      if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
-        updateDate(date)
+      # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
+      updateDate(date) if isOutOfDate cached.updated
 
     ###
     update because out of date

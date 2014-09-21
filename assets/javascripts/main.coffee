@@ -28,6 +28,8 @@ requirejs.config
     tcomb: 'vendor/tcomb/index'
     'tcomb-validation': 'vendor/tcomb-validation/index'
 
+    md5: 'vendor/md5-jkmyers/md5.min'
+
   shim:
     'sammy':
       deps: [ 'jquery' ]
@@ -40,11 +42,12 @@ requirejs.config
     'jquery.timespace': ["jquery"]
     'tcomb-validation': ['tcomb']
 
+
 # require ["pace"], (pace)->
 #   pace.start()
 
 require ["app/date"], ()->
-  # load calendar
+  # load date
 
 require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal, Day, templates, $)->
   channel = postal.channel()
