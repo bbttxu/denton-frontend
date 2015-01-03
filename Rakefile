@@ -1,18 +1,20 @@
-SSH_USER = 'deploy'
-#SSH_HOST = 'static2.blackbeartheory.com'
 
 if ENV['DEPLOY'] == 'PRODUCTION'
+  SSH_HOSTS= [
+    'static2.blackbeartheory.com',
+    'static1.bbttxu.com'
+  ]
   SSH_DIR  = '/var/www/bbttxu.com/denton'
 else
   # TODO add a dev version of the site
-  SSH_DIR  = '/var/www/bbttxu.com/denton'
+  SSH_DIR  = '/home/deploy/yodenton/current'
+  SSH_HOSTS = [
+    '172.28.128.5'
+  ]
+  SSH_USER = :vagrant
 end
 
 
-SSH_HOSTS = [
-  'static2.blackbeartheory.com',
-  'static1.bbttxu.com'
-]
 
 desc "Build the website from source"
 task :build do

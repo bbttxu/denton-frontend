@@ -1,6 +1,6 @@
 # date.coffee
 
-define [ "jquery", "app/api", "postal", "templates", "models/show", "models/venue", "models/gig", "models/artist", 'md5'], ($, API, postal, templates, Show, Venue, Gig, Artist, md5)->
+define [ "jquery", "app/api", "postal", "templates", "models/show", "models/venue", "models/gig", "models/artist", 'md5', 'slabtext'], ($, API, postal, templates, Show, Venue, Gig, Artist, md5)->
   channel = postal.channel()
 
   lastMD5Hash = undefined
@@ -81,28 +81,72 @@ define [ "jquery", "app/api", "postal", "templates", "models/show", "models/venu
       if templated.length is 0
         templated = [ templates['no-show']() ]
 
+
       $('#shows').fadeOut ()->
+
+
+
+
+
         $(this).show()
 
-        $('#last-updated').html( templates['last-updated']( ago: moment(payload.updated).fromNow() ) )
+        # $('#last-updated').html( templates['last-updated']( ago: moment(payload.updated).fromNow() ) )
 
         $('#shows').html templated.join ""
 
 
-        $shows = $ '.show', '#shows'
+        $artists = $('ul.artists li', '#featured').fadeIn('fast')
+        # $('.show ul.artists', '#shows').each ()->
+        #   console.log $(this).find('li').first()
+        #   $(this).find('li').first().slabText()
 
-        $shows = _.shuffle $shows
+        $shows = $('.show, .meta', '#shows').fadeIn('fast')
 
-        _.each $shows, (show, showIndex)->
+        # animation = 100
 
-          $artists = $ 'ul.artists li', show
+        # # console.log animation, $artists.length
 
-          $artists = _.shuffle $artists
+        # total = 300
 
-          _.each $artists, (artist, artistIndex)->
-            # console.log artist, index
-            $(artist).delay((showIndex * 50) + (artistIndex * 50)).slideDown('fast')
+        # diff = ( total - (2 * animation) ) / $artists.length
 
-          $('.meta', $(show) ).delay(showIndex * 100).slideDown()
+        # # console.log animation, $artists.length, diff
+
+        # # $artists = _.shuffle $artists
+
+        # # $artists = Array.slice.call($artists, 0)
+        # # Array.slice.call(listNodes, 0)
+
+        # # console.log $artists
+
+        # # $artists = ($artists).sort()
+        # # $artists = ($artists).reverse()
+
+        # _.each $artists, (artist, index)->
+        #   # console.log $(artist).length, total - index*diff - animation
+        #   # $(artist).slabText()
+        #   $(artist).delay( total - index*diff - animation).slideDown(animation)
+
+
+        # _.each $shows, (show, index)->
+        #   $('.meta', show).delay(total).slideDown(animation)
+
+          # $(artist).show()
+
+        # $shows = $ '.show', '#shows'
+
+        # $shows = _.shuffle $shows
+
+        # _.each $shows, (show, showIndex)->
+
+        #   $artists = $ 'ul.artists li', show
+
+        #   $artists = _.shuffle $artists
+
+        #   _.each $artists, (artist, artistIndex)->
+        #     # console.log artist, index
+        #     $(artist).delay((showIndex * 50) + (artistIndex * 50)).slideDown('fast')
+
+          # $('.meta', $(show) ).delay(showIndex * 100).slideDown()
 
   channel.subscribe "set.date", _.throttle handleSetDate, 2000

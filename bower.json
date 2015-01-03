@@ -14,6 +14,7 @@
     "pace": "~0.5.6",
     "tcomb": "*",
     "tcomb-validation": "*",
-    "md5-jkmyers": "*"
+    "md5-jkmyers": "*",
+    "FitText.js": "~1.2.0"
   }
 }

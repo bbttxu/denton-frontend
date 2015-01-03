@@ -2,6 +2,11 @@
   "name": "denton-frontend",
   "version": "0.2.15",
   "description": "A Mimosa starter skeleton",
+  "scripts": {
+    "clean": "mimosa clean",
+    "start": "mimosa watch -sc",
+    "build": "mimosa build -m"
+  },
   "dependencies": {
     "consolidate": "0.10.0",
     "jade": "0.35.0",
