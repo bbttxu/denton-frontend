@@ -13,8 +13,6 @@ define [ "jquery", "app/api", "postal", "templates", "models/show", "models/venu
 
       lastMD5Hash = md5hash
 
-      # console.log 'now the same', md5hash, lastMD5Hash
-
       artists = _.map payload.data.artists, (artist)->
         new Artist artist.name, artist.id
 
@@ -35,9 +33,6 @@ define [ "jquery", "app/api", "postal", "templates", "models/show", "models/venu
         for venue in venues
           return venue if venue.id is id
         null
-
-      # g = new Gig 1,1, "1"
-      # console.log g
 
 
       gigs = _.map payload.data.gigs, (gig)->
@@ -84,69 +79,13 @@ define [ "jquery", "app/api", "postal", "templates", "models/show", "models/venu
 
       $('#shows').fadeOut ()->
 
-
-
-
-
         $(this).show()
-
-        # $('#last-updated').html( templates['last-updated']( ago: moment(payload.updated).fromNow() ) )
 
         $('#shows').html templated.join ""
 
-
         $artists = $('ul.artists li', '#featured').fadeIn('fast')
-        # $('.show ul.artists', '#shows').each ()->
-        #   console.log $(this).find('li').first()
-        #   $(this).find('li').first().slabText()
 
         $shows = $('.show, .meta', '#shows').fadeIn('fast')
 
-        # animation = 100
-
-        # # console.log animation, $artists.length
-
-        # total = 300
-
-        # diff = ( total - (2 * animation) ) / $artists.length
-
-        # # console.log animation, $artists.length, diff
-
-        # # $artists = _.shuffle $artists
-
-        # # $artists = Array.slice.call($artists, 0)
-        # # Array.slice.call(listNodes, 0)
-
-        # # console.log $artists
-
-        # # $artists = ($artists).sort()
-        # # $artists = ($artists).reverse()
-
-        # _.each $artists, (artist, index)->
-        #   # console.log $(artist).length, total - index*diff - animation
-        #   # $(artist).slabText()
-        #   $(artist).delay( total - index*diff - animation).slideDown(animation)
-
-
-        # _.each $shows, (show, index)->
-        #   $('.meta', show).delay(total).slideDown(animation)
-
-          # $(artist).show()
-
-        # $shows = $ '.show', '#shows'
-
-        # $shows = _.shuffle $shows
-
-        # _.each $shows, (show, showIndex)->
-
-        #   $artists = $ 'ul.artists li', show
-
-        #   $artists = _.shuffle $artists
-
-        #   _.each $artists, (artist, artistIndex)->
-        #     # console.log artist, index
-        #     $(artist).delay((showIndex * 50) + (artistIndex * 50)).slideDown('fast')
-
-          # $('.meta', $(show) ).delay(showIndex * 100).slideDown()
 
   channel.subscribe "set.date", _.throttle handleSetDate, 2000
