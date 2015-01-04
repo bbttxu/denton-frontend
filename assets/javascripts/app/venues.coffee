@@ -31,8 +31,11 @@ define [ "jquery", "app/api", "postal", "templates", "models/venue", "models/art
         _.findWhere gigs, id: gigID
 
       venue = _.findWhere venues, id: show.venues
-
+      console.log show
       new Show moment(show.starts_at).calendar(), venue, show.starts_at, show.price, show.source, showGigs, show.time_is_unknown
+
+    shows = _.sortBy shows, (show)->
+      show.starts_at
 
     $('#venues').empty().html templates.venue venue: venues[0], shows: shows
 
