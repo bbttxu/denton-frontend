@@ -1,6 +1,6 @@
 # date.coffee
 
-define [ "jquery", "app/api", "postal", "templates", "models/show", "models/venue", "models/gig", "models/artist", 'md5', 'slabtext'], ($, API, postal, templates, Show, Venue, Gig, Artist, md5)->
+define [ "jquery", "app/api", "postal", "templates", "models/show", "models/venue", "models/gig", "models/artist", 'md5'], ($, API, postal, templates, Show, Venue, Gig, Artist, md5)->
   channel = postal.channel()
 
   lastMD5Hash = undefined

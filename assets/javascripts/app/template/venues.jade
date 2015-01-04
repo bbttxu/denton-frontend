@@ -1,0 +1,11 @@
+//- venue.jade
+
+
+.with-shows
+  h3 Venues w/ upcoming shows
+  ul
+    each venue in venues
+      li
+        a(href="#/venues/#{venue.slug}")
+          != venue.name
+          span.right= venue.shows.length

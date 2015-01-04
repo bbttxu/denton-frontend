@@ -24,18 +24,19 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
 
 
   routes = Sammy 'body', ()->
-    this.use 'GoogleAnalytics'
-    this.use 'Title'
+    self = this
+    self.use 'GoogleAnalytics'
+    self.use 'Title'
 
     showSection = (selector)->
       $('.primary').not(selector).animate hideOptions, 100
       $(selector).animate showOptions, 100
 
-    this.setTitle ( title )->
+    self.setTitle ( title )->
       [title, "Denton, TX Showlist", "BBTTXU" ].join(' | ')
 
-    this.get "#/", ()->
-      this.title "Calendar"
+    self.get "#/", ()->
+      self.title "Calendar"
 
       # $('#calendar').html(spinner.el) if $('#calendar').is(':empty')
 
@@ -43,7 +44,7 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
 
       showSection '#upcoming'
 
-    this.get '#/shows/:date', (req)->
+    self.get '#/shows/:date', (req)->
       date = req.params['date']
 
       $('#shows').html(spinner.spin().el)
@@ -55,4 +56,19 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
       showSection '#featured'
 
 
+    self.get "#/venues", (req)->
+      $('#venues').html(spinner.spin().el)
 
+      channel.publish "get.venues"
+
+      showSection '#venues'
+
+
+    self.get "#/venues/:slug", (req)->
+      slug = req.params['slug']
+
+      $('#venues').html(spinner.spin().el)
+
+      channel.publish "get.venue", slug
+
+      showSection '#venues'

@@ -1,0 +1,45 @@
+// _venues.less
+
+
+@import "vendor/bootstrap-less/variables";
+@import "_variables";
+@import "vendor/bootstrap-less/mixins";
+
+
+#venues {
+  .make-row();
+
+  min-height: 20em;
+
+  .with-shows, .details {
+    .make-xs-column(10);
+    .make-xs-column-offset(1);
+
+    .make-md-column(8);
+    .make-md-column-offset(2);
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  li {
+    font-size: 1.4em;
+  }
+
+  ul.artists li {
+    &:nth-child(even) {
+      background: #eee;
+    }
+
+  }
+
+  .right {
+    float: right;
+  }
+
+  .meta, .artists, ul.artists li {
+    display: block;
+  }
+}

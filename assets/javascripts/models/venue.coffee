@@ -2,7 +2,7 @@
 
 define ["tcomb-validation"], (t)->
 	class Venue
-		constructor: (@name, @id)->
+		constructor: (@name, @id, @slug, @shows)->
 
     # validation model works
     # TODO there is probably a better solution for this, lots of boilerplat

@@ -52,6 +52,9 @@ requirejs.config
 require ["app/date"], ()->
   # load date
 
+require ["app/venues"], ()->
+  # load venues
+
 require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal, Day, templates, $)->
   channel = postal.channel()
 
