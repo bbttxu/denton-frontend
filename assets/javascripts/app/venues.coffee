@@ -11,6 +11,7 @@ define [ "jquery", "app/api", "postal", "templates", "models/venue", "models/art
     venues = _.map upcomingVenues, (venue)->
       new Venue venue.name, venue.id, venue.slug, new Array(venue.shows_count)
 
+    console.log 'render venues', payload
     $('#venues').empty().html templates.venues venues: venues
 
   channel.subscribe "set.venues", showVenues
@@ -31,12 +32,14 @@ define [ "jquery", "app/api", "postal", "templates", "models/venue", "models/art
         _.findWhere gigs, id: gigID
 
       venue = _.findWhere venues, id: show.venues
-      console.log show
+
       new Show moment(show.starts_at).calendar(), venue, show.starts_at, show.price, show.source, showGigs, show.time_is_unknown
 
     shows = _.sortBy shows, (show)->
       show.starts_at
 
+
+    console.log ' render venue'
     $('#venues').empty().html templates.venue venue: venues[0], shows: shows
 
   channel.subscribe "set.venue", showVenue

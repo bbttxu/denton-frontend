@@ -201,7 +201,7 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults", '
 
     cached = lscache.get key
 
-    console.log 'get.calendar', cached
+    console.log 'getVenues', cached, key
 
     updateVenues = ()->
       # console.log 'get.updateCalendar'
@@ -222,13 +222,16 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults", '
   channel.subscribe "get.venues", getVenues
 
   getVenue = (slug)->
-    key = "venues/#{slug}"
+    key = "venues-#{slug}"
 
     url = "#{host}/venues/#{slug}.json?callback=?"
 
+    console.log 'get.calendar', cached, key
+
+
     cached = lscache.get key
 
-    console.log 'get.venue', cached, key
+    console.log 'getVenue', cached, key
 
     updateVenues = ()->
       # console.log 'get.updateCalendar'
@@ -248,5 +251,9 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults", '
 
   channel.subscribe "get.venue", getVenue
 
+
+
+  channel.subscribe "*", (a, b)->
+    console.log '*', a, b
 
   API
