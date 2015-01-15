@@ -1,6 +1,6 @@
 # date.coffee
 
-define [ "jquery", "app/api", "postal", "templates", "models/date", "models/show", "models/venue", "models/gig", "models/artist", 'md5'], ($, API, postal, templates, Date, Show, Venue, Gig, Artist, md5)->
+define [ "jquery", "app/api", "postal", "templates", "models/date", "models/show", "models/venue", "models/gig", "models/artist", 'md5', "moment"], ($, API, postal, templates, Date, Show, Venue, Gig, Artist, md5, moment)->
   channel = postal.channel()
 
   lastMD5Hash = undefined
@@ -39,7 +39,7 @@ define [ "jquery", "app/api", "postal", "templates", "models/date", "models/show
 
     $('#featured').fadeOut ()->
 
-      $(this).show()
+      $('#last-updated').html( templates['last-updated']( ago: moment(payload.updated).fromNow() ) )
 
       $('#featured').html templated
 
@@ -47,8 +47,10 @@ define [ "jquery", "app/api", "postal", "templates", "models/date", "models/show
 
       $shows = $('.show, .meta', '#featured').fadeIn('fast')
 
+      $(this).fadeIn()
 
-  channel.subscribe "set.date", _.throttle handleSetDate, 2000
+
+  channel.subscribe "set.date", _.throttle handleSetDate, 100
 
   channel.subscribe "set.prev", (date)->
     prev = date
