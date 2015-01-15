@@ -1,6 +1,6 @@
  # show.coffee
 
-define ["tcomb-validation", "moment"], (t, moment)->
+define ["tcomb-validation", "moment", 'md5'], (t, moment, md5)->
   class Show
     constructor: (@date, @venue, @starts_at, @price, @source, @gigs, @time_is_unknown)->
 
@@ -31,3 +31,6 @@ define ["tcomb-validation", "moment"], (t, moment)->
         # venue: @venue
 
       t.validate(data, validations).isValid() # and not t.validate(data, invalidations).isValid()
+
+    hash: ()=>
+
