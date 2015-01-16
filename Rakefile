@@ -1,10 +1,10 @@
 
 if ENV['DEPLOY'] == 'PRODUCTION'
   SSH_HOSTS= [
-    'static2.blackbeartheory.com',
-    'static1.bbttxu.com'
+    '104.236.119.143'
   ]
-  SSH_DIR  = '/var/www/bbttxu.com/denton'
+  SSH_USER = :deploy
+  SSH_DIR  = '/home/deploy/yodenton/current'
 else
   # TODO add a dev version of the site
   SSH_DIR  = '/home/deploy/yodenton/current'
