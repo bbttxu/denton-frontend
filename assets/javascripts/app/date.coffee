@@ -1,91 +1,59 @@
 # date.coffee
 
-define [ "jquery", "app/api", "postal", "templates", "models/show", "models/venue", "models/gig", "models/artist", 'md5'], ($, API, postal, templates, Show, Venue, Gig, Artist, md5)->
+define [ "jquery", "app/api", "postal", "templates", "models/date", "models/show", "models/venue", "models/gig", "models/artist", 'md5', "moment"], ($, API, postal, templates, Date, Show, Venue, Gig, Artist, md5, moment)->
   channel = postal.channel()
 
   lastMD5Hash = undefined
 
+  next = undefined
+
+  prev = undefined
+
+  translatePayload = (payload)->
+    venues = _.collect payload.data.venues, (venue)->
+      new Venue venue.name, venue.id
+
+    artists = _.collect payload.data.artists, (artist)->
+      new Artist artist.name, artist.id
+
+    gigs = _.collect payload.data.gigs, (gig)->
+      artist = _.findWhere artists, id: gig.artists
+      new Gig artist, gig.position, gig.id
+
+    shows = _.collect payload.data.shows, (show)->
+      showGigs = _.collect show.gigs, (gigID)->
+        _.findWhere gigs, id: gigID
+
+      venue = _.findWhere venues, id: show.venues
+
+      new Show moment(show.starts_at).calendar(), venue, show.starts_at, show.price, show.source, showGigs, show.time_is_unknown
+
+
   handleSetDate = (payload)->
-    md5hash = md5 JSON.stringify payload.data
 
-    unless false # md5hash is lastMD5Hash
+    shows = translatePayload payload
 
+    date = new Date payload.date, shows, prev, next
 
-      lastMD5Hash = md5hash
+    templated = templates.date date
 
-      artists = _.map payload.data.artists, (artist)->
-        new Artist artist.name, artist.id
+    $('#featured').fadeOut ()->
 
-      artists = _.filter artists, (artist)->
-        artist.isValid()
+      $('#last-updated').html( templates['last-updated']( ago: moment(payload.updated).fromNow() ) )
 
-      artist_by_id = (id)->
-        # _.findWhere artists, id: id
-        for artist in artists
-          return artist if artist.id is id
-        null
+      $('#featured').html templated
 
-      venues = _.map payload.data.venues, (venue)->
-        new Venue venue.name, venue.id
+      $artists = $('ul.artists li', '#featured').fadeIn('fast')
 
-      venue_by_id = (id)->
-        # _.findWhere venues, id: id
-        for venue in venues
-          return venue if venue.id is id
-        null
+      $shows = $('.show, .meta', '#featured').fadeIn('fast')
+
+      $(this).fadeIn()
 
 
-      gigs = _.map payload.data.gigs, (gig)->
-        artist = artist_by_id gig.artists
-        new Gig artist, gig.position, gig.id
+  channel.subscribe "set.date", _.throttle handleSetDate, 100
 
-      gigs = _.filter gigs, (gig)->
-        gig.isValid()
+  channel.subscribe "set.prev", (date)->
+    prev = date
 
-
-      gig_by_id = (id)->
-        # _.findWhere gigs, id: id
-        for gig in gigs
-          return gig if gig.id is id
-        null
-
-      shows = _.map payload.data.shows, (show)->
-        venue = venue_by_id show.venues
-        show_gigs = _.map show.gigs, (gig)->
-          gig_by_id gig
-
-        show_gigs = _.reject show_gigs, (gig)->
-          gig is null
-
-        show_gigs = undefined if show_gigs.length is 0
-
-        new Show payload.date, venue, show.starts_at, show.price, show.source, show_gigs, show.time_is_uncertain
-
-      shows = _.filter shows, (show)->
-        show.isValid()
-
-      shows = _.sortBy shows, (show)->
-        show.starts_at
-
-      shows = _.sortBy shows, (show)->
-        show.time_is_unknown
-
-      templated = _.map shows, (show)->
-        templates.show show
-
-      if templated.length is 0
-        templated = [ templates['no-show']() ]
-
-
-      $('#shows').fadeOut ()->
-
-        $(this).show()
-
-        $('#shows').html templated.join ""
-
-        $artists = $('ul.artists li', '#featured').fadeIn('fast')
-
-        $shows = $('.show, .meta', '#shows').fadeIn('fast')
-
-
-  channel.subscribe "set.date", _.throttle handleSetDate, 2000
+  channel.subscribe "set.next", (date)->
+    next = date

@@ -94,17 +94,21 @@ require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal
   channel.subscribe "set.date", (payload)->
     # console.log "set.date in next/prev", payload.date
     prev = previousShowDateTo moment(payload.date).format('YYYY-MM-DD')
+
+    channel.publish "set.prev", prev
     # console.log "prev", prev
-    $('#prev').empty()
-    $('#prev').html templates.prev prev if prev
+    # $('#prev').empty()
+    # $('#prev').html templates.prev prev if prev
 
     next = nextShowDateFrom moment(payload.date).format('YYYY-MM-DD')
     # console.log "next", next
-    $('#next').empty()
-    $('#next').html templates.next next if next
+    # $('#next').empty()
+    # $('#next').html templates.next next if next
 
-    $('#day').empty()
-    $('#day').html templates.header new Day moment(payload.date)
+    channel.publish "set.next", next
+
+    # $('#day').empty()
+    # $('#day').html templates.header new Day moment(payload.date)
 
 require ["app/routes", "moment", "domReady"], (routes, moment, domReady)->
   domReady ()->

@@ -72,6 +72,21 @@
 		.count-0 {
 			span, a {
 				color: @gray-lighter;
+
+        body.night & {
+          color: @gray;
+          span {
+            color: @gray-darker;
+          }
+        }
+
+        body.night & {
+          color: @gray-dark;
+          span {
+            color: @gray-darker;
+          }
+        }
+
 			}
 		}
 

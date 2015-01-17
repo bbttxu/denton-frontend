@@ -10,16 +10,28 @@
 @import "_featured";
 @import "_venues";
 @import "_footer";
+
+@import "_night";
+
 // @import "_pace";
 
 body {
 	background: @gray-lighter;
-	// .container-fixed();
+
+ 	// .container-fixed();
 	@media (min-width: @screen-sm-min) {
 		background: @gray-light;
 		background-image: url('../images/denton_texas_in_1883.jpg');
 		background-position: center -130px;
 	}
+
+  &.night {
+    background: black;
+    background-image: none;
+
+    color: @gray-light;
+
+  }
 	// .container-fixed();
 }
 
@@ -44,6 +56,11 @@ body {
 
 .page {
 	background: white;
+  body.night & {
+    background: black;
+    box-shadow: none;
+  }
+
 	.make-xs-column(12);
 
 	@media(min-width: @screen-xs-max) {
