@@ -9,10 +9,16 @@ define [ "jquery", "app/api", "postal", "templates", "models/venue", "models/art
       venue.shows_count > 0
 
     venues = _.map upcomingVenues, (venue)->
-      new Venue venue.name, venue.id, venue.slug, new Array(venue.shows_count)
+      venue = new Venue venue.name, venue.id, venue.slug, new Array(venue.shows_count), venue
 
-    console.log 'render venues', payload
-    $('#venues').empty().html templates.venues venues: venues
+
+      console.log venue
+      venue
+
+
+    # console.log 'render venues', payload
+    $('#venues').empty().html templates.venues venues: _.sortBy venues, (venue)->
+      venue.date()
 
   channel.subscribe "set.venues", showVenues
 

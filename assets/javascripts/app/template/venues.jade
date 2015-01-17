@@ -2,13 +2,14 @@
 
 
 .with-shows
-  h3 Venues w/ upcoming shows
-  table
+  h3 Venues&nbsp;
+    small w/ upcoming shows
+  table.table
     thead
       tr
         th Venue name
-        th # shows
-
+        th Count
+        th Next
     tbody
       each venue in venues
         tr
@@ -16,3 +17,5 @@
             a(href="#/venues/#{venue.slug}")!= venue.name
 
           td= venue.shows.length
+          td
+            a(href=venue.nextLink())!= venue.next()

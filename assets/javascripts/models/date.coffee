@@ -40,3 +40,6 @@ define ['moment'], (moment)->
 
     nShows: ()=>
       @shows.length
+
+    url: ()=>
+      "#/shows/#{moment(@date).format('ff')}"
