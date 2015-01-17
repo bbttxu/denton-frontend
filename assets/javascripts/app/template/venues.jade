@@ -14,7 +14,8 @@
       each venue in venues
         tr
           td
-            a(href="#/venues/#{venue.slug}")!= venue.name
+            h4
+              a(href="#/venues/#{venue.slug}")!= venue.name
 
           td= venue.shows.length
           td

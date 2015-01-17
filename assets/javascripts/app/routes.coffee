@@ -7,7 +7,8 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
 
   # calendar = []
 
-  opts = {}
+  opts =
+    color: '#333'
   spinner = new Spinner(opts).spin()
 
   showOptions =

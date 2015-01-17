@@ -239,7 +239,7 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults", '
         .then (data)->
           payload = { data: data, updated: moment().valueOf() }
           lscache.set key, payload, defaults.cache.length
-          channel.publish "set.venues", payload
+          channel.publish "set.venue", payload
 
     if cached
       channel.publish "set.venue", cached
