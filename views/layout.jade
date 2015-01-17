@@ -35,14 +35,25 @@ html.no-js(lang='en')
   body
     .wrapper
       .page
+        nav.navbar.navbar-default.header(role='navigation')
+          //- .container-fluid
+          // Brand and toggle get grouped for better mobile display
+          .navbar-header
+            button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-navbar-collapse')
+              span.sr-only Toggle navigation
+              | &#9776
+            .title
+              a.h3(href='/')
+                | &nbsp;Denton&comma;&nbsp;TX
+          // Collect the nav links, forms, and other content for toggling
+          #bs-navbar-collapse.collapse.navbar-collapse
+            ul.nav.navbar-nav.navbar-right
+              li
+                a(href="#/") Calendar
 
-        header.header
-          .sitetitle
-            h1.h3
-              a.title(href='') Denton&comma;&nbsp;TX
-          .pagetitle
-            h2.h3.title
-              a.menu(href='#/') &#9776;
+              li
+                a(href="#/venues") Venues
+
 
         block content
 

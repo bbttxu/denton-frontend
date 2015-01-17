@@ -33,6 +33,8 @@ requirejs.config
     fittext: 'vendor/FitText.js/jquery.fittext'
     slabtext: 'vendor/freqDec/jquery.slabtext'
 
+    bootstrap: 'vendor/bootstrap/bootstrap'
+
   shim:
     'sammy':
       deps: [ 'jquery' ]
@@ -45,6 +47,7 @@ requirejs.config
     'jquery.timespace': ["jquery"]
     'tcomb-validation': ['tcomb']
 
+    bootstrap: ['jquery']
 
 # require ["pace"], (pace)->
 #   pace.start()
@@ -116,6 +119,8 @@ require ["app/routes", "moment", "domReady"], (routes, moment, domReady)->
 
 require ["app/calendar"], ()->
   # load calendar
+
+require ["jquery", "bootstrap"], ($)->
 
 require ["app/weather"], ()->
   # console.log "loading weather"

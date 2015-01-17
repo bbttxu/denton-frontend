@@ -201,8 +201,6 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults", '
 
     cached = lscache.get key
 
-    console.log 'getVenues', cached, key
-
     updateVenues = ()->
       # console.log 'get.updateCalendar'
       $.when $.getJSON url, { timestamp: moment().valueOf() }

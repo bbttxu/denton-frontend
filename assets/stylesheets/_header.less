@@ -3,7 +3,7 @@
 @import "vendor/bootstrap-less/mixins";
 
 .header {
-	.make-row();
+	// .make-row();
 
   font-family: "Cherry Cream Soda";
 	overflow: auto;
@@ -11,13 +11,43 @@
 	@media(min-width: @screen-xs-max) {
 		padding-top: 1em;
 	}
+
+  a {
+    color: #428bca;
+  }
+
+  li a {
+    padding-bottom: 5px;
+  }
+
+  .title {
+    padding-bottom: 0;
+    margin-bottom: 1em;
+    margin-top: 1em;
+
+    margin-left: 0;
+    @media (min-width: @screen-sm) {
+      margin-left: 50px;
+    }
+    @media (min-width: @screen-md) {
+      margin-left: 100px;
+    }
+  }
+
+  .navbar-right:last-child {
+    display: inline-block;
+    margin-right: 50px;
+    @media (min-width: @screen-md) {
+      margin-right: 100px;
+    }
+  }
 }
 
-.sitetitle {
-	.make-xs-column(6);
-	.make-xs-column-offset(1);
-}
-.pagetitle {
-	.make-xs-column(4);
-	text-align: right;
-}
+// .sitetitle {
+// 	.make-xs-column(6);
+// 	.make-xs-column-offset(1);
+// }
+// .pagetitle {
+// 	.make-xs-column(4);
+// 	text-align: right;
+// }
