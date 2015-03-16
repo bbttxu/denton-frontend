@@ -97,7 +97,7 @@ html.no-js(lang='en')
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/reload-client.js')
 
-  if optimize
-    script(src='javascripts/main-built.js' + cachebust)
-  else
-    script(src="javascripts/vendor/requirejs/require.js" data-main='javascripts/main.js' + cachebust)
+  //- if optimize
+  //- script(src='javascripts/main-built.js' + cachebust)
+  //- else
+  script(src="javascripts/vendor/requirejs/require.js" data-main='javascripts/main.js' + cachebust)
