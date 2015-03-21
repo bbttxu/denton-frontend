@@ -4,8 +4,10 @@ node_js:
   - "0.12"
 
 script: npm run build
+
 install: npm install
 
 cache:
   directories:
   - node_modules
+  - .mimosa
