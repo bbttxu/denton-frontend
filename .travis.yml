@@ -12,7 +12,7 @@ deploy:
   access_key_id: AKIAISNT2O26XTKJ4YBA
   secret_access_key:
     secure: UcLkRe+hCFPiVt7NCBoUIGpww+6Suis6OrLwTEc5yBs1ato4fj38WsT+gAPcLlxOZebOmnMviTwBBpeXcs0xrrwF2bKEthx3E+9xzdiSmKtyRGKVhDIC4kE9UlZMIT3dP3Vjy09O9T38HZfnTJGWRuppb8lD7KpzeHSWZCmgPnY=
-  bucket: bbttxu-static
+  bucket: dev.denton.krakatoa.io
   local_dir: public
   acl: public_read
   skip_cleanup: true
