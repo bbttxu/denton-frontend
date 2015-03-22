@@ -8,17 +8,17 @@
     "build": "mimosa build -m"
   },
   "dependencies": {
-    "mimosa": "~2.1.10",
-    "consolidate": "0.10.0",
-    "jade": "0.35.0",
     "coffee-script": "1.6.3",
-    "express": "3.4.7"
-  },
-  "devDependencies": {
+    "consolidate": "0.10.0",
+    "express": "3.4.7",
+    "jade": "0.35.0",
+    "mimosa": "~2.1.10",
+    "mimosa-coffeelint": "^0.5.0",
+    "mimosa-jade": "^2.3.0",
+    "mimosa-less": "^2.1.0",
+    "mimosa-lint": "^1.1.1",
+    "mimosa-server-template-compile": "^0.7.0",
     "mimosa-coffeescript": "*",
-    "mimosa-stylus": "*",
-    "mimosa-dust": "*",
-    "grunt-docco": "~0.3.3",
-    "grunt-bump": "0.0.13"
+    "grunt-docco": "~0.3.3"
   }
 }
