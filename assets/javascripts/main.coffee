@@ -1,5 +1,5 @@
 requirejs.config
-
+  urlArgs: "bust="+new Date().getTime()
   paths:
     jquery: "vendor/jquery/jquery"
     'jquery.timespace': "lib/jquery.timespace"
