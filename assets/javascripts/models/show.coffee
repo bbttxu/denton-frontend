@@ -1,6 +1,6 @@
  # show.coffee
 
-define ["tcomb-validation", "moment", 'md5'], (t, moment, md5)->
+define ["tcomb-validation", "moment"], (t, moment)->
   class Show
     constructor: (@date, @venue, @starts_at, @price, @source, @gigs, @time_is_unknown)->
 

@@ -18,3 +18,4 @@ deploy:
   skip_cleanup: true
   on:
     repo: bbttxu/denton-frontend
+    all_branches: true

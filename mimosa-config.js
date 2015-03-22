@@ -2,15 +2,15 @@ exports.config = {
     "modules": [
         "copy",
         "server",
-        "jshint",
+        "coffeelint",
         "csslint",
         "lint",
         "require",
         "minify-js",
         "minify-css",
+        'minify-img',
         "live-reload",
         "bower",
-        "iced-coffeescript",
         "jade",
         "server-template-compile",
         "less"
@@ -31,4 +31,4 @@ exports.config = {
             "build": true
         }
     }
-}
+  }
