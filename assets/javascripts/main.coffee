@@ -28,8 +28,8 @@ requirejs.config
     tcomb: 'vendor/tcomb/index'
     'tcomb-validation': 'vendor/tcomb-validation/index'
 
-    fittext: 'vendor/FitText.js/jquery.fittext'
-    slabtext: 'vendor/freqDec/jquery.slabtext'
+    # fittext: 'vendor/FitText.js/jquery.fittext'
+    # slabtext: 'vendor/freqDec/jquery.slabtext'
 
     bootstrap: 'vendor/bootstrap/bootstrap'
 
