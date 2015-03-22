@@ -8,6 +8,7 @@ exports.config = {
         "require",
         "minify-js",
         "minify-css",
+        'minify-img',
         "live-reload",
         "bower",
         "jade",
