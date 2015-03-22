@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "mimosa clean",
     "start": "mimosa watch -sc",
-    "build": "mimosa build -m && mimosa minimage"
+    "build": "mimosa build -m"
   },
   "dependencies": {
     "coffee-script": "1.6.3",
