@@ -28,8 +28,6 @@ requirejs.config
     tcomb: 'vendor/tcomb/index'
     'tcomb-validation': 'vendor/tcomb-validation/index'
 
-    md5: 'vendor/md5-jkmyers/md5.min'
-
     fittext: 'vendor/FitText.js/jquery.fittext'
     slabtext: 'vendor/freqDec/jquery.slabtext'
 

@@ -2,7 +2,7 @@ exports.config = {
     "modules": [
         "copy",
         "server",
-        "jshint",
+        "coffeelint",
         "csslint",
         "lint",
         "require",
@@ -31,4 +31,4 @@ exports.config = {
             "build": true
         }
     }
-}
+  }

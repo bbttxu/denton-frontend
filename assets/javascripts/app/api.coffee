@@ -1,5 +1,5 @@
 # api.coffee
-define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults", 'md5'], ($, _, postal, lscache, moment, defaults, md5)->
+define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], ($, _, postal, lscache, moment, defaults)->
   channel = postal.channel()
 
   API = {}
