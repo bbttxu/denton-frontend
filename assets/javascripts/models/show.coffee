@@ -7,8 +7,8 @@ define ["tcomb-validation", "moment", 'md5'], (t, moment, md5)->
     time: ()=>
       moment(@starts_at).zone(moment().format('ZZ')).format "h:mm a"
 
-    timeIsCertain: ()=>
-      @time_is_unknown is false
+    # timeIsCertain: ()=>
+    #   @time_is_unknown is false
 
 
     isValid: ()=>
