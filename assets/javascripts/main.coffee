@@ -4,7 +4,7 @@ requirejs.config
     jquery: "vendor/jquery/jquery"
     'jquery.timespace': "lib/jquery.timespace"
 
-    domReady: 'vendor/requirejs/domReady'
+    # domReady: 'vendor/requirejs/domReady'
 
     postal: "vendor/postal.js/postal"
     moment: "vendor/moment/moment"
@@ -37,8 +37,8 @@ requirejs.config
     'sammy':
       deps: [ 'jquery' ]
       exports: "Sammy"
-    'sammy.google-analytics': [ 'sammy' ]
-    'sammy.title': [ "sammy" ]
+    'sammy.google-analytics': [ 'jquery', 'sammy' ]
+    'sammy.title': [ 'jquery', 'sammy' ]
     underscore:
       exports: "_"
     twix: ["moment"]
@@ -111,8 +111,8 @@ require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal
     # $('#day').empty()
     # $('#day').html templates.header new Day moment(payload.date)
 
-require ["app/routes", "moment", "domReady"], (routes, moment, domReady)->
-  domReady ()->
+require ["app/routes", "moment", "jquery"], (routes, moment, $)->
+  $(document).ready ()->
     routes.run "#/shows/" + moment().format('YYYY-MM-DD')
 
 require ["app/calendar"], ()->
