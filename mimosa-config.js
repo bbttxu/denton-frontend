@@ -1,7 +1,9 @@
+
 exports.config = {
     "modules": [
         "copy",
         "server",
+        "coffeescript",
         "coffeelint",
         "csslint",
         "lint",
@@ -13,7 +15,8 @@ exports.config = {
         "bower",
         "jade",
         "server-template-compile",
-        "less"
+        "less",
+        "cjsx"
     ],
     "iced": {
         extensions: ["coffee", "iced"],
