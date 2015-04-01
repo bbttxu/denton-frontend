@@ -5,6 +5,8 @@ requirejs.config
     'jquery.timespace': "lib/jquery.timespace"
 
     # domReady: 'vendor/requirejs/domReady'
+    reflux: 'vendor/reflux/reflux'
+    react: 'vendor/react/react'
 
     postal: "vendor/postal.js/postal"
     moment: "vendor/moment/moment"
