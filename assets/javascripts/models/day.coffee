@@ -5,6 +5,9 @@ define ["moment"], (moment)->
 
     link: ()=> "#/shows/#{@date}"
 
+    moment: ()=>
+      moment(@date)
+
     weekday: ()=>
       moment(@date).format "dd"
 
