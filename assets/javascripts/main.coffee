@@ -117,13 +117,13 @@ require ["app/routes", "moment", "jquery"], (routes, moment, $)->
   $(document).ready ()->
     routes.run "#/shows/" + moment().format('YYYY-MM-DD')
 
-require ["app/calendar"], ()->
-  # load calendar
-
-require ["jquery", "bootstrap"], ($)->
+# require ["app/calendar"], ()->
+#   # load calendar
 
 require ["app/calendarFlux"], ()->
   # console.log "loading weather"
+
+require ["jquery", "bootstrap"], ($)->
 
 require ["app/weather"], ()->
   # console.log "loading weather"
