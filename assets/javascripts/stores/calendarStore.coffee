@@ -13,6 +13,7 @@ define ['jquery', 'reflux', 'actions/calendarAction'], ($, Reflux, calendarActio
 
     onLoad: (data)->
       this._calendar = data
+      console.log this._calendar
       @trigger this._calendar
 
     onLoadError: (error)->

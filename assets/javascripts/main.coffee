@@ -122,5 +122,8 @@ require ["app/calendar"], ()->
 
 require ["jquery", "bootstrap"], ($)->
 
+require ["app/calendarFlux"], ()->
+  # console.log "loading weather"
+
 require ["app/weather"], ()->
   # console.log "loading weather"

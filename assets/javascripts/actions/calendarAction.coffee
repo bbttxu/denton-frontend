@@ -1,5 +1,4 @@
 # calendarAction.coffee
 
 define ['reflux'], (Reflux)->
-  console.log Reflux
-  Reflux.createAction()
+  window.doit = Reflux.createAction()
