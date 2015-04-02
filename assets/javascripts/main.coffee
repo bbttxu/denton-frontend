@@ -126,6 +126,9 @@ require ["app/calendarFlux"], ()->
 require ["app/updated"], ()->
   # console.log "loading weather"
 
+require ["app/next"], ()->
+  # console.log "loading weather"
+
 require ["jquery", "bootstrap"], ($)->
 
 require ["app/weather"], ()->

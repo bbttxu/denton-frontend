@@ -9,9 +9,9 @@ define ['postal', 'underscore', 'react', 'reflux', "moment"], (Postal, _, React,
   host = "http://denton1.krakatoa.io"
 
 
-  window.updateit = Reflux.createAction
-    preEmit: ()->
-      console.log arguments
+  window.updateit = Reflux.createAction()
+    # preEmit: ()->
+    #   console.log arguments
 
   updatedStore = Reflux.createStore
 
@@ -20,7 +20,7 @@ define ['postal', 'underscore', 'react', 'reflux', "moment"], (Postal, _, React,
       @listenTo updateit, @showTimeElapsed
 
     showTimeElapsed: ->
-      console.log "do it!"
+      # console.log "do it!"
       this.onLoad(arguments)
 
     onLoad: (data)->
@@ -47,7 +47,7 @@ define ['postal', 'underscore', 'react', 'reflux', "moment"], (Postal, _, React,
       @unsubscribe()
 
     onShowTimeElapsed: (data)->
-      console.log data
+      # console.log data
       this.setState phrase: data
 
     render: ()->
@@ -67,7 +67,7 @@ define ['postal', 'underscore', 'react', 'reflux', "moment"], (Postal, _, React,
   component = document.getElementById('last-updated')
 
   render = (payload)->
-    console.log payload
+    # console.log payload
     React.render <PreviouslyUpdated/>, component
 
   render()

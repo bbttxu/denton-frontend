@@ -33,19 +33,19 @@ define [ "jquery", "app/api", "postal", "templates", "models/date", "models/show
 
     shows = translatePayload payload
 
-    date = new Date payload.date, shows, prev, next
+    date = new Date payload.date, shows
 
-    templated = templates.date date
+    # templated = templates.date date
 
-    $('#featured').fadeOut ()->
+    $('#shows').fadeOut ()->
 
       # $('#last-updated').html( templates['last-updated']( ago: moment(payload.updated).fromNow() ) )
 
-      $('#featured').html templated
+      # $('#shows').html templated
 
-      $artists = $('ul.artists li', '#featured').fadeIn('fast')
+      $artists = $('ul.artists li', '#shows').fadeIn('fast')
 
-      $shows = $('.show, .meta', '#featured').fadeIn('fast')
+      $shows = $('.show, .meta', '#shows').fadeIn('fast')
 
       $(this).fadeIn()
 
