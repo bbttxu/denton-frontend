@@ -129,6 +129,9 @@ require ["app/updated"], ()->
 require ["app/next"], ()->
   # console.log "loading weather"
 
+# require ["app/prev"], ()->
+#   # console.log "loading weather"
+
 require ["jquery", "bootstrap"], ($)->
 
 require ["app/weather"], ()->
