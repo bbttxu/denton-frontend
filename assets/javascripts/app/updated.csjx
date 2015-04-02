@@ -1,4 +1,5 @@
-# calendarComponent.cjsx
+# updated.csjx
+
 
 define ['underscore', 'react', 'stores/calendarStore', 'models/day', 'actions/calendarAction', "moment", "twix"], (_, React, CalendarStore, Day, calendarAction, moment, twix)->
 

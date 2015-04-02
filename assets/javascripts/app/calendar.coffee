@@ -14,7 +14,7 @@ define ["app/api", "models/day", "postal", "templates", "moment", "jquery.timesp
     templated = _.map days, (day)->
       templates['calendar-li'](day)
 
-    $('#last-updated').html( templates['last-updated']( ago: moment(payload.updated).fromNow() ) )
+    # $('#last-updated').html( templates['last-updated']( ago: moment(payload.updated).fromNow() ) )
 
     $('#calendar').html(templated.join(""))
     $('li', '#calendar').timespace()

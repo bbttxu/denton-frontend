@@ -39,7 +39,7 @@ define [ "jquery", "app/api", "postal", "templates", "models/date", "models/show
 
     $('#featured').fadeOut ()->
 
-      $('#last-updated').html( templates['last-updated']( ago: moment(payload.updated).fromNow() ) )
+      # $('#last-updated').html( templates['last-updated']( ago: moment(payload.updated).fromNow() ) )
 
       $('#featured').html templated
 
