@@ -129,10 +129,10 @@ require ["app/calendarFlux"], ()->
   # console.log "loading weather"
 
 require ["app/updated"], ()->
-  console.log "loading weather"
+  # console.log "loading weather"
 
 require ["app/next"], ()->
-  console.log "loading weather"
+  # console.log "loading weather"
 
 # require ["app/prev"], ()->
 #   # console.log "loading weather"

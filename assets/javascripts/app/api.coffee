@@ -88,20 +88,20 @@ define ["jquery", "underscore", "postal", "moment", "app/defaults"], ($, _, post
 
     # cached = lscache.get key
 
-    console.log 'update.calendar'
+    # console.log 'update.calendar'
 
     updateCalendar = ()->
-      console.log 'updateCalendar'
+      # console.log 'updateCalendar'
 
       fetchCalendar = ()->
-        console.log 'fetchCalendar'
+        # console.log 'fetchCalendar'
         $.getJSON url, { timestamp: moment().valueOf() }
 
       loadCalendar = (data)->
-        console.log('loadCalendar', data)
+        # console.log('loadCalendar', data)
         payload = { data: data, updated: moment().valueOf() }
         # lscache.set key, payload, defaults.cache.length
-        console.log "set.calendar", payload
+        # console.log "set.calendar", payload
         channel.publish "set.calendar", payload
 
       # console.log 'touch.updateCalendar'
@@ -136,8 +136,8 @@ define ["jquery", "underscore", "postal", "moment", "app/defaults"], ($, _, post
       $.when $.getJSON url, { timestamp: moment().valueOf() }
         .then (data)->
           payload = { date: date, data: data, updated: moment().valueOf() }
-          console.log 'asdf', payload
-          console.log key, payload
+          # console.log 'asdf', payload
+          # console.log key, payload
           channel.publish "set.date", payload
           # channel.publish "update.adjacent", date
 
