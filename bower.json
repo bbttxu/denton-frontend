@@ -16,6 +16,7 @@
     "tcomb-validation": "*",
     "bootstrap": "~3.2",
     "reflux": "latest",
-    "react": "latest"
+    "react": "latest",
+    "jquery.ajax.lscache": "latest"
   }
 }

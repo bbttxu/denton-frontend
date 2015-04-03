@@ -3,7 +3,7 @@
 define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 'spinjs'], (postal, $, Sammy, GoogleAnalytics, Title, Spinner)->
 
   channel = postal.channel()
-  channel.publish "touch.calendar"
+  channel.publish "update.calendar"
 
   # calendar = []
 
@@ -39,7 +39,7 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
     self.get "#/", ()->
       self.setTitle "Calendar"
 
-      channel.publish "get.calendar"
+      # channel.publish "update.calendar"
 
       showSection '#upcoming'
 

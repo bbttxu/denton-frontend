@@ -28,7 +28,7 @@ define ['postal', 'underscore', 'react', 'reflux', "moment", 'actions/calendarAc
 
     onLoadCalendar: (data)->
       calendar = data
-      # console.log 'onLoadCalendar', data[0], arguments
+      console.log 'onLoadCalendar', data[0], arguments
       this.calendar = calendar[0].sort() if calendar[0]
       this.reconcile(this.today, this.calendar)
 
@@ -46,7 +46,7 @@ define ['postal', 'underscore', 'react', 'reflux', "moment", 'actions/calendarAc
       this._calendar = []
 
     reconcile: (today, calendar)->
-      # console.log 'reconcile', today, calendar
+      console.log 'reconcile', today, calendar
       # console.log 'reconcile', this.today, this.calendar
       # this.today = "#/shows/#{data[0]}"
 
@@ -93,6 +93,7 @@ define ['postal', 'underscore', 'react', 'reflux', "moment", 'actions/calendarAc
     next(payload.date) if payload.date
 
   channel.subscribe "set.calendar", (payload)->
+    console.log ' next subscribe set calendar', payload.data
     calendarAction(_.keys(payload.data))
 
   component = document.getElementById('next')
