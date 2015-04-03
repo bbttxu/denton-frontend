@@ -50,7 +50,7 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
 
       $('#shows').html(spinner.spin().el)
 
-      # console.log "/shows/#{date}"
+      console.log "/shows/#{date}"
 
       channel.publish "get.date", date
 

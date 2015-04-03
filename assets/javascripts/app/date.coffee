@@ -50,10 +50,10 @@ define [ "jquery", "app/api", "postal", "templates", "models/date", "models/show
       $(this).fadeIn()
 
 
-  channel.subscribe "set.date", _.throttle handleSetDate, 100
+  # channel.subscribe "set.date", _.throttle handleSetDate, 100
 
-  channel.subscribe "set.prev", (date)->
-    prev = date
+  # channel.subscribe "set.prev", (date)->
+  #   prev = date
 
-  channel.subscribe "set.next", (date)->
-    next = date
+  # channel.subscribe "set.next", (date)->
+  #   next = date

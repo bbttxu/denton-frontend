@@ -52,8 +52,8 @@ requirejs.config
 # require ["pace"], (pace)->
 #   pace.start()
 
-require ["app/date"], ()->
-  # load date
+# require ["app/date"], ()->
+#   # load date
 
 require ["app/venues"], ()->
   # load venues

@@ -6,12 +6,16 @@ define ['postal', 'underscore', 'react', 'reflux', "moment", 'actions/calendarAc
   channel = Postal.channel()
 
   window.next = Reflux.createAction()
+
+
   updatedStore = Reflux.createStore
 
     init: ->
-      link = ""
-      today = moment().format('YYYY-MM-DD')
-      calendar = []
+      this.link = ""
+      this.today = moment().format('YYYY-MM-DD')
+      this.calendar = []
+
+      console.log this.link, this.today, this.calendar
 
       @listenTo next, @updateToday
       @listenTo calendarAction, @updateCalendar
@@ -23,8 +27,9 @@ define ['postal', 'underscore', 'react', 'reflux', "moment", 'actions/calendarAc
       this.onLoadCalendar(arguments)
 
     onLoadCalendar: (data)->
+      calendar = data
       # console.log 'onLoadCalendar', data[0], arguments
-      this.calendar = data[0] or []
+      this.calendar = calendar[0].sort() if calendar[0]
       this.reconcile(this.today, this.calendar)
 
     updateToday: ->
@@ -32,7 +37,7 @@ define ['postal', 'underscore', 'react', 'reflux', "moment", 'actions/calendarAc
       this.onLoad(arguments)
 
     onLoad: (data)->
-      # console.log 'onLoad', data[0], arguments
+      console.log 'onToday', data[0], arguments
       this.today = data[0]
       this.reconcile(this.today, this.calendar)
 
@@ -42,10 +47,13 @@ define ['postal', 'underscore', 'react', 'reflux', "moment", 'actions/calendarAc
 
     reconcile: (today, calendar)->
       # console.log 'reconcile', today, calendar
+      # console.log 'reconcile', this.today, this.calendar
       # this.today = "#/shows/#{data[0]}"
 
-      sorted = calendar.sort()
-      next = calendar[(calendar.indexOf(today) + 1)]
+
+      sorted = _.sortBy calendar, (day)->
+        moment(day)
+      next = sorted[(sorted.indexOf(today) + 1)]
       this.link = ""
       this.link = "\#/shows/#{next}" if next
 
@@ -81,16 +89,18 @@ define ['postal', 'underscore', 'react', 'reflux', "moment", 'actions/calendarAc
   )
 
   channel.subscribe "set.date", (payload)->
-    next(payload.date)
+    console.log 'totally valid', payload.date, payload
+    next(payload.date) if payload.date
 
   channel.subscribe "set.calendar", (payload)->
     calendarAction(_.keys(payload.data))
 
   component = document.getElementById('next')
 
-  render = (payload)->
-    # console.log payload
+  render = ()->
     React.render <Next/>, component
 
+
+  calendarAction()
   render()
 
