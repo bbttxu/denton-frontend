@@ -7,7 +7,7 @@ define ['react', 'moment'], (React, Moment)->
 
       <header>
         <h3>
-          <span className="day">{date.format('dddd')}</span>
+          <span className="day">{date.format('ddd')}</span>
           <span className="month">{date.format("MMMM")}</span>
           <span className="date">{date.format("DD")}</span>
         </h3>

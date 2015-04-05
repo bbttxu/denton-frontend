@@ -56,6 +56,5 @@ define ['underscore', 'reflux', 'actions/featuredAction', 'actions/loadCalendarA
       prev = sorted[(sorted.indexOf(this.featured.date) - 1)]
       next = sorted[(sorted.indexOf(this.featured.date) + 1)]
 
-
       @trigger _.extend {}, prev: prev, next: next, this.featured
 

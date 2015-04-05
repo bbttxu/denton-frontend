@@ -48,7 +48,7 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
 
       self.setTitle date
 
-      $('#shows').html(spinner.spin().el)
+      # $('#shows').html(spinner.spin().el)
 
       # console.log "/shows/#{date}"
 
