@@ -128,7 +128,7 @@ require ["app/routes", "moment", "jquery"], (routes, moment, $)->
 require ["app/calendarFlux"], ()->
   # console.log "loading weather"
 
-# require ["app/updated"], ()->
+require ["app/updated"], ()->
   # console.log "loading weather"
 
 require ["app/featured"], ()->
