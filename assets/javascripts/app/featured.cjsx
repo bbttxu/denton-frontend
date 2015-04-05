@@ -1,86 +1,19 @@
 # featured.cjsx
 
-define ['postal', 'underscore', 'react', 'reflux', "moment", 'models/date', 'components/dateComponent'], (Postal, _, React, Reflux, moment, Date, DateComponent)->
+define ['postal', 'underscore', 'react', 'actions/featuredAction', "moment", 'models/date', 'stores/featuredStore', 'components/featuredComponent'], (Postal, _, React, getFeatured, moment, Date, updatedStore, Featured)->
 
   channel = Postal.channel()
 
-  window.getFeatured = Reflux.createAction()
-
-  updatedStore = Reflux.createStore
-
-    init: ->
-      this.link = ""
-      this.next = ""
-      this.prev = ""
-      this.today = moment().format('YYYY-MM-DD')
-      this.calendar = []
-      this.shows = {}
-      this.featured = {}
-
-      # console.log this.link, this.today, this.calendar
-
-      # @listenTo calendarAction, @updateCalendar
-      @listenTo getFeatured, @getFeatured
 
 
 
-    # updateCalendar: ->
-    #   # console.log "do it!", arguments
-    #   this.onLoadCalendar(arguments)
-
-    # onLoadCalendar: (data)->
-    #   calendar = data
-    #   # console.log 'onLoadCalendar', data[0], arguments
-    #   this.calendar = calendar[0].sort() if calendar[0]
-    #   this.reconcile(this.today, this.calendar)
-
-    getFeatured: ->
-      # console.log "do it!"
-      this.onLoad(arguments)
-
-    onLoad: (data)->
-      # console.log 'onToday', data[0], arguments
-      this.featured = data[0]
-      this.reconcile()
-
-    onLoadError: (error)->
-      Actions.loadCalendarError(error)
-      this._calendar = []
-
-    reconcile: ()->
-      # console.log 'reconcile',
-      # console.log 'reconcile', this.today, this.calendar
-      # this.today = "#/shows/#{data[0]}"
-      # console.log 'from store out to the world', this.featured
-
-
-      @trigger this.featured
-
-
-
-
-
-  # Header = React.createClass
-
+  # Prev = React.createClass
   #   render: ()->
-  #     date = moment(this.props.date)
-  #     # console.log 'fgf', date
+  #     <div id="prev" className="prev"><a href="#/shows/2015-04-10" className="h1">«</a></div>
 
-  #     <header>
-  #       <h3>
-  #         <span className="day">{date.format('dddd')}</span>
-  #         <span className="month">{date.format("MMMM")}</span>
-  #         <span className="date">{date.format("DD")}</span>
-  #       </h3>
-  #     </header>
-
-  Prev = React.createClass
-    render: ()->
-      <div id="prev" className="prev"><a href="#/shows/2015-04-10" className="h1">«</a></div>
-
-  Next = React.createClass
-    render: ()->
-      <div id="next" className="next"><a href="#/shows/2015-04-12" className="h1">»</a></div>
+  # Next = React.createClass
+  #   render: ()->
+  #     <div id="next" className="next"><a href="#/shows/2015-04-12" className="h1">»</a></div>
 
   Shows = React.createClass
 
@@ -132,36 +65,6 @@ define ['postal', 'underscore', 'react', 'reflux', "moment", 'models/date', 'com
       </div>
 
 
-  Featured = React.createClass
-
-    getInitialState: ->
-      date: moment().format 'YYYY-MM-DD'
-
-    componentDidMount: ->
-      @unsubscribe = updatedStore.listen(@onShowTimeElapsed)
-
-    componentWillUnmount: ->
-      @unsubscribe()
-
-    onShowTimeElapsed: (data)->
-      # today = moment(data)
-      # console.log "main go!", data
-      # this.setState data: data
-      this.setState date: data.date
-
-
-
-    render: ()->
-      # console.log 'render top', this.state.date
-      <div className="day">
-        <DateComponent date={this.state.date}/>
-      </div>
-
-    # <div className="content">
-    #   <Prev/>
-    #   # <Shows/>
-    #   <Next/>
-    # </div>
 
 
   channel.subscribe "set.date", (payload)->

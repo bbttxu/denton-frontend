@@ -4,7 +4,6 @@ define ['react', 'moment'], (React, Moment)->
   Header = React.createClass
     render: ()->
       date = Moment(this.props.date)
-      # console.log 'fgf', date
 
       <header>
         <h3>
