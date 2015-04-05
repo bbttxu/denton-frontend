@@ -15,7 +15,7 @@ define ['postal', 'underscore', 'react', 'reflux', "moment", 'actions/calendarAc
       this.today = moment().format('YYYY-MM-DD')
       this.calendar = []
 
-      # console.log this.link, this.today, this.calendar
+      console.log this.link, this.today, this.calendar
 
       @listenTo next, @updateToday
       @listenTo calendarAction, @updateCalendar
@@ -46,7 +46,7 @@ define ['postal', 'underscore', 'react', 'reflux', "moment", 'actions/calendarAc
       this._calendar = []
 
     reconcile: (today, calendar)->
-      # console.log 'reconcile', today, calendar
+      console.log 'reconcile', today, calendar
       # console.log 'reconcile', this.today, this.calendar
       # this.today = "#/shows/#{data[0]}"
 
@@ -56,6 +56,7 @@ define ['postal', 'underscore', 'react', 'reflux', "moment", 'actions/calendarAc
       next = sorted[(sorted.indexOf(today) + 1)]
       this.link = ""
       this.link = "\#/shows/#{next}" if next
+      console.log next, this.link
 
       @trigger this.link
 
@@ -93,11 +94,11 @@ define ['postal', 'underscore', 'react', 'reflux', "moment", 'actions/calendarAc
   )
 
   channel.subscribe "set.date", (payload)->
-    # console.log 'totally valid', payload.date, payload
+    console.log 'totally valid', payload.date, payload
     next(payload.date) if payload.date
 
   channel.subscribe "set.calendar", (payload)->
-    # console.log ' next subscribe set calendar', payload.data
+    console.log ' next subscribe set calendar', payload.data
     calendarAction(_.keys(payload.data))
 
   component = document.getElementById('next')

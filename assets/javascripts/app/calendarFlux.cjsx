@@ -5,6 +5,6 @@ define ['jquery', 'react', 'actions/calendarAction', 'stores/calendarStore', 'co
 
   React.render <CalendarComponent/>, component
 
-  CalendarAction()
+  # CalendarAction()
 
-  setInterval CalendarAction, 2 * 60 * 1000
+  # setInterval CalendarAction, 2 * 60 * 1000

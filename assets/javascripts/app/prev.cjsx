@@ -58,7 +58,7 @@ define ['postal', 'underscore', 'react', 'reflux', "moment", 'actions/calendarAc
       prev = sorted[(sorted.indexOf(today) - 1)]
       this.link = ""
       this.link = "\#/shows/#{prev}" if prev
-      # console.log this.link
+      console.log this.link
 
       @trigger this.link
 
@@ -96,11 +96,11 @@ define ['postal', 'underscore', 'react', 'reflux', "moment", 'actions/calendarAc
   )
 
   channel.subscribe "set.date", (payload)->
-    # console.log 'totally valid', payload.date, payload
+    console.log 'totally valid', payload.date, payload
     next(payload.date) if payload.date
 
   channel.subscribe "set.calendar", (payload)->
-    # console.log ' next subscribe set calendar', payload.data
+    console.log ' prev subscribe set calendar', payload.data
     calendarAction(_.keys(payload.data))
 
   component = document.getElementById('prev')
