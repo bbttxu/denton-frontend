@@ -1,6 +1,6 @@
 # calendarStore.coffee
 
-define ['jquery', 'reflux', 'actions/calendarAction'], ($, Reflux, calendarAction)->
+define ['jquery', 'reflux', 'actions/calendarAction', 'actions/loadCalendarAction'], ($, Reflux, calendarAction, loadCalendarAction)->
 
   host = "http://denton1.krakatoa.io"
 
@@ -13,9 +13,14 @@ define ['jquery', 'reflux', 'actions/calendarAction'], ($, Reflux, calendarActio
 
     onLoad: (data)->
       this._calendar = data
+      # console.log this._calendar
+
+      loadCalendarAction this._calendar
+
       @trigger this._calendar
 
     onLoadError: (error)->
       Actions.loadCalendarError(error)
       this._calendar = []
+
       @trigger this._calendar

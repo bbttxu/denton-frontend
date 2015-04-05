@@ -3,4 +3,7 @@
 define ['react'], (React)->
   Prev = React.createClass
     render: ()->
-      <div id="prev" className="prev"><a href="#/shows/2015-04-10" className="h1">«</a></div>
+      link = "#"
+      link = "#/shows/" + this.props.prev if this.props.prev
+
+      <div id="prev" className="prev"><a href={link} className="h1">«</a></div>

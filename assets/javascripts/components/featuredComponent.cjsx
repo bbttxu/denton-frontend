@@ -1,6 +1,6 @@
 # featuredComponent.cjsx
 
-define ['react', 'moment', 'stores/featuredStore', 'components/dateComponent', 'components/prevComponent', 'components/nextComponent'], (React, Moment, updatedStore, DateComponent, Prev, Next)->
+define ['react', 'moment', 'stores/featuredStore', 'stores/calendarStore','components/dateComponent', 'components/prevComponent', 'components/nextComponent'], (React, Moment, updatedStore, calendarStore, DateComponent, Prev, Next)->
   Featured = React.createClass
 
     getInitialState: ->
@@ -15,13 +15,15 @@ define ['react', 'moment', 'stores/featuredStore', 'components/dateComponent', '
     onShowTimeElapsed: (data)->
       # console.log data
       this.setState date: data.date
+      this.setState prev: data.prev if data.prev
+      this.setState next: data.next if data.next
 
 
     render: ()->
       <div className="day">
+        <Prev prev={this.state.prev}/>
         <DateComponent date={this.state.date}/>
-        <Prev/>
-        <Next/>
+        <Next next={this.state.next}/>
       </div>
 
     # <div className="content">

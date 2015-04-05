@@ -1,6 +1,6 @@
 # featuredStore.coffee
 
-define ['jquery', 'reflux', 'actions/featuredAction'], ($, Reflux, getFeatured)->
+define ['underscore', 'reflux', 'actions/featuredAction', 'actions/loadCalendarAction'], (_, Reflux, getFeatured, calendarAction)->
 
   host = "http://denton1.krakatoa.io"
 
@@ -17,20 +17,22 @@ define ['jquery', 'reflux', 'actions/featuredAction'], ($, Reflux, getFeatured)-
 
       # console.log this.link, this.today, this.calendar
 
-      # @listenTo calendarAction, @updateCalendar
+      @listenTo calendarAction, @updateCalendar
       @listenTo getFeatured, @getFeatured
 
 
 
-    # updateCalendar: ->
-    #   # console.log "do it!", arguments
-    #   this.onLoadCalendar(arguments)
+    updateCalendar: ->
+      # console.log "updateCalendar", arguments
+      this.onLoadCalendar(arguments)
 
-    # onLoadCalendar: (data)->
-    #   calendar = data
-    #   # console.log 'onLoadCalendar', data[0], arguments
-    #   this.calendar = calendar[0].sort() if calendar[0]
-    #   this.reconcile(this.today, this.calendar)
+    onLoadCalendar: (data)->
+      this.calendar = data[0]
+
+
+      # console.log 'onLoadCalendar', this.calendar, arguments
+      # this.calendar = calendar[0].sort() if calendar[0]
+      this.reconcile()
 
     getFeatured: ->
       # console.log "do it!"
@@ -46,11 +48,14 @@ define ['jquery', 'reflux', 'actions/featuredAction'], ($, Reflux, getFeatured)-
       this._calendar = []
 
     reconcile: ()->
-      # console.log 'reconcile',
-      # console.log 'reconcile', this.today, this.calendar
-      # this.today = "#/shows/#{data[0]}"
-      # console.log 'from store out to the world', this.featured
+      # console.log 'reconcile', this.calendar
 
 
-      @trigger this.featured
+      sorted = _.sortBy _.keys(this.calendar), (day)->
+        moment(day)
+      prev = sorted[(sorted.indexOf(this.featured.date) - 1)]
+      next = sorted[(sorted.indexOf(this.featured.date) + 1)]
+
+
+      @trigger _.extend {}, prev: prev, next: next, this.featured
 

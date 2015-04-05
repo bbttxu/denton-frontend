@@ -3,4 +3,7 @@
 define ['react'], (React)->
   Next = React.createClass
     render: ()->
-      <div id="next" className="next"><a href="#/shows/2015-04-12" className="h1">»</a></div>
+      link = "#"
+      link = "#/shows/" + this.props.next if this.props.next
+
+      <div id="next" className="next"><a href={link} className="h1">»</a></div>
