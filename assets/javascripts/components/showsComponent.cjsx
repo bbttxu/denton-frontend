@@ -1,6 +1,6 @@
 # showsComponent.cjsx
 
-define ['react', 'models/Venue', 'models/Artist', 'models/gig', 'models/show'], (React, Venue, Artist, Gig, Show)->
+define ['react', 'models/venue', 'models/artist', 'models/gig', 'models/show'], (React, Venue, Artist, Gig, Show)->
   Shows = React.createClass
 
     render: ()->
