@@ -30,7 +30,7 @@ define ['underscore', 'react', 'stores/calendarStore', 'models/day', 'actions/ca
 
       <ul>
         { _.map days, (day)->
-          <li className={day.classes()}>
+          <li className={day.classes()} key={day.date}>
             <a href={day.link()}>
               <span key={"day"} className="day">{day.weekday()}</span>
               <span key={"month"} className="month">{day.month()}</span>
