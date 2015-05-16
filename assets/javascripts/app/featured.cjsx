@@ -5,9 +5,7 @@ define ['postal', 'underscore', 'react', 'actions/featuredAction', "moment", 'mo
   channel = Postal.channel()
 
   channel.subscribe "set.date", (payload)->
-    console.log "featured", payload
     getFeatured(payload) if payload
-
 
   node = document.getElementById "featured"
   render = ()->

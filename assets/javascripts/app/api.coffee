@@ -129,22 +129,12 @@ define ["jquery", "underscore", "postal", "moment", "app/defaults", "lscache"], 
 
     cached = lscache.get key
 
-    channel.publish "set.date", cached if cached
-
-    # console.log 'date', cached
-
     updateDate = (date)->
-
       $.when $.getJSON url, { timestamp: moment().valueOf() }
         .then (data)->
           payload = { date: date, data: data, updated: moment().valueOf() }
-          # console.log 'asdf', payload
-          # console.log key, payload
-          # console.log payload
           channel.publish "set.date", payload
           lscache.set key, payload
-
-
 
 
     ###
@@ -152,26 +142,15 @@ define ["jquery", "underscore", "postal", "moment", "app/defaults", "lscache"], 
     but update if out of date
     ###
     if cached
-      console.log 'cached', cached.updated
       channel.publish "set.date", cached
-      # channel.publish "update.adjacent", date
-      # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
       if isOutOfDate cached.updated
-        console.log 'out of date'
         updateDate(date)
 
     # ###
     # update because out of date
     # ###
     unless cached
-      console.log 'uncached'
       updateDate(date)
-
-    # if cached
-    #   channel.publish "set.date", cached
-    #   updateDate(date) if moment().subtract("#{defaults.cache.current}", 'minutes').isBefore( moment(cached.updated) )
-
-    # updateDate(date) unless cached
 
 
 
