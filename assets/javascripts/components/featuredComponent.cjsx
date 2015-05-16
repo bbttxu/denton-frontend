@@ -13,11 +13,11 @@ define ['react', 'moment', 'stores/featuredStore', 'stores/calendarStore','compo
       @unsubscribe()
 
     onShowTimeElapsed: (data)->
-      # console.log data
       this.setState date: data.date
       this.setState data: data.data if data.data
       this.setState prev: data.prev if data.prev
       this.setState next: data.next if data.next
+      this.setState updated: data.updated if data.updated
 
 
     render: ()->
@@ -25,7 +25,7 @@ define ['react', 'moment', 'stores/featuredStore', 'stores/calendarStore','compo
         <DateComponent date={this.state.date}/>
         <div className="content">
           <Prev prev={this.state.prev}/>
-          <Shows shows={this.state.data}/>
+          <Shows shows={this.state.data} updated={this.state.updated}/>
           <Next next={this.state.next}/>
         </div>
       </div>

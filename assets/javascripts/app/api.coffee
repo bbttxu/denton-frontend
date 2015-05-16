@@ -131,7 +131,7 @@ define ["jquery", "underscore", "postal", "moment", "app/defaults", "lscache"], 
 
     channel.publish "set.date", cached if cached
 
-    console.log 'date', cached
+    # console.log 'date', cached
 
     updateDate = (date)->
 
@@ -139,7 +139,7 @@ define ["jquery", "underscore", "postal", "moment", "app/defaults", "lscache"], 
         .then (data)->
           payload = { date: date, data: data, updated: moment().valueOf() }
           # console.log 'asdf', payload
-          console.log key, payload
+          # console.log key, payload
           channel.publish "set.date", payload
           # channel.publish "update.adjacent", date
 

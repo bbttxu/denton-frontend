@@ -1,6 +1,6 @@
 # showsComponent.cjsx
 
-define ['react', 'models/venue', 'models/artist', 'models/gig', 'models/show'], (React, Venue, Artist, Gig, Show)->
+define ['react', 'models/venue', 'models/artist', 'models/gig', 'models/show', 'classnames', 'moment'], (React, Venue, Artist, Gig, Show, cx, moment)->
   Shows = React.createClass
 
     render: ()->
@@ -28,8 +28,17 @@ define ['react', 'models/venue', 'models/artist', 'models/gig', 'models/show'], 
 
       payload = translatePayload payload if payload
 
+
+      classes = cx
+        shows: true
+        current: moment(this.props.updated).isAfter(moment().subtract(5, 'minutes'))
+        'out-of-date': moment(this.props.updated).isBefore(moment().subtract(24, 'hours'))
+
+
+
+
       <div className="shows">
-        <ul id="shows" className="shows">
+        <ul id="shows" className={classes}>
           {_.map payload, (show)->
             <li className="show" key={show.id}>
               <div className="meta">
