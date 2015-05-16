@@ -16,7 +16,8 @@ exports.config = {
         "jade",
         "server-template-compile",
         "less",
-        "cjsx"
+        "cjsx",
+        "dependency-graph"
     ],
     "iced": {
         extensions: ["coffee", "iced"],

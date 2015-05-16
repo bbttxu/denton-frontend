@@ -24,6 +24,10 @@ requirejs.config
     # 'jquery.ajax.lscache': 'vendor/brophdog11/jquery.ajax.lscache'
     # 'lscache-extra': 'vendor/brophdog11/lscache-extra'
 
+
+    'classnames': 'vendor/JedWatson/classnames'
+
+
     typogr: 'vendor/ekalinin/typogr'
 
     spinjs: 'vendor/spin.js/spin'
@@ -129,7 +133,7 @@ require ["app/calendarFlux"], ()->
   # console.log "loading weather"
 
 require ["app/updated"], ()->
-  # console.log "loading weather"
+  console.log "loading weather"
 
 require ["app/featured"], ()->
 #   # console.log "loading weather"

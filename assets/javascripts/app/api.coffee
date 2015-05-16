@@ -1,5 +1,5 @@
 # api.coffee
-define ["jquery", "underscore", "postal", "moment", "app/defaults"], ($, _, postal, moment, defaults)->
+define ["jquery", "underscore", "postal", "moment", "app/defaults", "lscache"], ($, _, postal, moment, defaults, lscache)->
   channel = postal.channel()
 
   API = {}
@@ -127,9 +127,11 @@ define ["jquery", "underscore", "postal", "moment", "app/defaults"], ($, _, post
 
     url = "#{host}/shows/#{date}.json?callback=?"
 
-    # cached = lscache.get key
+    cached = lscache.get key
 
-    # console.log 'date', cached
+    channel.publish "set.date", cached if cached
+
+    console.log 'date', cached
 
     updateDate = (date)->
 
@@ -137,7 +139,7 @@ define ["jquery", "underscore", "postal", "moment", "app/defaults"], ($, _, post
         .then (data)->
           payload = { date: date, data: data, updated: moment().valueOf() }
           # console.log 'asdf', payload
-          # console.log key, payload
+          console.log key, payload
           channel.publish "set.date", payload
           # channel.publish "update.adjacent", date
 

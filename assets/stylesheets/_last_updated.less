@@ -6,29 +6,39 @@
 
 
 .last-updated-wrapper {
-	.make-row();
+  .make-row();
 
-	p {
-		text-align: right;
-	}
+  p {
+    text-align: right;
+  }
 
-	.label {
-		color: @brand-warning;
+  .label {
+    color: @brand-info;
 
-		&:after {
-			content: ": ";
-		}
-	}
+    &:after {
+      content: ": ";
+    }
+  }
 
-	.date {
-		color: @brand-primary;
-	}
+  .current .label {
+    color: @brand-success;
+  }
 
-	.last-updated {
+  .out-of-date .label {
+    color: @brand-warning;
+  }
+
+
+
+  .date {
+    color: @brand-primary;
+  }
+
+  .last-updated {
     .make-xs-column(11);
-		.make-sm-column(4);
-		.make-sm-column-offset(6);
-	}
+    .make-sm-column(4);
+    .make-sm-column-offset(6);
+  }
 
 }
 
