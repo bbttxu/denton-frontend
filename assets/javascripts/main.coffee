@@ -122,12 +122,12 @@ requirejs.config
 #     # $('#day').empty()
 #     # $('#day').html templates.header new Day moment(payload.date)
 
-require ["app/featured"], ()->
 
 require ["app/routes", "moment", "jquery"], (routes, moment, $)->
   $(document).ready ()->
     routes.run "#/shows/" + moment().format('YYYY-MM-DD')
 
+require ["app/featured"], ()->
 # require ["app/calendar"], ()->
 #   # load calendar
 
