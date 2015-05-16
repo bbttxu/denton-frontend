@@ -150,6 +150,10 @@ require ["jquery", "bootstrap"], ($)->
       console.log 'foo'
       $(this).closest('.navbar-collapse').collapse('hide')
 
-
 require ["app/weather"], ()->
   # console.log "loading weather"
+
+require ['jquery', 'moment'], ($, moment)->
+  today = moment().format('YYYY-MM-DD')
+  $('#todaysLink').attr href: "#/shows/#{today}"
+
