@@ -39,25 +39,26 @@ define ['react', 'models/venue', 'models/artist', 'models/gig', 'models/show', '
 
       <div className="shows">
         <ul id="shows" className={classes}>
-          {_.map payload, (show)->
-            <li className="show" key={show.id}>
-              <div className="meta">
-                <h6 className="h5">
-                  <a href={show.source}>
-                    <span className="time">{show.time()}</span>
-                    <span className="subhead venue">{show.venue.name}</span>
-                    <span className="price is right">{show.price}</span>
-                  </a>
-                </h6>
-              </div>
-              <div className="artists">
-                <ul className="artists list-unstlyed">
-                  {_.map show.gigs, (gig)->
-                    <li key={gig.artist.id}>{gig.artist.name}</li>
-                  }
-                </ul>
-              </div>
-            </li>
+          {
+            _.map payload, (show)->
+              <li className="show" key={show.id}>
+                <div className="meta">
+                  <h6 className="h5">
+                    <a href={show.source}>
+                      <span className="time">{show.time()}</span>
+                      <span className="subhead venue">{show.venue.name}</span>
+                      <span className="price is right">{show.price}</span>
+                    </a>
+                  </h6>
+                </div>
+                <div className="artists">
+                  <ul className="artists list-unstlyed">
+                    {_.map show.gigs, (gig)->
+                      <li key={gig.artist.id}>{gig.artist.name}</li>
+                    }
+                  </ul>
+                </div>
+              </li>
           }
         </ul>
       </div>

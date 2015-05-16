@@ -150,6 +150,7 @@ define ["jquery", "underscore", "postal", "moment", "app/defaults", "lscache"], 
     # update because out of date
     # ###
     unless cached
+      channel.publish "set.date", date: date, updated: 0, data: {}
       updateDate(date)
 
 
