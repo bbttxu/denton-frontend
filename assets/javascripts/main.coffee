@@ -133,7 +133,7 @@ require ["app/calendarFlux"], ()->
   # console.log "loading weather"
 
 require ["app/updated"], ()->
-  console.log "loading weather"
+  # console.log "loading updated"
 
 require ["app/featured"], ()->
 #   # console.log "loading weather"
@@ -145,6 +145,11 @@ require ["app/featured"], ()->
 #   # console.log "loading weather"
 
 require ["jquery", "bootstrap"], ($)->
+  $(document).ready ()->
+    $('a', '.navbar-collapse').on 'click', (event)->
+      console.log 'foo'
+      $(this).closest('.navbar-collapse').collapse('hide')
+
 
 require ["app/weather"], ()->
   # console.log "loading weather"
