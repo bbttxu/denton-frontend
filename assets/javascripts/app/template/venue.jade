@@ -1,28 +1,28 @@
-//- venue.jade
+//- //- venue.jade
 
 
-.details
-  h1
-    a(href="#/venues") &laquo;&nbsp;
-    != venue.name
+//- .details
+//-   h1
+//-     a(href="#/venues") &laquo;&nbsp;
+//-     != venue.name
 
-  ul
-    for show in shows
-      //- li.show
-      //-   != show.date
-      //-   ul
-      //-     for gig in show.gigs
-      //-       li= gig.artist.name
+//-   ul
+//-     for show in shows
+//-       //- li.show
+//-       //-   != show.date
+//-       //-   ul
+//-       //-     for gig in show.gigs
+//-       //-       li= gig.artist.name
 
-      li.show
-        .meta
-          h6.h5
-            a(href=show.source)
-              span.time= show.date
+//-       li.show
+//-         .meta
+//-           h6.h5
+//-             a(href=show.source)
+//-               span.time= show.date
 
-              //- span.subhead.venue= venue.name
-              span.price.is.right= show.price
-        .artists
-          ul.artists.list-unstlyed
-            each gig in show.gigs
-              li!= gig.artist.formattedName()
+//-               //- span.subhead.venue= venue.name
+//-               span.price.is.right= show.price
+//-         .artists
+//-           ul.artists.list-unstlyed
+//-             each gig in show.gigs
+//-               li!= gig.artist.formattedName()

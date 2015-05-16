@@ -64,7 +64,7 @@ requirejs.config
 # require ["app/date"], ()->
 #   # load date
 
-require ["app/venues"], ()->
+# require ["app/venues"], ()->
   # load venues
 
 # require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal, Day, templates, $)->
@@ -122,6 +122,8 @@ require ["app/venues"], ()->
 #     # $('#day').empty()
 #     # $('#day').html templates.header new Day moment(payload.date)
 
+require ["app/featured"], ()->
+
 require ["app/routes", "moment", "jquery"], (routes, moment, $)->
   $(document).ready ()->
     routes.run "#/shows/" + moment().format('YYYY-MM-DD')
@@ -135,7 +137,6 @@ require ["app/calendarFlux"], ()->
 require ["app/updated"], ()->
   # console.log "loading updated"
 
-require ["app/featured"], ()->
 #   # console.log "loading weather"
 
 # require ["app/next"], ()->

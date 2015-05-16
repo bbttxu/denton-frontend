@@ -1,6 +1,6 @@
 # updated.cjsx
 
-require ['react', 'components/lastUpdatedComponent', 'postal'], (React, LastUpdatedComponent, Postal)->
+define ['react', 'components/lastUpdatedComponent', 'postal'], (React, LastUpdatedComponent, Postal)->
   channel = Postal.channel()
 
   handleSetDate = (data)->

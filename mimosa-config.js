@@ -34,5 +34,27 @@ exports.config = {
             "optimize": true,
             "build": true
         }
+    },
+    require: {
+      exclude:[],
+      commonConfig:"common",
+      tracking: {
+        enabled: true,
+        path: ".mimosa/require/tracking.json"
+      },
+      verify: {
+        enabled: true,
+        plugins: {
+          css:"css",
+          hbs:"hbs"
+        }
+      },
+      optimize : {
+        modules: null,
+        moduleCachingPath: ".mimosa/require/moduleCaching",
+        inferConfig:true,
+        removeCombined: true,
+        overrides:{}
+      }
     }
   }

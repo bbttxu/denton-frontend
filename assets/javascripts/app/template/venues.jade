@@ -1,22 +1,22 @@
-//- venue.jade
+//- //- venue.jade
 
 
-.with-shows
-  h3 Venues&nbsp;
-    small w/ upcoming shows
-  table.table
-    thead
-      tr
-        th Venue name
-        th Upcoming
-        th Next
-    tbody
-      each venue in venues
-        tr
-          td
-            h4
-              a(href="#/venues/#{venue.slug}")!= venue.name
+//- .with-shows
+//-   h3 Venues&nbsp;
+//-     small w/ upcoming shows
+//-   table.table
+//-     thead
+//-       tr
+//-         th Venue name
+//-         th Upcoming
+//-         th Next
+//-     tbody
+//-       each venue in venues
+//-         tr
+//-           td
+//-             h4
+//-               a(href="#/venues/#{venue.slug}")!= venue.name
 
-          td= venue.shows.length
-          td
-            a(href=venue.nextLink())!= venue.next()
+//-           td= venue.shows.length
+//-           td
+//-             a(href=venue.nextLink())!= venue.next()
