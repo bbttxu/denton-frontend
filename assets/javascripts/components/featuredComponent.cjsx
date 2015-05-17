@@ -15,8 +15,8 @@ define ['react', 'moment', 'stores/featuredStore', 'stores/calendarStore','compo
     onShowTimeElapsed: (data)->
       this.setState date: data.date
       this.setState data: data.data if data.data
-      this.setState prev: data.prev if data.prev
-      this.setState next: data.next if data.next
+      this.setState prev: data.prev
+      this.setState next: data.next
       this.setState updated: data.updated if data.updated
 
 
