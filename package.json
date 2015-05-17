@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "./node_modules/mimosa/bin/mimosa clean",
     "start": "./node_modules/mimosa/bin/mimosa watch -sc",
-    "build": "./node_modules/mimosa/bin/mimosa build -om"
+    "build": "./node_modules/mimosa/bin/mimosa build -m"
   },
   "dependencies": {
     "bower": "~1.4.1",
