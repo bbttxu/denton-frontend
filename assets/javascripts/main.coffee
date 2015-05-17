@@ -56,6 +56,10 @@ requirejs.config
 
     bootstrap: ['jquery']
 
+    'reflux':
+      # deps: [ 'jquery' ]
+      exports: "Reflux"
+
     # 'jquery.ajax.lscache': ['jquery', 'lscache-extra']
 
 # require ["pace"], (pace)->

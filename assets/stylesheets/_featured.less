@@ -130,9 +130,15 @@ ul.artists {
 
   &.current {
     color: black;
+    .night & {
+      color: lightgray;
+    }
   }
 
   &.out-of-date {
     color: lightgray;
+    .night & {
+      color: darkgray;
+    }
   }
 }

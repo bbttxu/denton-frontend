@@ -1,6 +1,6 @@
 # routes.coffee
 
-define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 'spinjs', 'app/featured'], (postal, $, Sammy, GoogleAnalytics, Title, Spinner)->
+define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 'spinjs', 'app/featured', 'app/api'], (postal, $, Sammy, GoogleAnalytics, Title, Spinner)->
 
   channel = postal.channel()
   channel.publish "update.calendar"
