@@ -10,6 +10,7 @@ define ['react', 'components/lastUpdatedComponent', 'postal'], (React, LastUpdat
     React.render React.createElement(LastUpdatedComponent, {updated: data.updated}, ), $('#last-updated')[0]
 
   channel.subscribe "set.date", handleSetDate
+  channel.subscribe "set.venues", handleSetDate
 
   cron = (data)->
     # console.log "cron"

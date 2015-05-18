@@ -202,8 +202,8 @@ define ["jquery", "underscore", "postal", "moment", "app/defaults", "lscache"], 
       $.when $.getJSON url, { timestamp: moment().valueOf() }
         .then (data)->
           payload = { data: data, updated: moment().valueOf() }
-          # lscache.set key, payload, defaults.cache.length
           channel.publish "set.venues", payload
+          lscache.set key, payload, defaults.cache.length
 
     if cached
       channel.publish "set.venues", cached
