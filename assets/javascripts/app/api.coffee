@@ -195,7 +195,7 @@ define ["jquery", "underscore", "postal", "moment", "app/defaults", "lscache"], 
 
     url = "#{host}/venues.json?callback=?"
 
-    # cached = lscache.get key
+    cached = lscache.get key
 
     updateVenues = ()->
       # console.log 'get.updateCalendar'

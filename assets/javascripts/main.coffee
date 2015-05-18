@@ -127,10 +127,6 @@ requirejs.config
 #     # $('#day').html templates.header new Day moment(payload.date)
 
 
-require ["app/routes", "moment", "jquery"], (routes, moment, $)->
-  $(document).ready ()->
-    routes.run "#/shows/" + moment().format('YYYY-MM-DD')
-
 require ["app/featured"], ()->
 # require ["app/calendar"], ()->
 #   # load calendar
@@ -141,6 +137,7 @@ require ["app/calendarFlux"], ()->
 require ["app/updated"], ()->
   # console.log "loading updated"
 
+require ["app/venues"], ()->
 #   # console.log "loading weather"
 
 # require ["app/next"], ()->
@@ -161,4 +158,9 @@ require ["app/weather"], ()->
 require ['jquery', 'moment'], ($, moment)->
   today = moment().format('YYYY-MM-DD')
   $('#todaysLink').attr href: "#/shows/#{today}"
+
+
+require ["app/routes", "moment", "jquery"], (routes, moment, $)->
+  $(document).ready ()->
+    routes.run "#/shows/" + moment().format('YYYY-MM-DD')
 

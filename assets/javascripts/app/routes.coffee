@@ -62,6 +62,8 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
 
       self.setTitle "Upcoming Venues"
 
+      console.log "get.venues"
+
       channel.publish "get.venues"
 
       showSection '#venues'
