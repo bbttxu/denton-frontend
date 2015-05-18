@@ -35,6 +35,11 @@ exports.config = {
             "build": true
         }
     },
+    serverTemplate: {
+      locals: {
+        optimze: false
+      }
+    },
     require: {
       exclude:[],
       commonConfig:"common",
