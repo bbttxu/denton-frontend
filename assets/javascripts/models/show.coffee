@@ -2,7 +2,7 @@
 
 define ["tcomb-validation", "moment"], (t, moment)->
   class Show
-    constructor: (@date, @venue, @starts_at, @price, @source, @gigs, @time_is_unknown)->
+    constructor: (@date, @venue, @starts_at, @price, @source, @gigs, @time_is_unknown, @id)->
 
     time: ()=>
       moment(@starts_at).zone(moment().format('ZZ')).format "h:mm a"

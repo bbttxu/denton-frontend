@@ -78,7 +78,7 @@
 }
 
 .meta {
-  display: none;
+  // display: none;
 	background: @brand-primary;
 	border-bottom: 2px solid @brand-primary;
 	overflow: hidden;
@@ -106,7 +106,7 @@ div.artists {
 }
 ul.artists {
 	li {
-    display: none;
+    // display: none;
 		font-size: 2em;
 		line-height: 1;
 		margin: 0;
@@ -122,4 +122,23 @@ ul.artists {
 .unknown {
   color: @brand-primary;
   padding-right: 0.4ex;
+}
+
+
+.shows {
+  color: gray;
+
+  &.current {
+    color: black;
+    .night & {
+      color: lightgray;
+    }
+  }
+
+  &.out-of-date {
+    color: lightgray;
+    .night & {
+      color: darkgray;
+    }
+  }
 }

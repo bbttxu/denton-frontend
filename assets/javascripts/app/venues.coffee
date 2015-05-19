@@ -1,46 +1,13 @@
-# venues.coffee
+define ['react', 'components/venuesComponent', 'postal'], (React, VenuesComponent, Postal)->
+  channel = Postal.channel()
 
-define [ "jquery", "app/api", "postal", "templates", "models/venue", "models/artist", "models/gig", "models/show"], ($, API, postal, templates, Venue, Artist, Gig, Show)->
-  channel = postal.channel()
+  latest = undefined
 
-  showVenues = (payload)->
+  handleSetDate = (data)->
 
-    upcomingVenues = _.filter payload.data.venues, (venue)->
-      venue.shows_count > 0
+    latest = data
+    React.render React.createElement(VenuesComponent, data, ), $('#venues')[0]
 
-    venues = _.map upcomingVenues, (venue)->
-      new Venue venue.name, venue.id, venue.slug, new Array(venue.shows_count), venue
+  channel.subscribe "set.venues", handleSetDate
 
-
-    $('#venues').empty().html templates.venues venues: _.sortBy venues, (venue)->
-      venue.date()
-
-  channel.subscribe "set.venues", showVenues
-
-  showVenue = (payload)->
-    venues = _.collect payload.data.venues, (venue)->
-      new Venue venue.name, venue.id
-
-    artists = _.collect payload.data.artists, (artist)->
-      new Artist artist.name, artist.id
-
-    gigs = _.collect payload.data.gigs, (gig)->
-      artist = _.findWhere artists, id: gig.artists
-      new Gig artist, gig.position, gig.id
-
-    shows = _.collect payload.data.shows, (show)->
-      showGigs = _.collect show.gigs, (gigID)->
-        _.findWhere gigs, id: gigID
-
-      venue = _.findWhere venues, id: show.venues
-
-      new Show moment(show.starts_at).calendar(), venue, show.starts_at, show.price, show.source, showGigs, show.time_is_unknown
-
-    shows = _.sortBy shows, (show)->
-      show.starts_at
-
-
-    console.log ' render venue'
-    $('#venues').empty().html templates.venue venue: venues[0], shows: shows
-
-  channel.subscribe "set.venue", showVenue
+  channel.publish "get.venues"

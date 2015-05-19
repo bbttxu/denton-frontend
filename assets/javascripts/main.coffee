@@ -5,6 +5,8 @@ requirejs.config
     'jquery.timespace': "lib/jquery.timespace"
 
     # domReady: 'vendor/requirejs/domReady'
+    reflux: 'vendor/reflux/reflux'
+    react: 'vendor/react/react'
 
     postal: "vendor/postal.js/postal"
     moment: "vendor/moment/moment"
@@ -18,6 +20,13 @@ requirejs.config
     'sammy.title': "vendor/sammy.title/sammy.title"
 
     lscache: 'vendor/pamelafox/lscache'
+
+    # 'jquery.ajax.lscache': 'vendor/brophdog11/jquery.ajax.lscache'
+    # 'lscache-extra': 'vendor/brophdog11/lscache-extra'
+
+
+    'classnames': 'vendor/JedWatson/classnames'
+
 
     typogr: 'vendor/ekalinin/typogr'
 
@@ -47,78 +56,111 @@ requirejs.config
 
     bootstrap: ['jquery']
 
+    'reflux':
+      # deps: [ 'jquery' ]
+      exports: "Reflux"
+
+    # 'jquery.ajax.lscache': ['jquery', 'lscache-extra']
+
 # require ["pace"], (pace)->
 #   pace.start()
 
-require ["app/date"], ()->
-  # load date
+# require ["app/date"], ()->
+#   # load date
 
-require ["app/venues"], ()->
+# require ["app/venues"], ()->
   # load venues
 
-require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal, Day, templates, $)->
-  channel = postal.channel()
+# require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal, Day, templates, $)->
+#   channel = postal.channel()
 
-  calendar = []
-  # date = undefined
-
-
+#   # calendar = []
+#   # date = undefined
 
 
 
-  channel.subscribe "update.calendar", (payload)->
-    # console.log "update.calendar", payload
-    days = _.map payload.data, (count, date)->
-      date
 
-    calendar = _.sortBy days, (date)->
-      date
 
-    # console.log "calendar", calendar
+#   # channel.subscribe "update.calendar", (payload)->
+#   #   console.log "update.calendar", payload
+#   #   days = _.map payload.data, (count, date)->
+#   #     date
 
-  previousShowDateTo = (date)->
-    date = moment(date).format('YYYY-MM-DD')
-    # console.log "pradadadsfadfa", calendar, date
-    prev = calendar[(calendar.indexOf(date) - 1)]
-    return new Day(prev, 0) if prev
-    false
+#   #   calendar = _.sortBy days, (date)->
+#   #     date
 
-  nextShowDateFrom = (date)->
-    # date = date.format('YYYY-MM-DD')
-    next = calendar[(calendar.indexOf(date) + 1)]
-    return new Day(next, 0) if next
-    false
+#   #   console.log "calendar", calendar
 
-  # channel.subscribe "update.adjacent", (payload)->
-  #   #   console.log payload
+#   previousShowDateTo = (date)->
+#     date = moment(date).format('YYYY-MM-DD')
+#     # console.log "pradadadsfadfa", calendar, date
+#     prev = calendar[(calendar.indexOf(date) - 1)]
+#     return new Day(prev, 0) if prev
+#     false
 
-  channel.subscribe "set.date", (payload)->
-    # console.log "set.date in next/prev", payload.date
-    prev = previousShowDateTo moment(payload.date).format('YYYY-MM-DD')
+#   nextShowDateFrom = (date)->
+#     # date = date.format('YYYY-MM-DD')
+#     next = calendar[(calendar.indexOf(date) + 1)]
+#     return new Day(next, 0) if next
+#     false
 
-    channel.publish "set.prev", prev
-    # console.log "prev", prev
-    # $('#prev').empty()
-    # $('#prev').html templates.prev prev if prev
+#   # channel.subscribe "update.adjacent", (payload)->
+#   #   #   console.log payload
 
-    next = nextShowDateFrom moment(payload.date).format('YYYY-MM-DD')
-    # console.log "next", next
-    # $('#next').empty()
-    # $('#next').html templates.next next if next
+#   channel.subscribe "set.date", (payload)->
+#     # console.log "set.date in next/prev", payload.date
+#     prev = previousShowDateTo moment(payload.date).format('YYYY-MM-DD')
 
-    channel.publish "set.next", next
+#     channel.publish "set.prev", prev
+#     # console.log "prev", prev
+#     # $('#prev').empty()
+#     # $('#prev').html templates.prev prev if prev
 
-    # $('#day').empty()
-    # $('#day').html templates.header new Day moment(payload.date)
+#     next = nextShowDateFrom moment(payload.date).format('YYYY-MM-DD')
+#     # console.log "next", next
+#     # $('#next').empty()
+#     # $('#next').html templates.next next if next
+
+#     channel.publish "set.next", next
+
+#     # $('#day').empty()
+#     # $('#day').html templates.header new Day moment(payload.date)
+
+
+require ["app/featured"], ()->
+# require ["app/calendar"], ()->
+#   # load calendar
+
+require ["app/calendarFlux"], ()->
+  # console.log "loading weather"
+
+require ["app/updated"], ()->
+  # console.log "loading updated"
+
+require ["app/venues"], ()->
+#   # console.log "loading weather"
+
+# require ["app/next"], ()->
+#   # console.log "loading weather"
+
+# require ["app/prev"], ()->
+#   # console.log "loading weather"
+
+require ["jquery", "bootstrap"], ($)->
+  $(document).ready ()->
+    $('a', '.navbar-collapse').on 'click', (event)->
+      console.log 'foo'
+      $(this).closest('.navbar-collapse').collapse('hide')
+
+require ["app/weather"], ()->
+  # console.log "loading weather"
+
+require ['jquery', 'moment'], ($, moment)->
+  today = moment().format('YYYY-MM-DD')
+  $('#todaysLink').attr href: "#/shows/#{today}"
+
 
 require ["app/routes", "moment", "jquery"], (routes, moment, $)->
   $(document).ready ()->
     routes.run "#/shows/" + moment().format('YYYY-MM-DD')
 
-require ["app/calendar"], ()->
-  # load calendar
-
-require ["jquery", "bootstrap"], ($)->
-
-require ["app/weather"], ()->
-  # console.log "loading weather"

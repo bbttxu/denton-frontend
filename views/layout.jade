@@ -70,6 +70,9 @@ html.no-js(lang='en')
           #bs-navbar-collapse.collapse.navbar-collapse
             ul.nav.navbar-nav.navbar-right
               li
+                a#todaysLink(href="") Today
+
+              li
                 a(href="#/") Calendar
 
               li
@@ -104,7 +107,7 @@ html.no-js(lang='en')
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/reload-client.js')
 
-  //- if optimize
-  //- script(src='javascripts/main-built.js' + cachebust)
-  //- else
-  script(src="javascripts/vendor/requirejs/require.js" data-main='javascripts/main.js' + cachebust)
+  if optimize
+    script(src='javascripts/main-built.js' + cachebust)
+  else
+    script(src="javascripts/vendor/requirejs/require.js" + cachebust data-main='javascripts/main.js' + cachebust)

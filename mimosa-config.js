@@ -4,8 +4,8 @@ exports.config = {
         "copy",
         "server",
         "coffeescript",
-        "coffeelint",
-        "csslint",
+        // "coffeelint",
+        // "csslint",
         "lint",
         "require",
         "minify-js",
@@ -16,7 +16,8 @@ exports.config = {
         "jade",
         "server-template-compile",
         "less",
-        "cjsx"
+        "cjsx",
+        "dependency-graph"
     ],
     "iced": {
         extensions: ["coffee", "iced"],
@@ -33,5 +34,32 @@ exports.config = {
             "optimize": true,
             "build": true
         }
+    },
+    serverTemplate: {
+      locals: {
+        optimze: false
+      }
+    },
+    require: {
+      exclude:[],
+      commonConfig:"common",
+      tracking: {
+        enabled: true,
+        path: ".mimosa/require/tracking.json"
+      },
+      verify: {
+        enabled: true,
+        plugins: {
+          css:"css",
+          hbs:"hbs"
+        }
+      },
+      optimize : {
+        modules: null,
+        moduleCachingPath: ".mimosa/require/moduleCaching",
+        inferConfig:true,
+        removeCombined: true,
+        overrides:{}
+      }
     }
   }

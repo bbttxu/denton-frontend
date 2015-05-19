@@ -1,25 +1,29 @@
 {
   "name": "denton-frontend",
-  "version": "0.2.22",
+  "version": "0.3.0",
   "description": "A Mimosa starter skeleton",
   "scripts": {
-    "clean": "mimosa clean",
-    "start": "mimosa watch -sc",
-    "build": "mimosa build -m"
+    "clean": "./node_modules/mimosa/bin/mimosa clean",
+    "start": "./node_modules/mimosa/bin/mimosa watch -sc",
+    "build": "./node_modules/mimosa/bin/mimosa build -m"
   },
   "dependencies": {
-    "coffee-script": "1.6.3",
-    "consolidate": "0.10.0",
+    "bower": "~1.4.1",
+    "coffee-script": "1.9.2",
+    "consolidate": "0.12.1",
     "express": "3.4.7",
     "grunt-docco": "~0.3.3",
-    "jade": "0.35.0",
-    "mimosa": "~2.1.10",
+    "jade": "1.9.2",
+    "mimosa": "~2.3.32",
+    "mimosa-cjsx": "^1.1.0",
     "mimosa-coffeelint": "^0.5.0",
     "mimosa-coffeescript": "*",
+    "mimosa-dependency-graph": "^0.2.0",
     "mimosa-jade": "^2.3.0",
     "mimosa-less": "^2.1.0",
     "mimosa-lint": "^1.1.1",
     "mimosa-minify-img": "^0.4.0",
-    "mimosa-server-template-compile": "^0.7.0"
+    "mimosa-server-template-compile": "^0.7.0",
+    "tmp": "^0.0.26"
   }
 }

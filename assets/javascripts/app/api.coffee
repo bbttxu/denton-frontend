@@ -1,5 +1,5 @@
 # api.coffee
-define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], ($, _, postal, lscache, moment, defaults)->
+define ["jquery", "underscore", "postal", "moment", "app/defaults", "lscache"], ($, _, postal, moment, defaults, lscache)->
   channel = postal.channel()
 
   API = {}
@@ -54,30 +54,31 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
   # channel.subscribe "touch.calendar", updateURL "#{host}/shows/calendar.json?callback=?", "calendar"
 
 
-  getCalendar = ()->
-    key = "calendar"
+  # getCalendar = ()->
+  #   key = "calendar"
 
-    url = "#{host}/shows/calendar.json?callback=?"
+  #   url = "#{host}/shows/calendar.json?callback=?"
 
-    cached = lscache.get key
+    # cached = lscache.get key
 
     # console.log 'get.calendar', cached
 
-    updateCalendar = ()->
-      # console.log 'get.updateCalendar'
-      $.when $.getJSON url, { timestamp: moment().valueOf() }
-        .then (data)->
-          payload = { data: data, updated: moment().valueOf() }
-          lscache.set key, payload, defaults.cache.length
-          channel.publish "set.calendar", payload
+    # updateCalendar = ()->
+    #   # console.log 'get.updateCalendar'
+    #   $.when $.getJSON url, { timestamp: moment().valueOf() }
+    #     .then (data)->
+    #       payload = { data: data, updated: moment().valueOf() }
+    #       # lscache.set key, payload, defaults.cache.length
+    #       console.log "set.calendar", payload
+    #       channel.publish "set.calendar", payload
 
-    if cached
-      channel.publish "set.calendar", cached
-      # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
-      updateCalendar() if isOutOfDate cached.updated
+    # if cached
+    #   channel.publish "set.calendar", cached
+    #   # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
+    #   updateCalendar() if isOutOfDate cached.updated
 
-    unless cached
-      updateCalendar()
+    # unless cached
+    #   updateCalendar()
 
 
   touchCalendar = ()->
@@ -85,32 +86,40 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
 
     url = "#{host}/shows/calendar.json?callback=?"
 
-    cached = lscache.get key
+    # cached = lscache.get key
 
-    # console.log 'touch.calendar', cached
+    # console.log 'update.calendar'
 
     updateCalendar = ()->
+      # console.log 'updateCalendar'
+
+      fetchCalendar = ()->
+        # console.log 'fetchCalendar'
+        $.getJSON url, { timestamp: moment().valueOf() }
+
+      loadCalendar = (data)->
+        # console.log('loadCalendar', data)
+        payload = { data: data, updated: moment().valueOf() }
+        # lscache.set key, payload, defaults.cache.length
+        # console.log "set.calendar", payload
+        channel.publish "set.calendar", payload
+
       # console.log 'touch.updateCalendar'
-      $.when $.getJSON url, { timestamp: moment().valueOf() }
-        .then (data)->
-          payload = { data: data, updated: moment().valueOf() }
-          lscache.set key, payload, defaults.cache.length
-          channel.publish "update.calendar", payload
-          # channel.publish "update.adjacent", payload
+      $.when($.getJSON(url)).then(loadCalendar)
 
-    if cached
-      channel.publish "update.calendar", cached
-      # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
-      updateCalendar() if isOutOfDate cached.updated
+    # if cached
+    #   channel.publish "update.calendar", cached
+    #   # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
+    #   updateCalendar() if isOutOfDate cached.updated
 
-    unless cached
-      updateCalendar()
+    # unless cached
+    updateCalendar()
 
 
 
 
-  channel.subscribe "get.calendar", getCalendar
-  channel.subscribe "touch.calendar", touchCalendar
+  # channel.subscribe "get.calendar", getCalendar
+  channel.subscribe "update.calendar", touchCalendar
 
 
   getDate = (date) ->
@@ -120,19 +129,12 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
 
     cached = lscache.get key
 
-    # console.log 'date', cached
-
     updateDate = (date)->
-
       $.when $.getJSON url, { timestamp: moment().valueOf() }
         .then (data)->
           payload = { date: date, data: data, updated: moment().valueOf() }
-          # console.log payload
-          lscache.set key, payload, defaults.cache.length
           channel.publish "set.date", payload
-          channel.publish "update.adjacent", date
-
-
+          lscache.set key, payload
 
 
     ###
@@ -141,21 +143,15 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
     ###
     if cached
       channel.publish "set.date", cached
-      channel.publish "update.adjacent", date
-      # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
-      updateDate(date) if isOutOfDate cached.updated
+      if isOutOfDate cached.updated
+        updateDate(date)
 
-    ###
-    update because out of date
-    ###
+    # ###
+    # update because out of date
+    # ###
     unless cached
+      channel.publish "set.date", date: date, updated: 0, data: {}
       updateDate(date)
-
-    # if cached
-    #   channel.publish "set.date", cached
-    #   updateDate(date) if moment().subtract("#{defaults.cache.current}", 'minutes').isBefore( moment(cached.updated) )
-
-    # updateDate(date) unless cached
 
 
 
@@ -165,7 +161,7 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
 
     url = "#{host}/shows/#{date}.json?callback=?"
 
-    cached = lscache.get key
+    # cached = lscache.get key
 
     # console.log 'date cached', key, cached
 
@@ -174,21 +170,21 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
       $.when $.getJSON url, { timestamp: moment().valueOf() }
         .then (data)->
           payload = { data: data, updated: moment().valueOf() }
-          lscache.set key, payload, defaults.cache.length
+          # lscache.set key, payload, defaults.cache.length
 
     ###
     publish cached data if present
     but update if out of date
     ###
-    if cached
-      # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
-      updateDate(date) if isOutOfDate cached.updated
+    # if cached
+    #   # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
+    #   updateDate(date) if isOutOfDate cached.updated
 
-    ###
-    update because out of date
-    ###
-    unless cached
-      updateDate(date)
+    # ###
+    # update because out of date
+    # ###
+    # unless cached
+    #   updateDate(date)
 
 
   channel.subscribe "get.date", getDate
@@ -206,8 +202,8 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
       $.when $.getJSON url, { timestamp: moment().valueOf() }
         .then (data)->
           payload = { data: data, updated: moment().valueOf() }
-          lscache.set key, payload, defaults.cache.length
           channel.publish "set.venues", payload
+          lscache.set key, payload, defaults.cache.length
 
     if cached
       channel.publish "set.venues", cached
@@ -227,7 +223,7 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
     console.log 'get.calendar', cached, key
 
 
-    cached = lscache.get key
+    # cached = lscache.get key
 
     console.log 'getVenue', cached, key
 
@@ -236,16 +232,16 @@ define ["jquery", "underscore", "postal", "lscache", "moment", "app/defaults"], 
       $.when $.getJSON url, { timestamp: moment().valueOf() }
         .then (data)->
           payload = { data: data, updated: moment().valueOf() }
-          lscache.set key, payload, defaults.cache.length
+          # lscache.set key, payload, defaults.cache.length
           channel.publish "set.venue", payload
 
-    if cached
-      channel.publish "set.venue", cached
-      # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
-      updateVenues() if isOutOfDate cached.updated
+    # if cached
+    #   channel.publish "set.venue", cached
+    #   # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
+    #   updateVenues() if isOutOfDate cached.updated
 
-    unless cached
-      updateVenues()
+    # unless cached
+    #   updateVenues()
 
   channel.subscribe "get.venue", getVenue
 

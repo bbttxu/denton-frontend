@@ -1,9 +1,9 @@
 # routes.coffee
 
-define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 'spinjs'], (postal, $, Sammy, GoogleAnalytics, Title, Spinner)->
+define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 'spinjs', 'app/featured', 'app/api'], (postal, $, Sammy, GoogleAnalytics, Title, Spinner)->
 
   channel = postal.channel()
-  channel.publish "touch.calendar"
+  channel.publish "update.calendar"
 
   # calendar = []
 
@@ -39,7 +39,7 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
     self.get "#/", ()->
       self.setTitle "Calendar"
 
-      channel.publish "get.calendar"
+      # channel.publish "update.calendar"
 
       showSection '#upcoming'
 
@@ -48,7 +48,7 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
 
       self.setTitle date
 
-      $('#shows').html(spinner.spin().el)
+      # $('#shows').html(spinner.spin().el)
 
       # console.log "/shows/#{date}"
 
@@ -61,6 +61,8 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
       $('#venues').html(spinner.spin().el)
 
       self.setTitle "Upcoming Venues"
+
+      console.log "get.venues"
 
       channel.publish "get.venues"
 
