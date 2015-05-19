@@ -1,6 +1,41 @@
 # showsComponent.cjsx
 
 define ['react', 'models/venue', 'models/artist', 'models/gig', 'models/show', 'classnames', 'moment'], (React, Venue, Artist, Gig, Show, cx, moment)->
+
+  Show = React.createClass
+    render: ->
+      show = this.props.show
+
+      <li className="show" key={show.id}>
+        <div className="meta">
+          <h6 className="h5">
+            <a href={show.source}>
+              <span className="time">{show.time()}</span>
+              <span className="subhead venue">{show.venue.name}</span>
+              <span className="price is right">{show.price}</span>
+            </a>
+          </h6>
+        </div>
+        <div className="artists">
+          <ul className="artists list-unstlyed">
+            {_.map show.gigs, (gig)->
+              <li key={gig.artist.id}>{gig.artist.name}</li>
+            }
+          </ul>
+        </div>
+      </li>
+
+
+  ShowsListing = React.createClass
+    render: ->
+      shows = this.props.shows
+
+      <ul id="shows">
+        {_.map shows, (show)->
+          <Show show={show}/>
+        }
+      </ul>
+
   Shows = React.createClass
 
     render: ()->
@@ -29,36 +64,25 @@ define ['react', 'models/venue', 'models/artist', 'models/gig', 'models/show', '
       payload = translatePayload payload if payload
 
 
+
+
+
       classes = cx
         shows: true
         current: moment(this.props.updated).isAfter(moment().subtract(5, 'minutes'))
         'out-of-date': moment(this.props.updated).isBefore(moment().subtract(24, 'hours'))
 
 
+      console.log payload
+
+      # if payload.length == 1
 
 
-      <div className="shows">
-        <ul id="shows" className={classes}>
-          {
-            _.map payload, (show)->
-              <li className="show" key={show.id}>
-                <div className="meta">
-                  <h6 className="h5">
-                    <a href={show.source}>
-                      <span className="time">{show.time()}</span>
-                      <span className="subhead venue">{show.venue.name}</span>
-                      <span className="price is right">{show.price}</span>
-                    </a>
-                  </h6>
-                </div>
-                <div className="artists">
-                  <ul className="artists list-unstlyed">
-                    {_.map show.gigs, (gig)->
-                      <li key={gig.artist.id}>{gig.artist.name}</li>
-                    }
-                  </ul>
-                </div>
-              </li>
-          }
-        </ul>
+
+
+
+
+
+      <div className="shows" className={classes}>
+        <ShowsListing shows={payload}/>
       </div>
