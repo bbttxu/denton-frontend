@@ -31,6 +31,6 @@ define ['react', 'underscore', 'moment'], (React, _, moment)->
       <div className="with-shows">
         <h1 className="h3">Venues <small>w/ upcoming shows</small></h1>
         {_.map venues, (venue)->
-          <Venue data={venue}/>
+          <Venue data={venue} key={venue.id}/>
         }
       </div>

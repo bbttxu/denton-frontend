@@ -60,8 +60,6 @@ requirejs.config
       # deps: [ 'jquery' ]
       exports: "Reflux"
 
-require ["app/weather"], ()->
-
 require ["app/featured"], ()->
 
 require ["app/updated"], ()->
@@ -70,17 +68,21 @@ require ["app/calendarFlux"], ()->
 
 require ["app/venues"], ()->
 
-require ['jquery', 'moment'], ($, moment)->
-  today = moment().format('YYYY-MM-DD')
-  $('#todaysLink').attr href: "#/shows/#{today}"
 
-require ["jquery", "bootstrap"], ($)->
-  $(document).ready ()->
-    $('a', '.navbar-collapse').on 'click', (event)->
-      $(this).closest('.navbar-collapse').collapse('hide')
+require ['moment'], (moment)->
+  today = moment().format('YYYY-MM-DD')
+
+  el = document.getElementById('todaysLink');
+  el.setAttribute 'href', "#/shows/#{today}"
+
+require ["app/weather"], ()->
 
 require ["app/routes", "moment", "jquery"], (routes, moment, $)->
   $(document).ready ()->
     routes.run "#/shows/" + moment().format('YYYY-MM-DD')
 
+require ["jquery", "bootstrap"], ($)->
+  $(document).ready ()->
+    $('a', '.navbar-collapse').on 'click', (event)->
+      $(this).closest('.navbar-collapse').collapse('hide')
 

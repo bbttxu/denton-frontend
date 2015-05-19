@@ -31,7 +31,7 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
 
     showSection = (selector)->
       $('.primary').not(selector).animate hideOptions, 100
-      $(selector).animate showOptions, 100
+      $(selector).animate showOptions, 300
 
     self.setTitle ( title )->
       [title, "Denton, TX Showlist", "BBTTXU" ].join(' | ')
@@ -48,21 +48,13 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
 
       self.setTitle date
 
-      # $('#shows').html(spinner.spin().el)
-
-      # console.log "/shows/#{date}"
-
       channel.publish "get.date", date
 
       showSection '#featured'
 
 
     self.get "#/venues", (req)->
-      $('#venues').html(spinner.spin().el)
-
       self.setTitle "Upcoming Venues"
-
-      console.log "get.venues"
 
       channel.publish "get.venues"
 
@@ -73,9 +65,6 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
       slug = req.params['slug']
 
       self.setTitle slug
-
-
-      $('#venues').html(spinner.spin().el)
 
       channel.publish "get.venue", slug
 
