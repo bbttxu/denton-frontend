@@ -1,6 +1,6 @@
 # calendarFlux.coffee
 
-define ['jquery', 'react', 'actions/calendarAction', 'stores/calendarStore', 'components/calendarComponent'], ($, React, CalendarAction, CalendarStore, CalendarComponent)->
+define ['react', 'actions/calendarAction', 'stores/calendarStore', 'components/calendarComponent'], (React, CalendarAction, CalendarStore, CalendarComponent)->
   component = document.getElementById('calendar')
 
   React.render <CalendarComponent/>, component

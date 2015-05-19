@@ -1,6 +1,6 @@
 # featured.cjsx
 
-define ['react', 'postal', 'underscore', 'actions/featuredAction', "moment", 'models/date', 'stores/featuredStore', 'components/featuredComponent'], (React, Postal, _, getFeatured, moment, Date, updatedStore, Featured)->
+define ['react', 'postal', 'actions/featuredAction', "moment", 'models/date', 'stores/featuredStore', 'components/featuredComponent'], (React, Postal, getFeatured, moment, Date, updatedStore, Featured)->
   channel = Postal.channel()
 
   channel.subscribe "set.date", (payload)->

@@ -60,107 +60,29 @@ requirejs.config
       # deps: [ 'jquery' ]
       exports: "Reflux"
 
-    # 'jquery.ajax.lscache': ['jquery', 'lscache-extra']
-
-# require ["pace"], (pace)->
-#   pace.start()
-
-# require ["app/date"], ()->
-#   # load date
-
-# require ["app/venues"], ()->
-  # load venues
-
-# require ["app/api", "postal", "models/day", "templates", "jquery"], (API, postal, Day, templates, $)->
-#   channel = postal.channel()
-
-#   # calendar = []
-#   # date = undefined
-
-
-
-
-
-#   # channel.subscribe "update.calendar", (payload)->
-#   #   console.log "update.calendar", payload
-#   #   days = _.map payload.data, (count, date)->
-#   #     date
-
-#   #   calendar = _.sortBy days, (date)->
-#   #     date
-
-#   #   console.log "calendar", calendar
-
-#   previousShowDateTo = (date)->
-#     date = moment(date).format('YYYY-MM-DD')
-#     # console.log "pradadadsfadfa", calendar, date
-#     prev = calendar[(calendar.indexOf(date) - 1)]
-#     return new Day(prev, 0) if prev
-#     false
-
-#   nextShowDateFrom = (date)->
-#     # date = date.format('YYYY-MM-DD')
-#     next = calendar[(calendar.indexOf(date) + 1)]
-#     return new Day(next, 0) if next
-#     false
-
-#   # channel.subscribe "update.adjacent", (payload)->
-#   #   #   console.log payload
-
-#   channel.subscribe "set.date", (payload)->
-#     # console.log "set.date in next/prev", payload.date
-#     prev = previousShowDateTo moment(payload.date).format('YYYY-MM-DD')
-
-#     channel.publish "set.prev", prev
-#     # console.log "prev", prev
-#     # $('#prev').empty()
-#     # $('#prev').html templates.prev prev if prev
-
-#     next = nextShowDateFrom moment(payload.date).format('YYYY-MM-DD')
-#     # console.log "next", next
-#     # $('#next').empty()
-#     # $('#next').html templates.next next if next
-
-#     channel.publish "set.next", next
-
-#     # $('#day').empty()
-#     # $('#day').html templates.header new Day moment(payload.date)
-
-
 require ["app/featured"], ()->
-# require ["app/calendar"], ()->
-#   # load calendar
-
-require ["app/calendarFlux"], ()->
-  # console.log "loading weather"
 
 require ["app/updated"], ()->
-  # console.log "loading updated"
+
+require ["app/calendarFlux"], ()->
 
 require ["app/venues"], ()->
-#   # console.log "loading weather"
 
-# require ["app/next"], ()->
-#   # console.log "loading weather"
 
-# require ["app/prev"], ()->
-#   # console.log "loading weather"
+require ['moment'], (moment)->
+  today = moment().format('YYYY-MM-DD')
 
-require ["jquery", "bootstrap"], ($)->
-  $(document).ready ()->
-    $('a', '.navbar-collapse').on 'click', (event)->
-      console.log 'foo'
-      $(this).closest('.navbar-collapse').collapse('hide')
+  el = document.getElementById('todaysLink');
+  el.setAttribute 'href', "#/shows/#{today}"
 
 require ["app/weather"], ()->
-  # console.log "loading weather"
-
-require ['jquery', 'moment'], ($, moment)->
-  today = moment().format('YYYY-MM-DD')
-  $('#todaysLink').attr href: "#/shows/#{today}"
-
 
 require ["app/routes", "moment", "jquery"], (routes, moment, $)->
   $(document).ready ()->
     routes.run "#/shows/" + moment().format('YYYY-MM-DD')
+
+require ["jquery", "bootstrap"], ($)->
+  $(document).ready ()->
+    $('a', '.navbar-collapse').on 'click', (event)->
+      $(this).closest('.navbar-collapse').collapse('hide')
 
