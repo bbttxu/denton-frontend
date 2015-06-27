@@ -39,7 +39,7 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
     self.get "#/", ()->
       self.setTitle "Calendar"
 
-      # channel.publish "update.calendar"
+      channel.publish "update:calendar"
 
       showSection '#upcoming'
 

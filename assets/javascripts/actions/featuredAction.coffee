@@ -1,4 +1,4 @@
 # featuredAction.coffee
 
-define ['reflux'], (Reflux)->
+define ['reflux', 'postal'], (Reflux, Postal)->
   window.getFeatured = Reflux.createAction()

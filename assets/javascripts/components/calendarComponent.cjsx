@@ -1,6 +1,8 @@
 # calendarComponent.cjsx
 
-define ['underscore', 'react', 'stores/calendarStore', 'models/day', 'actions/calendarAction', "moment", "twix"], (_, React, CalendarStore, Day, calendarAction, moment, twix)->
+define ['underscore', 'react', 'stores/calendarStore', 'models/day', 'actions/calendarAction', "moment", "twix", "postal"], (_, React, CalendarStore, Day, calendarAction, moment, twix, Postal)->
+
+  channel = Postal.channel()
 
   Listing = React.createClass(
     render: ->
@@ -49,6 +51,8 @@ define ['underscore', 'react', 'stores/calendarStore', 'models/day', 'actions/ca
 
     componentDidMount: ->
       @unsubscribe = CalendarStore.listen(@onCalendarChange)
+
+      channel.subscribe "posts:update", @onCalendarChange
 
     componentWillUnmount: ->
       @unsubscribe()

@@ -244,7 +244,7 @@ define ["jquery", "underscore", "postal", "moment", "app/defaults", "lscache"], 
 
 
 
-  channel.subscribe "*", (a, b)->
-    console.log '*', a, b
+  # channel.subscribe "*", (a, b)->
+  #   console.log '*', a, b
 
   API
