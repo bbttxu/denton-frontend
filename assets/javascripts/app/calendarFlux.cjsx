@@ -1,26 +1,15 @@
 # calendarFlux.coffee
 
-define ['react', 'components/calendarComponent', 'postal'], (React, CalendarComponent, Postal)->
+define ['react', 'components/calendarComponent', 'postal', 'app/api'], (React, CalendarComponent, Postal, API)->
   component = document.getElementById('calendar')
 
   channel = Postal.channel()
 
   React.render <CalendarComponent/>, component
 
-  host = "http://denton1.krakatoa.io"
+  # update = ()->
+  #   channel.publish 'get.calendar'
 
-  update = ()->
-    onLoad = (data)->
-      channel.publish "posts:update", data
-      channel.publish "set.calendar", data
+  # channel.subscribe "set.calendar", render
 
-    onLoadError = (error)->
-      channel.publish "posts:update", data
-      channel.publish "set.calendar", data
-
-    $.when($.getJSON("#{host}/shows/calendar.json?callback=?")).done(onLoad).fail(onLoadError)
-
-  update()
-  channel.subscribe "posts:get", update
-  channel.subscribe "update:calendar", update
-
+  channel.publish 'get.calendar'

@@ -54,72 +54,73 @@ define ["jquery", "underscore", "postal", "moment", "app/defaults", "lscache"], 
   # channel.subscribe "touch.calendar", updateURL "#{host}/shows/calendar.json?callback=?", "calendar"
 
 
-  # getCalendar = ()->
-  #   key = "calendar"
-
-  #   url = "#{host}/shows/calendar.json?callback=?"
-
-    # cached = lscache.get key
-
-    # console.log 'get.calendar', cached
-
-    # updateCalendar = ()->
-    #   # console.log 'get.updateCalendar'
-    #   $.when $.getJSON url, { timestamp: moment().valueOf() }
-    #     .then (data)->
-    #       payload = { data: data, updated: moment().valueOf() }
-    #       # lscache.set key, payload, defaults.cache.length
-    #       console.log "set.calendar", payload
-    #       channel.publish "set.calendar", payload
-
-    # if cached
-    #   channel.publish "set.calendar", cached
-    #   # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
-    #   updateCalendar() if isOutOfDate cached.updated
-
-    # unless cached
-    #   updateCalendar()
-
-
-  touchCalendar = ()->
+  getCalendar = ()->
     key = "calendar"
 
     url = "#{host}/shows/calendar.json?callback=?"
 
-    # cached = lscache.get key
+    cached = lscache.get key
 
-    # console.log 'update.calendar'
+    # console.log 'get.calendar', cached
 
     updateCalendar = ()->
-      # console.log 'updateCalendar'
+      # console.log 'get.updateCalendar'
+      $.when $.getJSON url, { timestamp: moment().valueOf() }
+        .then (data)->
+          payload = { data: data, updated: moment().valueOf() }
+          # lscache.set key, payload, defaults.cache.length
+          # console.log "set.calendar", payload
+          channel.publish "set.calendar", payload
 
-      fetchCalendar = ()->
-        # console.log 'fetchCalendar'
-        $.getJSON url, { timestamp: moment().valueOf() }
+    if cached
+      channel.publish "set.calendar", cached
+      # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
+      updateCalendar() if isOutOfDate cached.updated
 
-      loadCalendar = (data)->
-        # console.log('loadCalendar', data)
-        payload = { data: data, updated: moment().valueOf() }
-        # lscache.set key, payload, defaults.cache.length
-        # console.log "set.calendar", payload
-        channel.publish "set.calendar", payload
+    unless cached
+      updateCalendar()
 
-      # console.log 'touch.updateCalendar'
-      $.when($.getJSON(url)).then(loadCalendar)
+  channel.subscribe "get.calendar", getCalendar
 
-    # if cached
-    #   channel.publish "update.calendar", cached
-    #   # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
-    #   updateCalendar() if isOutOfDate cached.updated
+  # touchCalendar = ()->
+  #   key = "calendar"
 
-    # unless cached
-    updateCalendar()
+  #   url = "#{host}/shows/calendar.json?callback=?"
+
+  #   # cached = lscache.get key
+
+  #   # console.log 'update.calendar'
+
+  #   updateCalendar = ()->
+  #     # console.log 'updateCalendar'
+
+  #     fetchCalendar = ()->
+  #       # console.log 'fetchCalendar'
+  #       $.getJSON url, { timestamp: moment().valueOf() }
+
+  #     loadCalendar = (data)->
+  #       # console.log('loadCalendar', data)
+  #       payload = { data: data, updated: moment().valueOf() }
+  #       # lscache.set key, payload, defaults.cache.length
+  #       # console.log "set.calendar", payload
+  #       channel.publish "set.calendar", payload
+
+  #     # console.log 'touch.updateCalendar'
+  #     $.when($.getJSON(url)).then(loadCalendar)
+
+  #   # if cached
+  #   #   channel.publish "update.calendar", cached
+  #   #   # if moment().subtract(defaults.cache.current, 'minutes').isAfter( moment(cached.updated) )
+  #   #   updateCalendar() if isOutOfDate cached.updated
+
+  #   # unless cached
+  #   updateCalendar()
 
 
 
 
   # channel.subscribe "get.calendar", getCalendar
-  channel.subscribe "update.calendar", touchCalendar
+  # channel.subscribe "update.calendar", touchCalendar
 
 
   getDate = (date) ->

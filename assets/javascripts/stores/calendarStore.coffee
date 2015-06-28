@@ -1,35 +1,35 @@
-# calendarStore.coffee
+# # calendarStore.coffee
 
-define ['jquery', 'reflux', 'actions/calendarAction', 'actions/loadCalendarAction', 'postal'], ($, Reflux, calendarAction, loadCalendarAction, Postal)->
+# define ['jquery', 'reflux', 'actions/calendarAction', 'actions/loadCalendarAction', 'postal'], ($, Reflux, calendarAction, loadCalendarAction, Postal)->
 
-  host = "http://denton1.krakatoa.io"
-
-
-  channel = Postal.channel()
+#   host = "http://denton1.krakatoa.io"
 
 
+#   channel = Postal.channel()
 
 
-  calendarStore = Reflux.createStore
-    init: ->
-      # @listenTo calendarAction, @loadCalendar
 
-      channel.subscribe "posts:get", @loadCalendar
 
-    loadCalendar: (data)->
-      $.when($.getJSON("#{host}/shows/calendar.json?callback=?")).done(this.onLoad)
+#   calendarStore = Reflux.createStore
+#     init: ->
+#       # @listenTo calendarAction, @loadCalendar
 
-    onLoad: (data)->
-      this._calendar = data
+#       channel.subscribe "posts:get", @loadCalendar
 
-      # loadCalendarAction this._calendar
+#     loadCalendar: (data)->
+#       $.when($.getJSON("#{host}/shows/calendar.json?callback=?")).done(this.onLoad)
 
-      channel.publish "posts:update", this._calendar
-      # @trigger this._calendar
+#     onLoad: (data)->
+#       this._calendar = data
 
-    onLoadError: (error)->
-      Actions.loadCalendarError(error)
-      this._calendar = []
+#       # loadCalendarAction this._calendar
 
-      channel.publish "posts:update", this._calendar
-      # @trigger this._calendar
+#       channel.publish "posts:update", this._calendar
+#       # @trigger this._calendar
+
+#     onLoadError: (error)->
+#       Actions.loadCalendarError(error)
+#       this._calendar = []
+
+#       channel.publish "posts:update", this._calendar
+#       # @trigger this._calendar

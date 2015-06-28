@@ -1,12 +1,11 @@
 # calendarComponent.cjsx
 
-define ['underscore', 'react', 'stores/calendarStore', 'models/day', 'actions/calendarAction', "moment", "twix", "postal"], (_, React, CalendarStore, Day, calendarAction, moment, twix, Postal)->
+define ['underscore', 'react', 'models/day', "moment", "twix", "postal"], (_, React, Day, moment, twix, Postal)->
 
   channel = Postal.channel()
 
   Listing = React.createClass(
     render: ->
-
       days = _.map this.props.days, (count, date)->
         new Day date, count
 
@@ -50,15 +49,13 @@ define ['underscore', 'react', 'stores/calendarStore', 'models/day', 'actions/ca
       calendar: {}
 
     componentDidMount: ->
-      @unsubscribe = CalendarStore.listen(@onCalendarChange)
-
-      channel.subscribe "posts:update", @onCalendarChange
+      channel.subscribe "set.calendar", @onCalendarChange
 
     componentWillUnmount: ->
       @unsubscribe()
 
     onCalendarChange: (data)->
-      this.setState calendar: data
+      this.setState calendar: data.data
 
     render: ->
       <Listing days={this.state.calendar}/>
