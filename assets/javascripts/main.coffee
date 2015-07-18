@@ -68,6 +68,8 @@ require ["app/calendarFlux"], ()->
 
 require ["app/venues"], ()->
 
+require ["app/next"], ->
+
 
 require ['moment'], (moment)->
   today = moment().format('YYYY-MM-DD')

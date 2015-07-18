@@ -16,7 +16,7 @@ define ['react', 'models/venue', 'models/artist', 'models/gig', 'models/show', '
 
         artists = _.collect payload.artists, (artist)->
           asdf = new Artist artist.name, artist.id
-          console.log asdf.formattedName()
+          # console.log asdf.formattedName()
           asdf
 
         gigs = _.collect payload.gigs, (gig)->

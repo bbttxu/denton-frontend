@@ -4,10 +4,9 @@ define ['react', 'components/venuesComponent', 'postal'], (React, VenuesComponen
   latest = undefined
 
   handleSetDate = (data)->
-
     latest = data
     React.render React.createElement(VenuesComponent, data, ), $('#venues')[0]
 
   channel.subscribe "set.venues", handleSetDate
 
-  channel.publish "get.venues"
+  # channel.publish "get.venues"
