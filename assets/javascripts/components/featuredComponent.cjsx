@@ -1,8 +1,10 @@
 # featuredComponent.cjsx
 
-define ['postal', 'react', 'moment', 'stores/featuredStore', 'stores/calendarStore','components/dateComponent', 'components/prevComponent', 'components/nextComponent', 'components/showsComponent'], (Postal, React, Moment, updatedStore, calendarStore, DateComponent, Prev, Next, Shows)->
+define ['postal', 'react', 'moment', 'stores/featuredStore', 'stores/calendarStore','components/dateComponent', 'components/increment', 'components/increment', 'components/showsComponent'], (Postal, React, Moment, updatedStore, calendarStore, DateComponent, PrevComponent, Next, Shows)->
 
-  channel = postal.channel()
+  channel = Postal.channel()
+
+  # Prev = React.createFactory PrevComponent
 
   Featured = React.createClass
 
@@ -17,29 +19,55 @@ define ['postal', 'react', 'moment', 'stores/featuredStore', 'stores/calendarSto
     componentWillUnmount: ->
       @unsubscribe()
 
-    onShowTimeElapsed: (data)->
-      this.setState date: data.date
-      this.setState data: data.data if data.data
-      this.setState prev: data.prev
-      this.setState next: data.next
-      this.setState updated: data.updated if data.updated
+    # onShowTimeElapsed: (data)->
+    #   this.setState date: data.date
+    #   this.setState data: data.data if data.data
+    #   this.setState prev: data.prev
+    #   this.setState next: data.next
+    #   this.setState updated: data.updated if data.updated
 
 
     onDateChange: (data)->
-      console.log "onDateChange", data
-      this.setState calendar: data.data
+      # console.log "onDateChange", data
+      this.setState data: data.data
+      this.setState date: data.date
 
     onCalendarChange: (data)->
-      console.log "onCalendarChange", data
-      this.setState date: data.data
+      # console.log "onCalendarChange", data
+      this.setState calendar: data.data
 
     render: ()->
+      sorted = _.sortBy _.keys(@state.calendar), (day)->
+        moment(day)
+
+      prev1 = sorted[(sorted.indexOf(@state.date) - 1)]
+      next1 = sorted[(sorted.indexOf(@state.date) + 1)]
+
+      prev = {}
+      next = {}
+
+      if prev1 isnt ""
+        prev =
+          text: "<"
+          url: "\#/shows/#{prev1}"
+
+
+      if next1 isnt ""
+        next =
+          text: ">"
+          url: "\#/shows/#{next1}"
+
+
       <div className="day">
         <DateComponent date={this.state.date}/>
         <div className="content">
-          <Prev prev={this.state.prev}/>
+          <div id="prev">
+            <PrevComponent link={prev}/>
+          </div>
           <Shows shows={this.state.data} updated={this.state.updated}/>
-          <Next next={this.state.next}/>
+          <div id="prev">
+            <Next link={next}/>
+          </div>
         </div>
       </div>
 
