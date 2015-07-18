@@ -4,7 +4,8 @@ define ['react', 'postal', 'actions/featuredAction', "moment", 'models/date', 's
   channel = Postal.channel()
 
   channel.subscribe "set.date", (payload)->
-    getFeatured(payload) if payload
+    console.log "set.date", payload
+    # getFeatured(payload) if payload
 
   node = document.getElementById "featured"
   render = ()->

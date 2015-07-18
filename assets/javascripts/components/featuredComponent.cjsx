@@ -1,13 +1,18 @@
 # featuredComponent.cjsx
 
-define ['react', 'moment', 'stores/featuredStore', 'stores/calendarStore','components/dateComponent', 'components/prevComponent', 'components/nextComponent', 'components/showsComponent'], (React, Moment, updatedStore, calendarStore, DateComponent, Prev, Next, Shows)->
+define ['postal', 'react', 'moment', 'stores/featuredStore', 'stores/calendarStore','components/dateComponent', 'components/prevComponent', 'components/nextComponent', 'components/showsComponent'], (Postal, React, Moment, updatedStore, calendarStore, DateComponent, Prev, Next, Shows)->
+
+  channel = postal.channel()
+
   Featured = React.createClass
 
     getInitialState: ->
       date: moment().format 'YYYY-MM-DD'
+      calendar: {}
 
     componentDidMount: ->
-      @unsubscribe = updatedStore.listen(@onShowTimeElapsed)
+      channel.subscribe "set.date", @onDateChange
+      channel.subscribe "set.calendar", @onCalendarChange
 
     componentWillUnmount: ->
       @unsubscribe()
@@ -19,6 +24,14 @@ define ['react', 'moment', 'stores/featuredStore', 'stores/calendarStore','compo
       this.setState next: data.next
       this.setState updated: data.updated if data.updated
 
+
+    onDateChange: (data)->
+      console.log "onDateChange", data
+      this.setState calendar: data.data
+
+    onCalendarChange: (data)->
+      console.log "onCalendarChange", data
+      this.setState date: data.data
 
     render: ()->
       <div className="day">

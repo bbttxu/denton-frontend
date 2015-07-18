@@ -68,7 +68,7 @@ require ["app/calendarFlux"], ()->
 
 require ["app/venues"], ()->
 
-require ["app/next"], ->
+# require ["app/next"], ->
 
 
 require ['moment'], (moment)->
