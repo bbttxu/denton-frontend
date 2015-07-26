@@ -49,10 +49,10 @@ define ['postal', 'react', 'moment', 'components/dateComponent', 'components/inc
       div {className: "day"},
         DateComponent {date: this.state.date}
         div {className: "content"},
-          div {id: "prev"},
+          div {id: "prev", className: 'prev'},
             PrevComponent {link: prev}
 
           Shows {shows: this.state.data, updated: this.state.updated}
-          div {id: "prev"},
+          div {id: "next", className: 'next'},
             Next {link: next}
 
