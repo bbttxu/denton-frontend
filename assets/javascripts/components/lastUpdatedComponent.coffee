@@ -17,4 +17,4 @@ define ['underscore', 'react', 'moment', 'classnames'], (_, React, moment, cx)->
         span {className: "label"}, 'last updated'
         span {className: "date"}, ago
 
-  React.createFactory LastUpdated
+  # React.createFactory LastUpdated
