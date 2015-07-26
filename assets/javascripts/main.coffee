@@ -54,10 +54,6 @@ requirejs.config
 
     bootstrap: ['jquery']
 
-    'reflux':
-      # deps: [ 'jquery' ]
-      exports: "Reflux"
-
 require ["app/featured"], ()->
 
 require ["app/updated"], ()->
