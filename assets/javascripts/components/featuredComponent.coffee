@@ -2,9 +2,9 @@
 
 define ['postal', 'react', 'moment', 'stores/featuredStore', 'stores/calendarStore','components/dateComponent', 'components/increment', 'components/increment', 'components/showsComponent'], (Postal, React, Moment, updatedStore, calendarStore, DateComponent, PrevComponent, Next, Shows)->
 
-  channel = Postal.channel()
+  {div} = React.DOM
 
-  # Prev = React.createFactory PrevComponent
+  channel = Postal.channel()
 
   Featured = React.createClass
 
@@ -19,21 +19,11 @@ define ['postal', 'react', 'moment', 'stores/featuredStore', 'stores/calendarSto
     componentWillUnmount: ->
       @unsubscribe()
 
-    # onShowTimeElapsed: (data)->
-    #   this.setState date: data.date
-    #   this.setState data: data.data if data.data
-    #   this.setState prev: data.prev
-    #   this.setState next: data.next
-    #   this.setState updated: data.updated if data.updated
-
-
     onDateChange: (data)->
-      # console.log "onDateChange", data
       this.setState data: data.data
       this.setState date: data.date
 
     onCalendarChange: (data)->
-      # console.log "onCalendarChange", data
       this.setState calendar: data.data
 
     render: ()->
@@ -58,16 +48,13 @@ define ['postal', 'react', 'moment', 'stores/featuredStore', 'stores/calendarSto
           url: "\#/shows/#{next1}"
 
 
-      <div className="day">
-        <DateComponent date={this.state.date}/>
-        <div className="content">
-          <div id="prev">
-            <PrevComponent link={prev}/>
-          </div>
-          <Shows shows={this.state.data} updated={this.state.updated}/>
-          <div id="prev">
-            <Next link={next}/>
-          </div>
-        </div>
-      </div>
+      div {className: "day"},
+        DateComponent {date: this.state.date}
+        div {className: "content"},
+          div {id: "prev"},
+            PrevComponent {link: prev}
+
+          Shows {shows: this.state.data, updated: this.state.updated}
+          div {id: "prev"},
+            Next {link: next}
 
