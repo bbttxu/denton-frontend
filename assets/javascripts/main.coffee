@@ -82,3 +82,5 @@ require ["jquery", "bootstrap"], ($)->
     $('a', '.navbar-collapse').on 'click', (event)->
       $(this).closest('.navbar-collapse').collapse('hide')
 
+require ['jquery'], ($)->
+  $('p.version').text ["version", $('script').last().attr('src').split('?')[1].split('=')[1]].join " "
