@@ -1,5 +1,3 @@
-# updated.cjsx
-
 define ['react', 'components/lastUpdatedComponent', 'postal'], (React, LastUpdatedComponent, Postal)->
   channel = Postal.channel()
 

@@ -2,7 +2,7 @@ define ['react', 'underscore', 'moment'], (React, _, moment)->
 
   {a, div, h2, small, h1} = React.DOM
 
-  class NextShowComponent extends React.Component
+  class NextShow extends React.Component
     render: ->
       venue = this.props.venue
 
@@ -10,4 +10,4 @@ define ['react', 'underscore', 'moment'], (React, _, moment)->
 
       a {href: link}, moment(venue.next_show).calendar()
 
-  NextShow = React.createFactory NextShowComponent
+  React.createFactory NextShow
