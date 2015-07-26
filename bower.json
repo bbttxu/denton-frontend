@@ -15,8 +15,6 @@
     "tcomb": "*",
     "tcomb-validation": "*",
     "bootstrap": "~3.2",
-    "reflux": "latest",
-    "react": "~0.3.14",
     "classnames": "~2.1.1"
   },
   "resolutions": {
