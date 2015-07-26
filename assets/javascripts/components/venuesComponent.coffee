@@ -1,28 +1,6 @@
-define ['react', 'underscore', 'moment'], (React, _, moment)->
+define ['react', 'underscore', 'moment', 'components/venueComponent'], (React, _, moment, Venue)->
 
-  {a, div, h2, small, h1} = React.DOM
-
-  class NextShowComponent extends React.Component
-    render: ->
-      venue = this.props.venue
-
-      link = "#/shows/#{moment(venue.next_show).format('YYYY-MM-DD')}"
-
-      a {href: link}, moment(venue.next_show).calendar()
-
-  NextShow = React.createFactory NextShowComponent
-
-  class VenueComponent extends React.Component
-    render: ->
-      venue = this.props.data
-
-      div {className: "venue"},
-        h2 {className: "h3"},
-          venue.name
-          small {className: "pull-right"},
-            NextShow venue: venue
-
-  Venue = React.createFactory VenueComponent
+  {div, small, h1} = React.DOM
 
   Venues = React.createClass
     render: ->
