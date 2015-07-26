@@ -1,6 +1,4 @@
-# featuredComponent.cjsx
-
-define ['postal', 'react', 'moment', 'stores/featuredStore', 'stores/calendarStore','components/dateComponent', 'components/increment', 'components/increment', 'components/showsComponent'], (Postal, React, Moment, updatedStore, calendarStore, DateComponent, PrevComponent, Next, Shows)->
+define ['postal', 'react', 'moment', 'components/dateComponent', 'components/increment', 'components/increment', 'components/showsComponent'], (Postal, React, Moment, DateComponent, PrevComponent, Next, Shows)->
 
   {div} = React.DOM
 

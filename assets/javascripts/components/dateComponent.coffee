@@ -1,5 +1,3 @@
-# dateComponent.cjsx
-
 define ['react', 'moment'], (React, Moment)->
 
   {header, h3, span} = React.DOM

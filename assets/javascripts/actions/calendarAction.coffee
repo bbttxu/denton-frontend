@@ -1,9 +1,9 @@
-# calendarAction.coffee
+# # calendarAction.coffee
 
-define ['postal', 'reflux'], (Postal, Reflux)->
-  channel = Postal.channel()
+# define ['postal', 'reflux'], (Postal, Reflux)->
+#   channel = Postal.channel()
 
-  # channel.publish "posts:get", {}
-  window.doit = Reflux.createAction()
-  # ()->
-  #   channel.publish "posts:get", {}
+#   # channel.publish "posts:get", {}
+#   window.doit = Reflux.createAction()
+#   # ()->
+#   #   channel.publish "posts:get", {}
