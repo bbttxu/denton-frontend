@@ -1,11 +1,11 @@
-# nextShow.cjsx
+# # nextShow.cjsx
 
-define ['react', 'moment'], (React, moment)->
+# define ['react', 'moment'], (React, moment)->
 
-  NextShow = React.createClass
-    render: ->
-      venue = this.props.venue
+#   NextShow = React.createClass
+#     render: ->
+#       venue = this.props.venue
 
-      link = "#/shows/#{moment(venue.next_show).format('YYYY-MM-DD')}"
+#       link = "#/shows/#{moment(venue.next_show).format('YYYY-MM-DD')}"
 
-      <a href={link}>{moment(venue.next_show).calendar()}</a>
+#       <a href={link}>{moment(venue.next_show).calendar()}</a>
