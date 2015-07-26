@@ -64,7 +64,7 @@ require ["app/featured"], ()->
 
 require ["app/updated"], ()->
 
-require ["app/calendarFlux"], ()->
+require ["app/calendar"], ()->
 
 require ["app/venues"], ()->
 
