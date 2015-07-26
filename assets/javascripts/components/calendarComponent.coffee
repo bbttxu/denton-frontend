@@ -4,7 +4,9 @@ define ['underscore', 'react', 'models/day', "moment", "twix", "postal"], (_, Re
 
   channel = Postal.channel()
 
-  Listing = React.createClass(
+  {ul, li, a, span} = React.DOM
+
+  class ListingComponent extends React.Component
     render: ->
       days = _.map this.props.days, (count, date)->
         new Day date, count
@@ -29,19 +31,15 @@ define ['underscore', 'react', 'models/day', "moment", "twix", "postal"], (_, Re
 
       days = _.extend {}, range, current
 
-      <ul>
-        { _.map days, (day)->
-          <li className={day.classes()} key={day.date}>
-            <a href={day.link()}>
-              <span key={"day"} className="day">{day.weekday()}</span>
-              <span key={"month"} className="month">{day.month()}</span>
-              <span key={"date"} className="date">{day.formatted()}</span>
-            </a>
-          </li>
-        }
-      </ul>
-  )
+      ul {}, _.map days, (day)->
+          li {className: day.classes(), key: day.date},
+            a {href: day.link()},
+              span {key:"day", className:"day"}, day.weekday()
+              span {key:"month", className:"month"} ,day.month()
+              span {key:"date", className:"date"}, day.formatted()
 
+
+  Listing = React.createFactory ListingComponent
 
   React.createClass(
 
@@ -58,5 +56,5 @@ define ['underscore', 'react', 'models/day', "moment", "twix", "postal"], (_, Re
       this.setState calendar: data.data
 
     render: ->
-      <Listing days={this.state.calendar}/>
+      Listing {days: this.state.calendar}
   )
