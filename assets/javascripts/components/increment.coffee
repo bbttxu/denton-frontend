@@ -8,3 +8,5 @@ define ['react'], (React)->
       text = @props.link.text or ""
 
       a {className: 'h1', href: url}, text
+
+  React.createFactory Increment
