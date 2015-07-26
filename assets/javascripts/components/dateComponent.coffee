@@ -4,10 +4,11 @@ define ['react', 'moment'], (React, Moment)->
 
   class Header extends React.Component
     render: ()->
-      date = Moment(this.props.date)
+      date = Moment(@props.date)
       header {},
         h3 {},
           span {className: "day"}, date.format('ddd')
           span {className: "month"}, date.format("MMMM")
           span {className: "date"}, date.format("DD")
 
+  React.createFactory Header

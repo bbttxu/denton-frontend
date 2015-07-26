@@ -34,13 +34,13 @@ define ['postal', 'react', 'moment', 'components/dateComponent', 'components/inc
       prev = {}
       next = {}
 
-      if prev1 isnt ""
+      if prev1
         prev =
           text: "<"
           url: "\#/shows/#{prev1}"
 
 
-      if next1 isnt ""
+      if next1
         next =
           text: ">"
           url: "\#/shows/#{next1}"
