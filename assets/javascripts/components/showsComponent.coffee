@@ -1,7 +1,10 @@
 # showsComponent.cjsx
 
 define ['react', 'models/venue', 'models/artist', 'models/gig', 'models/show', 'classnames', 'moment'], (React, Venue, Artist, Gig, Show, cx, moment)->
-  Shows = React.createClass
+
+  {div, ul, li, h6, span, a} = React.DOM
+
+  class Shows extends React.Component
 
     render: ()->
 
@@ -35,30 +38,19 @@ define ['react', 'models/venue', 'models/artist', 'models/gig', 'models/show', '
         'out-of-date': moment(this.props.updated).isBefore(moment().subtract(24, 'hours'))
 
 
+      div {className: "shows"},
+        ul {id: "shows", className: classes}, _.map payload, (show)->
+          li {className: "show", key: show.id},
+            div {className: 'meta'},
+              h6 {className: 'h5'},
+                a {href: show.source},
+                  span {className: 'time'}, show.time()
+                  span {className: 'subhead venue'}, show.venue.name
+                  span {className: 'price is right'}, show.price
 
+            div {className: 'artists list-unstlyed'},
+              ul {className: 'artists'}, _.map show.gigs, (gig)->
+                li {}, gig.artist.formattedName()
 
-      <div className="shows">
-        <ul id="shows" className={classes}>
-          {
-            _.map payload, (show)->
-              <li className="show" key={show.id}>
-                <div className="meta">
-                  <h6 className="h5">
-                    <a href={show.source}>
-                      <span className="time">{show.time()}</span>
-                      <span className="subhead venue">{show.venue.name}</span>
-                      <span className="price is right">{show.price}</span>
-                    </a>
-                  </h6>
-                </div>
-                <div className="artists">
-                  <ul className="artists list-unstlyed">
-                    {_.map show.gigs, (gig)->
-                      <li key={gig.artist.id}>{gig.artist.name}</li>
-                    }
-                  </ul>
-                </div>
-              </li>
-          }
-        </ul>
-      </div>
+  React.createFactory Shows
+

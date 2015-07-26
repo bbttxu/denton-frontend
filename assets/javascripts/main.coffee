@@ -4,8 +4,6 @@ requirejs.config
     jquery: "vendor/jquery/jquery"
     'jquery.timespace': "lib/jquery.timespace"
 
-    # domReady: 'vendor/requirejs/domReady'
-    reflux: 'vendor/reflux/reflux'
     react: 'vendor/react/react'
 
     postal: "vendor/postal.js/postal"
@@ -56,17 +54,15 @@ requirejs.config
 
     bootstrap: ['jquery']
 
-    'reflux':
-      # deps: [ 'jquery' ]
-      exports: "Reflux"
-
 require ["app/featured"], ()->
 
 require ["app/updated"], ()->
 
-require ["app/calendarFlux"], ()->
+require ["app/calendar"], ()->
 
 require ["app/venues"], ()->
+
+# require ["app/next"], ->
 
 
 require ['moment'], (moment)->

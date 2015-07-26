@@ -1,22 +1,8 @@
-# # calendar.coffee
+define ['react', 'components/calendarComponent', 'postal'], (React, CalendarComponent, Postal)->
+  node = document.getElementById('calendar')
 
-# define ["app/api", "models/day", "postal", "templates", "moment", "jquery.timespace"], (API, Day, postal, templates, moment)->
-#   channel = postal.channel()
+  channel = Postal.channel()
 
-#   channel.subscribe "set.calendar", (payload)->
-#     # console.log "payload", payload
-#     days = _.map payload.data, (count, date)->
-#       new Day date, count
+  React.render React.createElement(CalendarComponent), node
 
-#     days = _.sortBy days, (day)->
-#       day.date
-
-#     templated = _.map days, (day)->
-#       templates['calendar-li'](day)
-
-#     # $('#last-updated').html( templates['last-updated']( ago: moment(payload.updated).fromNow() ) )
-
-#     $('#calendar').html(templated.join(""))
-#     $('li', '#calendar').timespace()
-
-#   # channel.publish "touch.calendar"
+  channel.publish 'get.calendar'
