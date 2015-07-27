@@ -3,9 +3,8 @@
 define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 'spinjs', 'app/featured', 'app/api'], (postal, $, Sammy, GoogleAnalytics, Title, Spinner)->
 
   channel = postal.channel()
-  channel.publish "update.calendar"
 
-  # calendar = []
+  channel.publish "get.calendar"
 
   opts =
     color: '#333'

@@ -1,6 +1,6 @@
 {
   "name": "denton-frontend",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "A Mimosa starter skeleton",
   "scripts": {
     "clean": "./node_modules/mimosa/bin/mimosa clean",
