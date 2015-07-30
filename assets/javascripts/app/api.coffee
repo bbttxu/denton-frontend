@@ -124,6 +124,8 @@ define ["jquery", "underscore", "postal", "moment", "app/defaults", "lscache"], 
 
 
   getDate = (date) ->
+    channel.publish "request.date", date
+
     key = "date-#{date}"
 
     url = "#{host}/shows/#{date}.json?callback=?"

@@ -11,15 +11,19 @@ define ['postal', 'react', 'moment', 'components/dateComponent', 'components/inc
       calendar: {}
 
     componentDidMount: ->
+      channel.subscribe "request.date", @onDateRequest
       channel.subscribe "set.date", @onDateChange
       channel.subscribe "set.calendar", @onCalendarChange
 
     componentWillUnmount: ->
       @unsubscribe()
 
+    onDateRequest: (date)->
+      this.setState date: date
+
     onDateChange: (data)->
-      this.setState data: data.data
-      this.setState date: data.date
+      if @state.date is data.date
+        this.setState data: data.data
 
     onCalendarChange: (data)->
       this.setState calendar: data.data
