@@ -54,6 +54,11 @@ requirejs.config
 
     bootstrap: ['jquery']
 
+  config:
+    moment:
+      noGlobal: true
+
+
 require ["app/featured"], ()->
 
 require ["app/updated"], ()->

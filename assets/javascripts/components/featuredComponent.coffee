@@ -1,4 +1,4 @@
-define ['postal', 'react', 'moment', 'components/dateComponent', 'components/increment', 'components/increment', 'components/showsComponent'], (Postal, React, Moment, DateComponent, PrevComponent, Next, Shows)->
+define ['postal', 'react', 'moment', 'components/dateComponent', 'components/increment', 'components/increment', 'components/showsComponent'], (Postal, React, moment, DateComponent, PrevComponent, Next, Shows)->
 
   {div} = React.DOM
 
