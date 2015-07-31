@@ -9,6 +9,7 @@ define ['postal', 'react', 'moment', 'components/dateComponent', 'components/inc
     getInitialState: ->
       date: moment().format 'YYYY-MM-DD'
       calendar: {}
+      updated: 0
 
     componentDidMount: ->
       channel.subscribe "request.date", @onDateRequest
@@ -23,6 +24,7 @@ define ['postal', 'react', 'moment', 'components/dateComponent', 'components/inc
 
     onDateChange: (data)->
       if @state.date is data.date
+        this.setState updated: data.updated
         this.setState data: data.data
 
     onCalendarChange: (data)->
@@ -43,12 +45,10 @@ define ['postal', 'react', 'moment', 'components/dateComponent', 'components/inc
           text: "<"
           url: "\#/shows/#{prev1}"
 
-
       if next1
         next =
           text: ">"
           url: "\#/shows/#{next1}"
-
 
       div {className: "day"},
         DateComponent {date: this.state.date}

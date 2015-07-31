@@ -1,6 +1,6 @@
 {
   "name": "denton-frontend",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "A Mimosa starter skeleton",
   "scripts": {
     "clean": "./node_modules/mimosa/bin/mimosa clean",
@@ -15,7 +15,6 @@
     "grunt-docco": "~0.3.3",
     "jade": "1.11.0",
     "mimosa": "~2.3.32",
-    "mimosa-cjsx": "^1.1.0",
     "mimosa-coffeelint": "^0.5.0",
     "mimosa-coffeescript": "*",
     "mimosa-dependency-graph": "^0.2.0",
