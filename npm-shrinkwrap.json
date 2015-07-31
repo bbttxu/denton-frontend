@@ -1,6 +1,6 @@
 {
   "name": "denton-frontend",
-  "version": "0.4.8",
+  "version": "0.5.0",
   "dependencies": {
     "bower": {
       "version": "1.4.1",
