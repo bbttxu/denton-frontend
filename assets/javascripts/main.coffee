@@ -19,24 +19,14 @@ requirejs.config
 
     lscache: 'vendor/pamelafox/lscache'
 
-    # 'jquery.ajax.lscache': 'vendor/brophdog11/jquery.ajax.lscache'
-    # 'lscache-extra': 'vendor/brophdog11/lscache-extra'
-
-
     'classnames': 'vendor/JedWatson/classnames'
-
 
     typogr: 'vendor/ekalinin/typogr'
 
     spinjs: 'vendor/spin.js/spin'
 
-    # pace: 'vendor/pace/pace'
-
     tcomb: 'vendor/tcomb/index'
     'tcomb-validation': 'vendor/tcomb-validation/index'
-
-    # fittext: 'vendor/FitText.js/jquery.fittext'
-    # slabtext: 'vendor/freqDec/jquery.slabtext'
 
     bootstrap: 'vendor/bootstrap/bootstrap'
 
@@ -54,7 +44,11 @@ requirejs.config
 
     bootstrap: ['jquery']
 
-  # http://momentjs.com/docs/#/use-it/require-js/
+  ###
+  Disable global Moment var
+
+  http://momentjs.com/docs/#/use-it/require-js/
+  ###
   config:
     moment:
       noGlobal: true
@@ -67,8 +61,6 @@ require ["app/updated"], ()->
 require ["app/calendar"], ()->
 
 require ["app/venues"], ()->
-
-# require ["app/next"], ->
 
 
 require ['moment'], (moment)->

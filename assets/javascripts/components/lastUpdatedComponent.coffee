@@ -16,5 +16,3 @@ define ['underscore', 'react', 'moment', 'classnames'], (_, React, moment, cx)->
       p {className: classes},
         span {className: "label"}, 'last updated'
         span {className: "date"}, ago
-
-  # React.createFactory LastUpdated

@@ -22,8 +22,6 @@ define ["jquery","underscore", "moment", "lscache"], ($, _, moment, store)->
 
     weather = store.get 'weather'
 
-    # console.log "cached", weather
-
     if weather
       setBodyClass()
 
@@ -34,7 +32,6 @@ define ["jquery","underscore", "moment", "lscache"], ($, _, moment, store)->
         dataType: "jsonp"
         success: (data)->
           store.set 'weather', data, 6 * 60
-          # console.log 'weather updated', data
           setBodyClass()
 
       $.ajax request

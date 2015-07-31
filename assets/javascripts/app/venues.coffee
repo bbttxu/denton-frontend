@@ -9,4 +9,3 @@ define ['react', 'components/venuesComponent', 'postal'], (React, VenuesComponen
 
   channel.subscribe "set.venues", handleSetDate
 
-  # channel.publish "get.venues"
