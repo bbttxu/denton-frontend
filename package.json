@@ -5,7 +5,8 @@
   "scripts": {
     "clean": "./node_modules/mimosa/bin/mimosa clean",
     "start": "./node_modules/mimosa/bin/mimosa watch -sc",
-    "build": "./node_modules/mimosa/bin/mimosa build -om"
+    "build": "./node_modules/mimosa/bin/mimosa build -om && grunt docco",
+    "server": "./node_modules/serve/bin/serve public/ &"
   },
   "dependencies": {
     "bower": "~1.4.1",
@@ -24,5 +25,8 @@
     "mimosa-minify-img": "^0.4.1",
     "mimosa-server-template-compile": "^0.7.0",
     "tmp": "^0.0.26"
+  },
+  "devDependencies": {
+    "serve": "^1.4.0"
   }
 }
