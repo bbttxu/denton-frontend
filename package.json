@@ -5,15 +5,15 @@
   "scripts": {
     "clean": "./node_modules/mimosa/bin/mimosa clean",
     "start": "./node_modules/mimosa/bin/mimosa watch -sc",
-    "build": "./node_modules/mimosa/bin/mimosa build -om && grunt docco",
+    "build": "./node_modules/mimosa/bin/mimosa build -om && ./node_modules/docco/bin/docco assets/javascripts/**/*.coffee -o public/docs",
     "server": "./node_modules/serve/bin/serve public/ &"
   },
   "dependencies": {
     "bower": "~1.4.1",
     "coffee-script": "1.9.3",
     "consolidate": "0.13.1",
+    "docco": "^0.7.0",
     "express": "^3.4.7",
-    "grunt-docco": "~0.3.3",
     "jade": "1.11.0",
     "mimosa": "~2.3.32",
     "mimosa-coffeelint": "^0.5.0",
