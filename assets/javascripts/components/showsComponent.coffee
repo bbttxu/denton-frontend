@@ -50,7 +50,7 @@ define ['react', 'models/venue', 'models/artist', 'models/gig', 'models/show', '
 
             div {className: 'artists list-unstlyed'},
               ul {className: 'artists'}, _.map show.gigs, (gig)->
-                li {}, gig.artist.formattedName()
+                li {key: gig.id}, gig.artist.formattedName()
 
   React.createFactory Shows
 
