@@ -1,6 +1,6 @@
 # routes.coffee
 
-define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 'spinjs', 'app/featured', 'app/api'], (postal, $, Sammy, GoogleAnalytics, Title, Spinner)->
+define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 'spinjs', 'app/track', 'app/featured', 'app/api'], (postal, $, Sammy, GoogleAnalytics, Title, Spinner, track)->
 
   channel = postal.channel()
 
@@ -41,6 +41,7 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
       channel.publish "get.calendar"
 
       showSection '#upcoming'
+      track.page 'Calendar'
 
     self.get '#/shows/:date', (req)->
       date = req.params['date']
@@ -50,6 +51,7 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
       channel.publish "get.date", date
 
       showSection '#featured'
+      track.page ['date', date].join " "
 
 
     self.get "#/venues", (req)->
@@ -58,6 +60,7 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
       channel.publish "get.venues"
 
       showSection '#venues'
+      track.page 'Venues'
 
 
     self.get "#/venues/:slug", (req)->
@@ -68,3 +71,4 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
       channel.publish "get.venue", slug
 
       showSection '#venues'
+      track.page ['Venue', slug].join " "
