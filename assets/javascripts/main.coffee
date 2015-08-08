@@ -94,9 +94,4 @@ require ["jquery", "bootstrap"], ($)->
 require ['jquery'], ($)->
   $('p.version').text ["version", $('script').last().attr('src').split('?')[1].split('=')[1]].join " "
 
-require ['fingerprint'], (Fingerprint2)->
-  new Fingerprint2().get (results)->
-    amplitude.setUserId results
-
-
 
