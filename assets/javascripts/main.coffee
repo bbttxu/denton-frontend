@@ -40,7 +40,7 @@ requirejs.config
 
     bootstrap: 'vendor/bootstrap/bootstrap'
 
-    fingerprintjs2: 'vendor/fingerprintjs2/fingerprint2.min'
+    fingerprint: 'vendor/fingerprintjs2/fingerprint2.min'
 
 
   shim:
@@ -94,4 +94,7 @@ require ["jquery", "bootstrap"], ($)->
 require ['jquery'], ($)->
   $('p.version').text ["version", $('script').last().attr('src').split('?')[1].split('=')[1]].join " "
 
+require ['fingerprint'], (Fingerprint)->
+  new Fingerprint().get (results)->
+    amplitude.setUserId results
 
