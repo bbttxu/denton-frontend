@@ -1,7 +1,7 @@
 
 require ['fingerprint'], (Fingerprint2)->
 
-  API = {}
+  # API = {}
 
   # amplitude = window.amplitude ||
   #   setUserId: ->
@@ -9,12 +9,12 @@ require ['fingerprint'], (Fingerprint2)->
   new Fingerprint2().get (results)->
     amplitude.setUserId results
 
-  trackPage = (title)->
-    identifier = ['view', title].join(' ').replace(/\s/g,'_').toUpperCase()
-    console.log identifier
-    ### `amplitude` is a global variable ###
-    amplitude.logEvent identifier
+  # trackPage = (title)->
+  #   identifier = ['view', title].join(' ').replace(/\s/g,'_').toUpperCase()
+  #   console.log identifier
+  #   ### `amplitude` is a global variable ###
+  #   amplitude.logEvent identifier
 
-  API.page = trackPage
+  # API.page = trackPage
 
-  API
+  # API
