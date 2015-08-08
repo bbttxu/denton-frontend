@@ -40,7 +40,7 @@ requirejs.config
 
     bootstrap: 'vendor/bootstrap/bootstrap'
 
-    fingerprint: 'vendor/fingerprintjs2/fingerprint2.min'
+    fingerprintjs2: 'vendor/fingerprintjs2/fingerprint2.min'
 
 
   shim:

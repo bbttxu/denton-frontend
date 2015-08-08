@@ -1,5 +1,5 @@
 
-require ['fingerprint'], (Fingerprint2)->
+require ['fingerprintjs2'], (Fingerprint2)->
 
   # API = {}
 
