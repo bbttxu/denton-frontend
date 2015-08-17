@@ -3,6 +3,3 @@ define ['react', 'components/navigationComponent', 'postal'], (React, Navigation
 
   channel = Postal.channel()
 
-  # channel.publish "get.calendar"
-  # channel.publish "get.venues"
-
