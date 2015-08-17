@@ -1,14 +1,14 @@
 # weather.coffee
-define ["jquery","underscore", "moment", "lscache"], ($, _, moment, store)->
+define ['jquery','underscore', 'moment', 'lscache'], ($, _, moment, store)->
 
   day_or_night = ( today, now = moment().format('X') )->
     asdf =
-      dis: "night"
-      disnt: "day"
+      dis: 'night'
+      disnt: 'day'
 
     if (today.sunrise < now and now < today.sunset)
-      asdf.dis = "day"
-      asdf.disnt = "night"
+      asdf.dis = 'day'
+      asdf.disnt = 'night'
 
     asdf
 
@@ -22,16 +22,16 @@ define ["jquery","underscore", "moment", "lscache"], ($, _, moment, store)->
 
     weather = store.get 'weather'
 
-    # console.log "cached", weather
+    # console.log 'cached', weather
 
     if weather
       setBodyClass()
 
     unless weather
       request =
-        # url: "https://api.forecast.io/forecast/APIKEY/40.463487,17.248535"
-        url: "http://api.openweathermap.org/data/2.5/weather?id=4685907"
-        dataType: "jsonp"
+        # url: 'https://api.forecast.io/forecast/APIKEY/40.463487,17.248535'
+        url: 'http://api.openweathermap.org/data/2.5/weather?id=4685907'
+        dataType: 'jsonp'
         success: (data)->
           store.set 'weather', data, 6 * 60
           # console.log 'weather updated', data

@@ -14,7 +14,7 @@ define ['react', 'classnames', 'postal', 'moment'], (React, cx, Postal, moment)-
       rejectEmpties = (value)->
         value is undefined
 
-      today = _
+      # today = _
       upcoming = _.reject [@props.upcomingShows, 'Upcoming'], rejectEmpties
       venues = _.reject [@props.venues, 'Venues'], rejectEmpties
 
@@ -53,15 +53,10 @@ define ['react', 'classnames', 'postal', 'moment'], (React, cx, Postal, moment)-
 
     onDateChange: (data)->
       date = data.date
-      # console.log date
-
+      console.log date
+      console.log data
       if moment(date).isSame(moment(), 'day')
-        # console.log data.data.shows.length
-        @setState today: data.data.shows.length
-      # sum = (memo, num)->
-      #   memo + num
-
-      # @setState upcomingShows: _.reduce(_.values(data.data), sum, 0)
+        @setState today: data.data.shows.length if data.data.shows
 
     onCalendarChange: (data)->
       sum = (memo, num)->

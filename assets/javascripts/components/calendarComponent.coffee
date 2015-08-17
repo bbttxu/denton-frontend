@@ -1,4 +1,4 @@
-define ['underscore', 'react', 'models/day', "moment", "twix", "postal"], (_, React, Day, moment, twix, Postal)->
+define ['underscore', 'react', 'models/day', 'moment', 'twix', 'postal'], (_, React, Day, moment, twix, Postal)->
 
   channel = Postal.channel()
 
