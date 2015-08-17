@@ -62,7 +62,6 @@ requirejs.config
     moment:
       noGlobal: true
 
-
 require ["app/featured"], ()->
 
 require ["app/updated"], ()->
@@ -71,7 +70,7 @@ require ["app/calendar"], ()->
 
 require ["app/venues"], ()->
 
-# require ["app/next"], ->
+require ["app/navigation"], ()->
 
 
 require ['moment'], (moment)->
@@ -97,4 +96,6 @@ require ['jquery'], ($)->
 require ['fingerprint'], (Fingerprint)->
   new Fingerprint().get (results)->
     amplitude.setUserId results
+
+require ['app/preload'], ()->
 
