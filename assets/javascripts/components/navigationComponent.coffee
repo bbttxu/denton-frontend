@@ -6,7 +6,7 @@ define ['react', 'classnames', 'postal', 'moment'], (React, cx, Postal, moment)-
 
   class NavigationComponent extends React.Component
 
-    classes = cx 'nav', 'navbar-nav', 'navbar-right'
+    classes = cx 'nav', 'navbar-nav', 'navbar-right', 'list-inline', 'inline-list'
 
     badge = cx 'badge'
 
@@ -25,7 +25,7 @@ define ['react', 'classnames', 'postal', 'moment'], (React, cx, Postal, moment)-
 
         li {},
           a {href: '#/'},
-            span {}, 'Calendar'
+            span {}, 'Shows'
             span {className: badge}, @props.upcomingShows
 
         li {},
