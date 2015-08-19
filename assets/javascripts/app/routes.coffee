@@ -5,7 +5,7 @@ define ["postal", "jquery", "sammy", 'sammy.google-analytics', 'sammy.title', 's
   identify = (parts)->
     identifier = ['view'].concat(parts).join(' ').replace(/\s/g,'_').toUpperCase()
     # console.log identifier
-    amplitude.logEvent identifier
+    window.amplitude.logEvent identifier if window.amplitude
 
   channel = postal.channel()
 
