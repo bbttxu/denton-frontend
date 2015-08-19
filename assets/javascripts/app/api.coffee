@@ -126,7 +126,7 @@ define ['jquery', 'underscore', 'postal', 'moment', 'app/defaults', 'lscache'], 
   getDate = (date) ->
     channel.publish 'request.date', date
 
-    key = 'date-#{date}'
+    key = "date-#{date}"
 
     url = "#{host}/shows/#{date}.json?callback=?"
 
@@ -159,21 +159,21 @@ define ['jquery', 'underscore', 'postal', 'moment', 'app/defaults', 'lscache'], 
 
 
 
-  touchDate = (date) ->
-    key = 'date-#{date}'
+  # touchDate = (date) ->
+  #   key = 'date-#{date}'
 
-    url = "#{host}/shows/#{date}.json?callback=?"
+  #   url = "#{host}/shows/#{date}.json?callback=?"
 
-    # cached = lscache.get key
+  #   # cached = lscache.get key
 
-    # console.log 'date cached', key, cached
+  #   # console.log 'date cached', key, cached
 
-    updateDate = (date)->
+  #   updateDate = (date)->
 
-      $.when $.getJSON url, { timestamp: moment().valueOf() }
-        .then (data)->
-          payload = { data: data, updated: moment().valueOf() }
-          # lscache.set key, payload, defaults.cache.length
+  #     $.when $.getJSON url, { timestamp: moment().valueOf() }
+  #       .then (data)->
+  #         payload = { data: data, updated: moment().valueOf() }
+  #         # lscache.set key, payload, defaults.cache.length
 
     ###
     publish cached data if present
@@ -191,7 +191,7 @@ define ['jquery', 'underscore', 'postal', 'moment', 'app/defaults', 'lscache'], 
 
 
   channel.subscribe 'get.date', getDate
-  channel.subscribe 'touch.date', touchDate
+  # channel.subscribe 'touch.date', touchDate
 
   getVenues = ()->
     key = 'venues'
@@ -219,7 +219,7 @@ define ['jquery', 'underscore', 'postal', 'moment', 'app/defaults', 'lscache'], 
   channel.subscribe 'get.venues', getVenues
 
   getVenue = (slug)->
-    key = 'venues-#{slug}'
+    key = "venues-#{slug}"
 
     url = "#{host}/venues/#{slug}.json?callback=?"
 

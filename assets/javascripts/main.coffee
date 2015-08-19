@@ -72,7 +72,6 @@ require ["app/venues"], ()->
 
 require ["app/navigation"], ()->
 
-
 require ['moment'], (moment)->
   today = moment().format('YYYY-MM-DD')
 
@@ -95,7 +94,10 @@ require ['jquery'], ($)->
 
 require ['fingerprint'], (Fingerprint)->
   new Fingerprint().get (results)->
-    amplitude.setUserId results
+    if window.amplitude
+      window.amplitude.setUserId results
+    else
+      console.log 'debug fingerprint', results
 
 require ['app/preload'], ()->
 
