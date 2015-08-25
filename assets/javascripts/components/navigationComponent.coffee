@@ -1,4 +1,4 @@
-define ['react', 'classnames', 'postal', 'moment'], (React, cx, Postal, moment)->
+define ['react', 'classnames', 'postal', 'moment', 'lscache', 'components/linkComponent', 'components/navigationTodayComponent', 'underscore'], (React, cx, Postal, moment, lscache, LinkComponent, NavigationTodayComponent, _)->
 
   channel = Postal.channel()
 
@@ -18,15 +18,12 @@ define ['react', 'classnames', 'postal', 'moment'], (React, cx, Postal, moment)-
       venues = _.reject [@props.venues, 'Venues'], rejectEmpties
 
       ul {className: classes},
-        li {},
-          a {id: 'todaysLink', href: ""},
-            span {}, 'Today'
-            span {className: badge}, @props.today
-
-        li {},
-          a {href: '#/'},
-            span {}, 'Shows'
-            span {className: badge}, @props.upcomingShows
+        NavigationTodayComponent {data: @props.today}
+        LinkComponent {data: @props.upcomingShows}
+        # li {},
+        #   a {href: '#/'},
+        #     span {}, 'Shows'
+        #     span {className: badge}, @props.upcomingShows
 
         li {},
           a {href: '#/venues'},
@@ -35,12 +32,29 @@ define ['react', 'classnames', 'postal', 'moment'], (React, cx, Postal, moment)-
 
   Navigation = React.createFactory NavigationComponent
 
-  React.createClass(
 
+  calendarStuff =
+    link:
+      url: '#/'
+      text: 'Show'
+
+  React.createClass(
     getInitialState: ->
-      today: undefined
-      upcomingShows: undefined
-      venues: undefined
+      todayDefault =
+        updated: 0
+        count: undefined
+
+      today = lscache.get 'count.today'
+      today = todayDefault if today is null
+      console.log today
+
+      upcoming = lscache.get 'count.upcoming'
+      upcoming = todayDefault if upcoming is null
+
+      initial =
+        today: today
+        upcomingShows: _.extend {}, upcoming, calendarStuff
+        venues: undefined
 
     componentDidMount: ->
       channel.subscribe "set.date", @onDateChange
@@ -53,13 +67,29 @@ define ['react', 'classnames', 'postal', 'moment'], (React, cx, Postal, moment)-
     onDateChange: (data)->
       date = data.date
       if moment(date).isSame(moment(), 'day')
-        @setState today: data.data.shows.length if data.data.shows
+
+        if data.data.shows
+          payload =
+            count: data.data.shows.length
+            updated: moment().valueOf()
+
+          lscache.set 'count.today', payload
+
+          @setState today: payload
 
     onCalendarChange: (data)->
+
       sum = (memo, num)->
         memo + num
 
-      @setState upcomingShows: _.reduce(_.values(data.data), sum, 0)
+      payload =
+        count: _.reduce(_.values(data.data), sum, 0)
+        updated: moment().valueOf()
+
+      lscache.set 'count.upcoming', payload
+
+      payload = _.extend {}, payload, calendarStuff
+      @setState upcomingShows: payload
 
     onVenuesChange: (data)->
       noShows = (venue)->

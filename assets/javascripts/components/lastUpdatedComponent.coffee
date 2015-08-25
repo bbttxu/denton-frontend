@@ -9,7 +9,9 @@ define ['underscore', 'react', 'moment', 'classnames'], (_, React, moment, cx)->
       never = "probably never"
       ago = if recent then ago else never
 
+
       classes = cx
+        # FIXME TODO duplicate code
         current: moment(this.props.updated).isAfter(moment().subtract(5, 'minutes'))
         'out-of-date': moment(this.props.updated).isBefore(moment().subtract(24, 'hours'))
 
