@@ -24,10 +24,11 @@ define ['react', 'classnames', 'postal', 'moment', 'lscache', 'components/linkCo
 
   Navigation = React.createFactory NavigationComponent
 
+  today = moment().format('YYYY-MM-DD')
 
   todayStuff =
     link:
-      url: ''
+      url: "#/shows/#{today}"
       text: 'Today'
 
   calendarStuff =
@@ -72,23 +73,23 @@ define ['react', 'classnames', 'postal', 'moment', 'lscache', 'components/linkCo
       date = data.date
       if moment(date).isSame(moment(), 'day')
 
-        # if data.data.shows
-        #   payload =
-        #     count: data.data.shows.length
-        #     updated: moment().valueOf()
+        if data.data.shows
+          #   payload =
+          #     count: data.data.shows.length
+          #     updated: moment().valueOf()
 
-        #   lscache.set 'count.today', payload
+          #   lscache.set 'count.today', payload
 
-        #   @setState today: payload
-        payload =
-          count: data.data.shows.length
-          updated: moment().valueOf()
+          #   @setState today: payload
+          payload =
+            count: data.data.shows.length
+            updated: moment().valueOf()
 
-        lscache.set 'count.today', payload
+          lscache.set 'count.today', payload
 
-        payload = _.extend {}, payload, todayStuff
+          payload = _.extend {}, payload, todayStuff
 
-        @setState today: payload
+          @setState today: payload
 
     onCalendarChange: (data)->
       sum = (memo, num)->

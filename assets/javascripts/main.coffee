@@ -72,12 +72,6 @@ require ["app/venues"], ()->
 
 require ["app/navigation"], ()->
 
-require ['moment'], (moment)->
-  today = moment().format('YYYY-MM-DD')
-
-  el = document.getElementById('todaysLink');
-  el.setAttribute 'href', "#/shows/#{today}"
-
 require ["app/weather"], ()->
 
 require ["app/routes", "moment", "jquery"], (routes, moment, $)->
