@@ -7,4 +7,4 @@ define ['app/api', 'postal', 'moment'], (API, Postal, moment)->
     channel.publish "get.calendar"
     channel.publish "get.venues"
 
-  setTimeout lastChance, 100
+  setTimeout lastChance, 1000

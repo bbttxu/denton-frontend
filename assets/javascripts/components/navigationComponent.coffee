@@ -1,4 +1,4 @@
-define ['react', 'classnames', 'postal', 'moment', 'lscache', 'components/linkComponent', 'components/navigationTodayComponent', 'underscore'], (React, cx, Postal, moment, lscache, LinkComponent, NavigationTodayComponent, _)->
+define ['react', 'classnames', 'postal', 'moment', 'lscache', 'components/linkComponent', 'underscore'], (React, cx, Postal, moment, lscache, LinkComponent, _)->
 
   channel = Postal.channel()
 
@@ -18,25 +18,27 @@ define ['react', 'classnames', 'postal', 'moment', 'lscache', 'components/linkCo
       venues = _.reject [@props.venues, 'Venues'], rejectEmpties
 
       ul {className: classes},
-        NavigationTodayComponent {data: @props.today}
+        LinkComponent {data: @props.today}
         LinkComponent {data: @props.upcomingShows}
-        # li {},
-        #   a {href: '#/'},
-        #     span {}, 'Shows'
-        #     span {className: badge}, @props.upcomingShows
-
-        li {},
-          a {href: '#/venues'},
-            span {}, 'Venues'
-            span {className: badge}, @props.venues
+        LinkComponent {data: @props.venues}
 
   Navigation = React.createFactory NavigationComponent
 
+
+  todayStuff =
+    link:
+      url: ''
+      text: 'Today'
 
   calendarStuff =
     link:
       url: '#/'
       text: 'Show'
+
+  venuesStuff =
+    link:
+      url: '#/venues'
+      text: 'Venues'
 
   React.createClass(
     getInitialState: ->
@@ -46,15 +48,17 @@ define ['react', 'classnames', 'postal', 'moment', 'lscache', 'components/linkCo
 
       today = lscache.get 'count.today'
       today = todayDefault if today is null
-      console.log today
 
       upcoming = lscache.get 'count.upcoming'
       upcoming = todayDefault if upcoming is null
 
+      venues = lscache.get 'count.calendar'
+      venues = todayDefault if venues is null
+
       initial =
-        today: today
+        today: _.extend {}, today, todayStuff
         upcomingShows: _.extend {}, upcoming, calendarStuff
-        venues: undefined
+        venues: _.extend {}, venues, venuesStuff
 
     componentDidMount: ->
       channel.subscribe "set.date", @onDateChange
@@ -68,17 +72,25 @@ define ['react', 'classnames', 'postal', 'moment', 'lscache', 'components/linkCo
       date = data.date
       if moment(date).isSame(moment(), 'day')
 
-        if data.data.shows
-          payload =
-            count: data.data.shows.length
-            updated: moment().valueOf()
+        # if data.data.shows
+        #   payload =
+        #     count: data.data.shows.length
+        #     updated: moment().valueOf()
 
-          lscache.set 'count.today', payload
+        #   lscache.set 'count.today', payload
 
-          @setState today: payload
+        #   @setState today: payload
+        payload =
+          count: data.data.shows.length
+          updated: moment().valueOf()
+
+        lscache.set 'count.today', payload
+
+        payload = _.extend {}, payload, todayStuff
+
+        @setState today: payload
 
     onCalendarChange: (data)->
-
       sum = (memo, num)->
         memo + num
 
@@ -89,13 +101,22 @@ define ['react', 'classnames', 'postal', 'moment', 'lscache', 'components/linkCo
       lscache.set 'count.upcoming', payload
 
       payload = _.extend {}, payload, calendarStuff
+
       @setState upcomingShows: payload
 
     onVenuesChange: (data)->
       noShows = (venue)->
         venue.shows_count is 0
 
-      @setState venues:  _.reject(data.data.venues, noShows).length
+      payload =
+        count: _.reject(data.data.venues, noShows).length
+        updated: moment().valueOf()
+
+      lscache.set 'count.venues', payload
+
+      payload = _.extend {}, payload, venuesStuff
+
+      @setState venues: payload
 
     render: ->
       Navigation {today: @state.today, upcomingShows: @state.upcomingShows, venues: @state.venues}
