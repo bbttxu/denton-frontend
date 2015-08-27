@@ -20,7 +20,7 @@ exports.config = {
   ],
   serverTemplate: {
     locals: {
-      optimize: false,
+      optimize: true,
       build: true
     }
   },
