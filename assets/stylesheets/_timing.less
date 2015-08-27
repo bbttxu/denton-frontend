@@ -1,0 +1,24 @@
+// timing.less
+
+@import "_env.less";
+
+.timing(@color: gray) {
+  .badge {
+    background-color: @color;
+
+    body.night & {
+      color: black;
+    }
+  }
+}
+
+
+.timing(@brand-danger);
+
+.current {
+  .timing(@brand-success);
+}
+
+.out-of-date {
+  .timing(@brand-warning);
+}
